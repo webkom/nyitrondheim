@@ -1,0 +1,197 @@
+@import 'nib/reset'
+@import 'nib/vendor'
+@import 'nib/gradients'
+
+@import url('http://fonts.googleapis.com/css?family=Averia\+Sans\+Libre:400,700')
+@import url('http://fonts.googleapis.com/css?family=Open\+Sans:400,700')
+@import url('http://fonts.googleapis.com/css?family=Vollkorn:400,700')
+
+global-reset()
+
+*
+  box-sizing border-box
+  font-smoothing antialiased
+
+$font-family = Lato, 'Open Sans', Helvetica, sans-serif
+
+body
+  font-family $font-family
+  color #444
+  background #fff
+  line-height 1.8
+  font-size 16px
+
+  > header
+    background-image url('images/brygga1.png')
+    background-size cover
+    //background #222e3f
+    padding-top 20px
+    border-top 16px solid rgba(0, 0, 0, .7)
+
+    h1
+      font-size 32px
+      float left
+      font-weight bold
+      width 300px
+      letter-spacing -2px
+
+      a
+        color #fff
+        text-decoration none
+
+    nav
+      //float right
+      text-align right
+
+      li
+        display inline-block
+
+        a
+          display inline-block
+          padding 0 15px
+          color #ddd
+          text-decoration none
+          text-transform uppercase
+          font-weight bold
+          background rgba(255, 255, 255, .2)
+          text-shadow 0 0 1px #444
+          transition .4s all
+
+          &:hover
+            background rgba(255, 255, 255, .7)
+            background rgba(177, 27, 17, .8)
+            transform translate(0, 15px)
+
+    h1, nav
+      line-height 70px
+
+#menu, header > div, section > div, footer > div
+  width 1080px
+  margin 0 auto
+
+#welcome
+  clear both
+  padding 30px 0
+  font-size 18px
+
+  div
+    color #fff
+    font-weight bold
+    //background rgba(0, 0, 0, .5)
+    background rgba(0, 0, 0, .6) url('images/bart.png') right 30px center no-repeat
+    padding 30px 150px 30px 30px
+
+  h2
+    font-size 32px
+
+#shortcuts
+  margin-bottom 20px
+  background linear-gradient(left, rgba(19, 29, 43, .9))
+
+#shortcuts a
+  display inline-block
+  //background #eee
+  text-decoration none
+  width 25%
+  font-size 20px
+  text-align center
+  line-height 50px
+  padding 20px
+  font-weight 700
+  color #eee
+  transition .5s all
+
+  &:last-child
+    margin-right 0
+
+  &:hover
+    background #9b150d
+    background rgba(200, 27, 17, .4)
+    background #273344
+
+    i
+      color #fff
+      transform rotateX(45deg)
+
+  i
+    display block
+    font-size 40px
+    color #ccc
+
+#content
+  padding-bottom 20px
+  min-height 500px
+
+  img
+    max-width 600px
+
+section div div
+  width 66%
+
+  h2
+    font-size 18px
+    font-weight 700
+    color #681911
+    text-transform uppercase
+    margin-bottom 10px
+
+section aside div
+  border-radius 10px
+  padding 20px 30px
+  color #333
+  float right
+  width 33%
+  border-top 5px solid #ccc
+  background #efefef url('images/samfundet.png') bottom no-repeat
+  background-size 80%
+  padding-bottom 150px
+
+  h2
+    color #222
+
+footer
+  clear both
+  background #EEF0F0
+  color #333
+  padding 20px
+  text-align right
+  border-top 12px solid #ddd
+  font-size 15px
+
+  article
+    width 25%
+    float left
+    text-align left
+    padding 10px
+
+    h2
+      font-size 16px
+      font-weight 700
+
+      i
+        display inline-block
+        margin-left 12px
+        color #888
+
+  ul li
+    border-bottom 1px dotted #ddd
+    padding 5px 10px
+
+    &:hover
+      background #FBFBFB
+
+  a
+    color #111
+
+    &:hover
+      color #875237
+
+.clearfix
+  clear both
+
+article p
+  margin-bottom 15px
+
+.hidden
+  height 0
+  opacity 0

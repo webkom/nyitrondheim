@@ -1,0 +1,311 @@
+@import url("http://fonts.googleapis.com/css?family=Averia\+Sans\+Libre:400,700");
+@import url("http://fonts.googleapis.com/css?family=Open\+Sans:400,700");
+@import url("http://fonts.googleapis.com/css?family=Vollkorn:400,700");
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  color: #000;
+  background: #fff;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  font-family: Lato, 'Open Sans', Helvetica, sans-serif;
+  color: #444;
+  background: #fff;
+  line-height: 1.8;
+  font-size: 16px;
+}
+body > header {
+  background-image: url("images/brygga1.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  padding-top: 20px;
+  border-top: 16px solid rgba(0,0,0,0.7);
+}
+body > header h1 {
+  font-size: 32px;
+  float: left;
+  font-weight: bold;
+  width: 300px;
+  letter-spacing: -2px;
+}
+body > header h1 a {
+  color: #fff;
+  text-decoration: none;
+}
+body > header nav {
+  text-align: right;
+}
+body > header nav li {
+  display: inline-block;
+}
+body > header nav li a {
+  display: inline-block;
+  padding: 0 15px;
+  color: #ddd;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: rgba(255,255,255,0.2);
+  text-shadow: 0 0 1px #444;
+  -webkit-transition: 0.4s all;
+  -moz-transition: 0.4s all;
+  -o-transition: 0.4s all;
+  -ms-transition: 0.4s all;
+  transition: 0.4s all;
+}
+body > header nav li a:hover {
+  background: rgba(255,255,255,0.7);
+  background: rgba(177,27,17,0.8);
+  -webkit-transform: translate(0, 15px);
+  -moz-transform: translate(0, 15px);
+  -o-transform: translate(0, 15px);
+  -ms-transform: translate(0, 15px);
+  transform: translate(0, 15px);
+}
+body > header h1,
+body > header nav {
+  line-height: 70px;
+}
+#menu,
+header > div,
+section > div,
+footer > div {
+  width: 1080px;
+  margin: 0 auto;
+}
+#welcome {
+  clear: both;
+  padding: 30px 0;
+  font-size: 18px;
+}
+#welcome div {
+  color: #fff;
+  font-weight: bold;
+  background: rgba(0,0,0,0.6) url("images/bart.png") right 30px center no-repeat;
+  padding: 30px 150px 30px 30px;
+}
+#welcome h2 {
+  font-size: 32px;
+}
+#shortcuts {
+  margin-bottom: 20px;
+  background: -webkit-gradient(linear, left top, right top, color-stop(1, rgba(19,29,43,0.9)));
+  background: -webkit-linear-gradient(left, rgba(19,29,43,0.9) 100%);
+  background: -moz-linear-gradient(left, rgba(19,29,43,0.9) 100%);
+  background: -o-linear-gradient(left, rgba(19,29,43,0.9) 100%);
+  background: -ms-linear-gradient(left, rgba(19,29,43,0.9) 100%);
+  background: linear-gradient(left, rgba(19,29,43,0.9) 100%);
+}
+#shortcuts a {
+  display: inline-block;
+  text-decoration: none;
+  width: 25%;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+  padding: 20px;
+  font-weight: 700;
+  color: #eee;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  transition: 0.5s all;
+}
+#shortcuts a:last-child {
+  margin-right: 0;
+}
+#shortcuts a:hover {
+  background: #9b150d;
+  background: rgba(200,27,17,0.4);
+  background: #273344;
+}
+#shortcuts a:hover i {
+  color: #fff;
+  -webkit-transform: rotateX(45deg);
+  -moz-transform: rotateX(45deg);
+  -o-transform: rotateX(45deg);
+  -ms-transform: rotateX(45deg);
+  transform: rotateX(45deg);
+}
+#shortcuts a i {
+  display: block;
+  font-size: 40px;
+  color: #ccc;
+}
+#content {
+  padding-bottom: 20px;
+  min-height: 500px;
+}
+#content img {
+  max-width: 600px;
+}
+section div div {
+  width: 66%;
+}
+section div div h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #681911;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+section aside div {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 20px 30px;
+  color: #333;
+  float: right;
+  width: 33%;
+  border-top: 5px solid #ccc;
+  background: #efefef url("images/samfundet.png") bottom no-repeat;
+  -webkit-background-size: 80%;
+  -moz-background-size: 80%;
+  background-size: 80%;
+  padding-bottom: 150px;
+}
+section aside div h2 {
+  color: #222;
+}
+footer {
+  clear: both;
+  background: #eef0f0;
+  color: #333;
+  padding: 20px;
+  text-align: right;
+  border-top: 12px solid #ddd;
+  font-size: 15px;
+}
+footer article {
+  width: 25%;
+  float: left;
+  text-align: left;
+  padding: 10px;
+}
+footer article h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+footer article h2 i {
+  display: inline-block;
+  margin-left: 12px;
+  color: #888;
+}
+footer ul li {
+  border-bottom: 1px dotted #ddd;
+  padding: 5px 10px;
+}
+footer ul li:hover {
+  background: #fbfbfb;
+}
+footer a {
+  color: #111;
+}
+footer a:hover {
+  color: #875237;
+}
+.clearfix {
+  clear: both;
+}
+article p {
+  margin-bottom: 15px;
+}
+.hidden {
+  height: 0;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+}
+
