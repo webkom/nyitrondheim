@@ -1,6 +1,7 @@
 @import url("http://fonts.googleapis.com/css?family=Averia\+Sans\+Libre:400,700");
 @import url("http://fonts.googleapis.com/css?family=Open\+Sans:400,700");
 @import url("http://fonts.googleapis.com/css?family=Vollkorn:400,700");
+@import url("http://fonts.googleapis.com/css?family=Montserrat:400,700");
 html,
 body,
 div,
@@ -98,214 +99,169 @@ a img {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
 }
-body {
-  font-family: Lato, 'Open Sans', Helvetica, sans-serif;
+a {
+  text-decoration: none;
   color: #444;
-  background: #f3ecc7;
+}
+body {
+  font-family: Montserrat, Lato, 'Open Sans', Helvetica, sans-serif;
+  color: #444;
   line-height: 1.8;
   font-size: 16px;
-}
-body > header {
-  background-image: url("images/brygga1.png");
+  background: url("images/brygga1.png") fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-  padding-top: 20px;
-  border-top: 16px solid rgba(0,0,0,0.7);
+  position: relative;
 }
-body > header h1 {
-  font-size: 32px;
-  float: left;
-  font-weight: bold;
-  width: 300px;
-  letter-spacing: -2px;
+#top-bar {
+  background: rgba(0,0,0,0.6);
+  padding: 6px;
 }
-body > header h1 a {
-  color: #fff;
-  text-decoration: none;
-}
-body > header nav {
-  text-align: right;
-}
-body > header nav li {
-  display: inline-block;
-}
-body > header nav li a {
-  display: inline-block;
-  padding: 0 15px;
-  color: #ddd;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: bold;
-  background: rgba(255,255,255,0.2);
-  text-shadow: 0 0 1px #444;
-  -webkit-transition: 0.4s all;
-  -moz-transition: 0.4s all;
-  -o-transition: 0.4s all;
-  -ms-transition: 0.4s all;
-  transition: 0.4s all;
-}
-body > header nav li a:hover {
-  background: rgba(255,255,255,0.7);
-  background: rgba(177,27,17,0.8);
-  -webkit-transform: translate(0, 15px);
-  -moz-transform: translate(0, 15px);
-  -o-transform: translate(0, 15px);
-  -ms-transform: translate(0, 15px);
-  transform: translate(0, 15px);
-}
-body > header h1,
-body > header nav {
-  line-height: 70px;
-}
-#menu,
-header > div,
-section > div,
-footer > div {
-  width: 1080px;
+#top-bar div {
+  width: 960px;
   margin: 0 auto;
-}
-#welcome {
-  clear: both;
-  padding: 30px 0;
-  font-size: 18px;
-}
-#welcome div {
-  color: #fff;
-  font-weight: bold;
-  background: rgba(0,0,0,0.6) url("images/bart.png") right 30px center no-repeat;
-  padding: 30px 150px 30px 30px;
-}
-#welcome h2 {
-  font-size: 32px;
-}
-#shortcuts {
-  margin-bottom: 20px;
-  background: -webkit-gradient(linear, left top, right top, color-stop(1, rgba(19,29,43,0.9)));
-  background: -webkit-linear-gradient(left, rgba(19,29,43,0.9) 100%);
-  background: -moz-linear-gradient(left, rgba(19,29,43,0.9) 100%);
-  background: -o-linear-gradient(left, rgba(19,29,43,0.9) 100%);
-  background: -ms-linear-gradient(left, rgba(19,29,43,0.9) 100%);
-  background: linear-gradient(left, rgba(19,29,43,0.9) 100%);
-}
-#shortcuts a {
-  display: inline-block;
-  text-decoration: none;
-  width: 25%;
-  font-size: 20px;
-  text-align: center;
-  line-height: 50px;
-  padding: 20px;
-  font-weight: 700;
-  color: #eee;
-  -webkit-transition: 0.5s all;
-  -moz-transition: 0.5s all;
-  -o-transition: 0.5s all;
-  -ms-transition: 0.5s all;
-  transition: 0.5s all;
-}
-#shortcuts a:last-child {
-  margin-right: 0;
-}
-#shortcuts a:hover {
-  background: #9b150d;
-  background: rgba(200,27,17,0.4);
-  background: #273344;
-}
-#shortcuts a:hover i {
-  color: #fff;
-  -webkit-transform: rotateX(45deg);
-  -moz-transform: rotateX(45deg);
-  -o-transform: rotateX(45deg);
-  -ms-transform: rotateX(45deg);
-  transform: rotateX(45deg);
-}
-#shortcuts a i {
-  display: block;
-  font-size: 40px;
   color: #ccc;
 }
-#content {
-  padding-bottom: 20px;
-  min-height: 500px;
+#container {
+  width: 960px;
+  margin: 0 auto;
 }
-#content img {
-  max-width: 600px;
+header {
+  height: 150px;
+  line-height: 150px;
 }
-section div div {
-  width: 66%;
-}
-section div div h2 {
-  font-size: 18px;
+h1 {
+  font-size: 40px;
+  font-family: Montserrat, serif;
   font-weight: 700;
-  color: #681911;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+  float: left;
 }
-section aside div {
+h1 a {
+  color: #fff;
+}
+#choose-fraternity {
+  float: right;
+}
+#choose-fraternity a {
+  line-height: 40px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ccc));
+  background: -webkit-linear-gradient(top, #fff 0, #ccc 100%);
+  background: -moz-linear-gradient(top, #fff 0, #ccc 100%);
+  background: -o-linear-gradient(top, #fff 0, #ccc 100%);
+  background: -ms-linear-gradient(top, #fff 0, #ccc 100%);
+  background: linear-gradient(top, #fff 0, #ccc 100%);
+  color: #2f3741;
+  padding: 0 20px;
+  display: inline-block;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  padding: 20px 30px;
-  color: #333;
-  float: right;
-  width: 33%;
-  border-top: 5px solid #ccc;
-  background: #efefef url("images/samfundet.png") bottom no-repeat;
-  -webkit-background-size: 80%;
-  -moz-background-size: 80%;
-  background-size: 80%;
-  padding-bottom: 150px;
 }
-section aside div h2 {
-  color: #222;
+#choose-fraternity a:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ccc), color-stop(1, #fff));
+  background: -webkit-linear-gradient(top, #ccc 0, #fff 100%);
+  background: -moz-linear-gradient(top, #ccc 0, #fff 100%);
+  background: -o-linear-gradient(top, #ccc 0, #fff 100%);
+  background: -ms-linear-gradient(top, #ccc 0, #fff 100%);
+  background: linear-gradient(top, #ccc 0, #fff 100%);
+}
+#choose-fraternity i {
+  color: #888;
+  margin-left: 10px;
+}
+section#grid {
+  background: rgba(255,255,255,0.6);
+  padding: 40px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+}
+section#grid article {
+  color: #fff;
+  display: block;
+  float: left;
+  height: 200px;
+  width: 200px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+  line-height: 200px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  -webkit-transition: border-radius 0.5s;
+  -moz-transition: border-radius 0.5s;
+  -o-transition: border-radius 0.5s;
+  -ms-transition: border-radius 0.5s;
+  transition: border-radius 0.5s;
+  margin: 0 10px 10px 0;
+  background: rgba(47,55,65,0.9);
+}
+section#grid article:hover {
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  -webkit-border-radius: 80px;
+  border-radius: 80px;
+}
+section#grid article a {
+  color: #fff;
+  display: block;
 }
 footer {
   clear: both;
-  background: #eef0f0;
-  color: #333;
-  padding: 20px;
+  padding: 40px;
   text-align: right;
-  border-top: 12px solid #ddd;
-  font-size: 15px;
+  color: #fff;
 }
-footer article {
-  width: 25%;
-  float: left;
-  text-align: left;
-  padding: 10px;
+footer p {
+  background: #444;
 }
-footer article h2 {
-  font-size: 16px;
-  font-weight: 700;
-}
-footer article h2 i {
-  display: inline-block;
-  margin-left: 12px;
-  color: #888;
-}
-footer ul li {
-  border-bottom: 1px dotted #ddd;
-  padding: 5px 10px;
-}
-footer ul li:hover {
-  background: #fbfbfb;
-}
-footer a {
-  color: #111;
-}
-footer a:hover {
-  color: #875237;
-}
-.clearfix {
+.clear {
   clear: both;
 }
-article p {
-  margin-bottom: 15px;
+.no-fraternity-chosen {
+  font-size: 22px;
+  text-align: center;
 }
-.hidden {
+h2#fraternity {
+  font-size: 22px;
+  margin: 10px 0;
+}
+#modal-container {
+  background: rgba(0,0,0,0.8);
+  position: fixed;
+  left: 0;
+  right: 0;
   height: 0;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
+  width: 0;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+#modal-container.active {
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+#modal-container.active .modal {
+  width: 640px;
+  height: 320px;
+  background: #fff;
+  margin: 150px auto;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 -4px 0 #ddd;
+  box-shadow: 0 -4px 0 #ddd;
+  padding: 20px;
+  overflow: scroll;
+}
+.fraternities a {
+  display: block;
 }
 

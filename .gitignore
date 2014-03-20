@@ -1,3 +1,5 @@
 .powder
 .DS_Store
 public/*.css
+public/bower_components/
+public/*.html

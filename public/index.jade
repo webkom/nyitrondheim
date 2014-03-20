@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app='nyitrondheim')
   head
     meta(charset='utf-8')
     title Ny i Trondheim
@@ -8,88 +8,52 @@ html
     link(rel='stylesheet', href='animate.css')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
 
-  body
-    header
-      div.centered-content
+  body(ng-controller='MainController')
+    #modal-container(ng-class='{active: modalOpen}')
+      .modal(ng-click='closeModal()')
+        ul.fraternities
+          li(ng-repeat='fraternity in fraternities')
+            a(href='#', ng-click='chooseFraternity(fraternity)') {{fraternity}}
+
+    #top-bar
+      div
+        p Velkommen til Trondheim! Du tilhører for øyeblikket ingen linje.
+
+    #container
+      header
         h1
           a(href='#') Ny i Trondheim
+        #choose-fraternity
+          a(href='#', ng-click='openModal()') Velg linje
+            em(ng-show='chosenFraternity != null')  ({{chosenFraternity}})
+            i.fa.fa-bars
 
-        nav#menu
-          ul
-            li
-              a(href='#') Før skolestart
-            li
-              a(href='#') De første ukene
-            li
-              a(href='#') Andre tjenester
-            li
-              a(href='#') Kalender
-            li
-              a(href='#') FAQ
-
-      div#welcome
-        div
-          h2 Skal du flytte til Trondheim?
-          p Fortvil ikke, du er ikke alene! Denne siden er laget for akkurat deg. Denne siden inneholder all nødvendig informasjon for å komme seg igjennom de første månedene som student i Trondheim.
-
-      section#shortcuts
-        div
-          a(href='#books')
-            i.fa.fa-globe
-            | Bli kjent
-          a(href='#bolig')
-            i.fa.fa-home
-            | Bolig
-          a(href='#laan-og-stipend')
-            i.fa.fa-money
-            | Lån og stipend
-
-          a(href='#sosial')
-            i.fa.fa-beer
-            | Sosialt
-
-    section#content
-      div.centered-content
-        aside
-          div
-            h2 Studentersamfundet
-            p Studentersamfundet er studentenes samlingspunkt. Her er det alltid noe som skjer. Samfundet arrangerer egne fester, teater og konserter. Samfundet drifter også egne utesteder i sitt eget hus. Totalt er det ca. 1300 studenter som jobber frivillig for Samfundet, fordelt i 20 organiserte gjenger.
-            p.hidden Samfundet arrangerer også UKA annethvert år. Dette er norges største og eldste studentuke. Det sies at UKA er Norges største kulturfestival.
-
-        div
-          img(src='images/glos.jpg')
-          article
-            h2 Velkommen til Norges beste studieby!
-
-            p Velkommen til Norges beste studieby, og det beste du får av realfaglig utdanning i det kjære landet vårt: NTNU Gløshaugen! Den første tiden i studiet er det mange nye inntrykk og mye å holde orden på.
-
-            p Vi har derfor samlet så mye informasjon som mulig på ett sted for at du skal få en enklere start på studentlivet i Trondheim.
-
-
-    footer
-      div.centered-content
+      section#grid
         article
-          h2 Events
-            i.fa.fa-rss
-          ul
-            li Smeller på Samf
-            li Fantastisk konsert
-            li Yoloswag
+          h2
+            a(href='/#bo') Finn et sted å bo
         article
-          h2 Ressurser
-            i.fa.fa-globe
-          ul
-            li <a href="">Instabart</a>
-            li <a href="">atb</a>
+          h2
+            a(href='/#papir') Skaff deg papirer
         article
-          h2 Været
-            i.fa.fa-sun-o
-          p Regn, regn og atter regn.
+          h2
+            a(href='/#drikke') Lokalisér polet
         article
-          h2 Om Ny i Trondheim
-           i.fa.fa-question-circle
-          p <a href="">nyitrondheim.no</a> driftes av Abakus &mdash; Linjeforeningen for data- og kommunikasjonsteknologi.
+          h2
+            a(href='/#party') Ha det gøy
 
-        .clearfix
+        p.clear
 
+        #content(ng-view)
+
+        h2#fraternity(ng-show='chosenFraternity != null') {{chosenFraternity}}
+
+        .no-fraternity-chosen(ng-show='chosenFraternity == null') Du har ikke valgt noen linjeforening.
+
+      footer
+        p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
+
+    script(src='/bower_components/angular/angular.min.js')
+    script(src='/bower_components/angular-route/angular-route.min.js')
+    script(src='/bower_components/angular-animate/angular-animate.min.js')
     script(src='nit.js')
