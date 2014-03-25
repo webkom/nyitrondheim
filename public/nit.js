@@ -10,24 +10,22 @@
 //   modalContainer.classList.remove('active');
 // });
 
-var app = angular.module('nyitrondheim', ['ngRoute', 'ngAnimate']);
+var app = angular.module('nyitrondheim', ['ngRoute', 'ngAnimate', 'LocalStorageModule']);
 
 app.config(function($routeProvider, $locationProvider) {
-
   $routeProvider
    .when('/:slug', {
-    templateUrl: 'templates/page.html',
-    controller: 'MainController',
+     templateUrl: 'page.html',
+     controller: 'PageController'
   })
-
-  //$locationProvider.html5Mode(true);
 });
 
-app.controller('MainController', ['$scope', '$routeParams', function($scope, $routeParams) {
+app.controller('MainController',
+['$scope', '$routeParams', 'localStorageService', function($scope, $routeParams, localStorageService) {
   $scope.fraternities = ["Abakus", "Online", "Volvox og Alkymisten", "Pareto", "EMIL", "Nabla", "Delta", "Janus", "AF Smørekoppen", "Mordi", "C++"];
 
   $scope.name = $routeParams.slug;
-  $scope.chosenFraternity = null;
+  $scope.chosenFraternity = localStorageService.get('fraternity');
 
   $scope.modalOpen = false;
   $scope.openModal = function() {
@@ -40,6 +38,11 @@ app.controller('MainController', ['$scope', '$routeParams', function($scope, $ro
 
   $scope.chooseFraternity = function(fraternity) {
     $scope.chosenFraternity = fraternity;
+    localStorageService.add('fraternity', fraternity);
     $scope.closeModal();
   };
+}]);
+
+app.controller('PageController', ['$scope', '$routeParams', function($scope, $routeParams) {
+  console.log($scope.chosenFraternity)
 }]);

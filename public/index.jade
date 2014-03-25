@@ -13,40 +13,35 @@ html(ng-app='nyitrondheim')
       .modal(ng-click='closeModal()')
         ul.fraternities
           li(ng-repeat='fraternity in fraternities')
-            a(href='#', ng-click='chooseFraternity(fraternity)') {{fraternity}}
+            a(href='', ng-click='chooseFraternity(fraternity)') {{fraternity}}
 
     #top-bar
       div
-        p Velkommen til Trondheim! Du tilhører for øyeblikket ingen linje.
+        p Velkommen til Trondheim!
 
     #container
       header
         h1
           a(href='#') Ny i Trondheim
         #choose-fraternity
-          a(href='#', ng-click='openModal()') Velg linje
+          a(href='', ng-click='openModal()') Velg linje
             em(ng-show='chosenFraternity != null')  ({{chosenFraternity}})
             i.fa.fa-bars
 
-      section#grid
-        article
-          h2
-            a(href='/#bo') Finn et sted å bo
-        article
-          h2
-            a(href='/#papir') Skaff deg papirer
-        article
-          h2
-            a(href='/#drikke') Lokalisér polet
-        article
-          h2
-            a(href='/#party') Ha det gøy
+      section
+        #grid
+          a(href='/#bo') Finn et sted å bo
+          a(href='/#papir') Skaff deg papirer
+          a(href='/#drikke') Lokalisér polet
+          a(href='/#party') Ha det gøy
+          a.small.training(href='/') Trening
+          a.small.nightclubs(href='/') Utesteder
+          a.small.activities(href='/') Aktiviteter
+          a.small(href='/') Busstilbud
 
-        p.clear
+          p.clear
 
-        #content(ng-view)
-
-        h2#fraternity(ng-show='chosenFraternity != null') {{chosenFraternity}}
+        #content(ng-controller='PageController', ng-view)
 
         .no-fraternity-chosen(ng-show='chosenFraternity == null') Du har ikke valgt noen linjeforening.
 
@@ -54,6 +49,7 @@ html(ng-app='nyitrondheim')
         p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
 
     script(src='/bower_components/angular/angular.min.js')
+    script(src='/bower_components/angular-local-storage/angular-local-storage.min.js')
     script(src='/bower_components/angular-route/angular-route.min.js')
     script(src='/bower_components/angular-animate/angular-animate.min.js')
     script(src='nit.js')

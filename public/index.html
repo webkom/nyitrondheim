@@ -11,36 +11,25 @@
     <div id="modal-container" ng-class="{active: modalOpen}">
       <div ng-click="closeModal()" class="modal">
         <ul class="fraternities">
-          <li ng-repeat="fraternity in fraternities"><a href="#" ng-click="chooseFraternity(fraternity)">{{fraternity}}</a></li>
+          <li ng-repeat="fraternity in fraternities"><a href="" ng-click="chooseFraternity(fraternity)">{{fraternity}}</a></li>
         </ul>
       </div>
     </div>
     <div id="top-bar">
       <div>
-        <p>Velkommen til Trondheim! Du tilhører for øyeblikket ingen linje.</p>
+        <p>Velkommen til Trondheim!</p>
       </div>
     </div>
     <div id="container">
       <header>
         <h1><a href="#">Ny i Trondheim</a></h1>
-        <div id="choose-fraternity"><a href="#" ng-click="openModal()">Velg linje<em ng-show="chosenFraternity != null"> ({{chosenFraternity}})</em><i class="fa fa-bars"></i></a></div>
+        <div id="choose-fraternity"><a href="" ng-click="openModal()">Velg linje<em ng-show="chosenFraternity != null"> ({{chosenFraternity}})</em><i class="fa fa-bars"></i></a></div>
       </header>
-      <section id="grid">
-        <article>
-          <h2><a href="/#bo">Finn et sted å bo</a></h2>
-        </article>
-        <article>
-          <h2><a href="/#papir">Skaff deg papirer</a></h2>
-        </article>
-        <article>
-          <h2><a href="/#drikke">Lokalisér polet</a></h2>
-        </article>
-        <article>
-          <h2><a href="/#party">Ha det gøy</a></h2>
-        </article>
-        <p class="clear"></p>
-        <div id="content" ng-view></div>
-        <h2 id="fraternity" ng-show="chosenFraternity != null">{{chosenFraternity}}</h2>
+      <section>
+        <div id="grid"><a href="/#bo">Finn et sted å bo</a><a href="/#papir">Skaff deg papirer</a><a href="/#drikke">Lokalisér polet</a><a href="/#party">Ha det gøy</a><a href="/" class="small training">Trening</a><a href="/" class="small nightclubs">Utesteder</a><a href="/" class="small activities">Aktiviteter</a><a href="/" class="small">Busstilbud</a>
+          <p class="clear"></p>
+        </div>
+        <div id="content" ng-controller="PageController" ng-view></div>
         <div ng-show="chosenFraternity == null" class="no-fraternity-chosen">Du har ikke valgt noen linjeforening.</div>
       </section>
       <footer>
@@ -48,6 +37,7 @@
       </footer>
     </div>
     <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-local-storage/angular-local-storage.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="nit.js"></script>

@@ -16,6 +16,11 @@ $font-family = Montserrat, Lato, 'Open Sans', Helvetica, sans-serif
 a
   text-decoration none
   color #444
+  cursor pointer
+
+centered()
+  max-width 960px
+  margin 0 auto
 
 body
   font-family $font-family
@@ -31,13 +36,11 @@ body
   padding 6px
 
   div
-    width 960px
-    margin 0 auto
+    centered()
     color #ccc
 
 #container
-  width 960px
-  margin 0 auto
+  centered()
 
 header
   height 150px
@@ -70,15 +73,17 @@ h1
     color #888
     margin-left 10px
 
-section#grid
+section
   background rgba(255, 255, 255, .6)
   padding 40px
   border-radius 20px
 
-  article
+#grid
+  text-align center
+
+  a
     color #fff
-    display block
-    float left
+    display inline-block
     height 200px
     width @height
     border-radius (@height/2)
@@ -86,19 +91,41 @@ section#grid
     text-align center
     font-size 20px
     font-weight bold
-    transition border-radius .5s
+    transition all .5s
     margin 0 10px 10px 0
     background rgba(47, 55, 65, .9)
 
+    &.training
+      background #415959
+
+    &.nightclubs
+      background #7D2934
+
+    &.activities
+      background #887C6E
+
     &:hover
       width @height
-      height @height
       line-height @height
       border-radius (@height/2) - 20px
 
-    a
-      color #fff
-      display block
+    &.small
+      height 100px
+      width @height
+      border-radius (@height/2)
+      line-height @height
+      font-weight 400
+      font-size 16px
+
+      &:hover
+        height 100px
+        width @height
+        border-radius (@height/2) - 20px
+        line-height @height
+        background rgba(0, 0, 0, .8)
+
+#content
+  background #fff
 
 footer
   clear both
@@ -106,8 +133,8 @@ footer
   text-align right
   color #fff
 
-  p
-    background #444
+  a
+    color yellow
 
 .clear
   clear both

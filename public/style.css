@@ -102,6 +102,7 @@ a img {
 a {
   text-decoration: none;
   color: #444;
+  cursor: pointer;
 }
 body {
   font-family: Montserrat, Lato, 'Open Sans', Helvetica, sans-serif;
@@ -119,12 +120,12 @@ body {
   padding: 6px;
 }
 #top-bar div {
-  width: 960px;
+  max-width: 960px;
   margin: 0 auto;
   color: #ccc;
 }
 #container {
-  width: 960px;
+  max-width: 960px;
   margin: 0 auto;
 }
 header {
@@ -169,16 +170,18 @@ h1 a {
   color: #888;
   margin-left: 10px;
 }
-section#grid {
+section {
   background: rgba(255,255,255,0.6);
   padding: 40px;
   -webkit-border-radius: 20px;
   border-radius: 20px;
 }
-section#grid article {
+#grid {
+  text-align: center;
+}
+#grid a {
   color: #fff;
-  display: block;
-  float: left;
+  display: inline-block;
   height: 200px;
   width: 200px;
   -webkit-border-radius: 100px;
@@ -187,24 +190,48 @@ section#grid article {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  -webkit-transition: border-radius 0.5s;
-  -moz-transition: border-radius 0.5s;
-  -o-transition: border-radius 0.5s;
-  -ms-transition: border-radius 0.5s;
-  transition: border-radius 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  transition: all 0.5s;
   margin: 0 10px 10px 0;
   background: rgba(47,55,65,0.9);
 }
-section#grid article:hover {
+#grid a.training {
+  background: #415959;
+}
+#grid a.nightclubs {
+  background: #7d2934;
+}
+#grid a.activities {
+  background: #887c6e;
+}
+#grid a:hover {
   width: 200px;
-  height: 200px;
   line-height: 200px;
   -webkit-border-radius: 80px;
   border-radius: 80px;
 }
-section#grid article a {
-  color: #fff;
-  display: block;
+#grid a.small {
+  height: 100px;
+  width: 100px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  line-height: 100px;
+  font-weight: 400;
+  font-size: 16px;
+}
+#grid a.small:hover {
+  height: 100px;
+  width: 100px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  line-height: 100px;
+  background: rgba(0,0,0,0.8);
+}
+#content {
+  background: #fff;
 }
 footer {
   clear: both;
@@ -212,8 +239,8 @@ footer {
   text-align: right;
   color: #fff;
 }
-footer p {
-  background: #444;
+footer a {
+  color: #ff0;
 }
 .clear {
   clear: both;
