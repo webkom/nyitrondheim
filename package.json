@@ -1,0 +1,22 @@
+{
+  "name": "nyitrondheim",
+  "version": "0.0.1",
+  "description": "http://nyitrondheim.no",
+  "main": "index.js",
+  "dependencies": {
+    "stylus": "*",
+    "jade": "*",
+    "nib": "*",
+    "mocha": "*",
+    "express": "*",
+    "supervisor": "*",
+    "browserify-middleware": "~2.3.0",
+    "superagent": "~0.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@abahub.abakus.no:hkkoren/nyitrondheim.git"
+  },
+  "author": "webkom",
+  "license": "ISC"
+}
