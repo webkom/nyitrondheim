@@ -3,3 +3,4 @@
 public/*.css
 public/bower_components/
 public/*.html
+node_modules/

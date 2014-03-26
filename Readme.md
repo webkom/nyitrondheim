@@ -1,5 +1,7 @@
 ## Ny i Trondheim
 
+Requires node, npm and bower (npm install bower -g).
+
 ```bash
-npm install
+make install
 ```

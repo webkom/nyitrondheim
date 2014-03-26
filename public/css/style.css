@@ -109,7 +109,7 @@ body {
   color: #444;
   line-height: 1.8;
   font-size: 16px;
-  background: url("images/brygga1.png") fixed;
+  background: url("/images/brygga1.png") fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -146,12 +146,11 @@ h1 a {
 }
 #choose-fraternity a {
   line-height: 40px;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ccc));
-  background: -webkit-linear-gradient(top, #fff 0, #ccc 100%);
-  background: -moz-linear-gradient(top, #fff 0, #ccc 100%);
-  background: -o-linear-gradient(top, #fff 0, #ccc 100%);
-  background: -ms-linear-gradient(top, #fff 0, #ccc 100%);
-  background: linear-gradient(top, #fff 0, #ccc 100%);
+  background: -webkit-linear-gradient(#fff, #ccc);
+  background: -moz-linear-gradient(#fff, #ccc);
+  background: -o-linear-gradient(#fff, #ccc);
+  background: -ms-linear-gradient(#fff, #ccc);
+  background: linear-gradient(#fff, #ccc);
   color: #2f3741;
   padding: 0 20px;
   display: inline-block;
@@ -159,12 +158,11 @@ h1 a {
   border-radius: 10px;
 }
 #choose-fraternity a:hover {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ccc), color-stop(1, #fff));
-  background: -webkit-linear-gradient(top, #ccc 0, #fff 100%);
-  background: -moz-linear-gradient(top, #ccc 0, #fff 100%);
-  background: -o-linear-gradient(top, #ccc 0, #fff 100%);
-  background: -ms-linear-gradient(top, #ccc 0, #fff 100%);
-  background: linear-gradient(top, #ccc 0, #fff 100%);
+  background: -webkit-linear-gradient(#ccc, #fff);
+  background: -moz-linear-gradient(#ccc, #fff);
+  background: -o-linear-gradient(#ccc, #fff);
+  background: -ms-linear-gradient(#ccc, #fff);
+  background: linear-gradient(#ccc, #fff);
 }
 #choose-fraternity i {
   color: #888;
@@ -258,6 +256,8 @@ h2#fraternity {
   position: fixed;
   left: 0;
   right: 0;
+  bottom: 0;
+  top: 0;
   height: 0;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -291,4 +291,3 @@ h2#fraternity {
 .fraternities a {
   display: block;
 }
-

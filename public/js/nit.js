@@ -15,7 +15,7 @@ var app = angular.module('nyitrondheim', ['ngRoute', 'ngAnimate', 'LocalStorageM
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
    .when('/:slug', {
-     templateUrl: 'page.html',
+     templateUrl: 'partials/page',
      controller: 'PageController'
   })
 });
