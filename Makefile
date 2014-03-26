@@ -10,10 +10,17 @@ public/style.css: $(STYL)
 %.html: %.jade
 	jade --pretty < $< > $@
 
+install:
+	npm install
+	bower install
+
+server:
+	node_modules/.bin/supervisor index.js
+
 clean:
 	rm -f $(HTML)
 
 test:
 	mocha --colors --reporter list
 
-.PHONY: clean test
+.PHONY: clean test server install
