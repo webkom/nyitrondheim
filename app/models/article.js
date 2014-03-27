@@ -14,6 +14,7 @@ var mongoose = require('mongoose')
 var articleSchema = new Schema({
   title: String,
   body:  String,
+  description: String,
   author: String,
   priority: Number,
   small_image: String,
@@ -48,5 +49,6 @@ articleSchema.statics = {
       .limit(numberOfArticles)
       .exec(cb)
   }
-
 }
+
+mongoose.model('Article', ArticleSchema);
