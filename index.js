@@ -23,21 +23,11 @@ app.configure(function() {
         .use(nib());}
   }));
   app.use(express.static(__dirname + '/public'));
-  
+
   app.locals.pretty = true;
 });
 
-var connect = function() {
-  var options = {
-    server: {
-      socketOptions: {
-        keepAlive: 1
-      }
-    }
-  };
-  mongoose.connect(config.db, options);
-}
-connect();
+var db = mongoose.connect('mongodb://localhost/test');
 
 mongoose.connection.on('error', function(err) {
   console.log('Mongoose error:', err);
@@ -46,6 +36,10 @@ mongoose.connection.on('error', function(err) {
 mongoose.connection.on('disconnect', function() {
   console.log('Mongoose disconnected, reconnecting..');
   connect();
+});
+
+mongoose.connection.on('connect', function() {
+  console.log('inne');
 });
 
 app.get('/app.js', browserify('./public/js/nit.js'));
