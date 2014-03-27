@@ -14,7 +14,10 @@ var mongoose = require('mongoose')
 var articleSchema = new Schema({
   title: String,
   body:  String,
-  description: String,
+  description: {
+    type: String,
+    default: ''
+  },
   author: String,
   priority: Number,
   small_image: String,
@@ -38,17 +41,64 @@ articleSchema.statics = {
       .findOne({
         _id: id
       })
-      .populate('author', 'name');
+      .populate('author', 'name')
       .exec(cb);
-  }
+  },
 
   listUnion: function(numberOfArticles, author, cb) {
     this
       .find({ author: author })
       .sort('-priority')
       .limit(numberOfArticles)
-      .exec(cb)
+      .exec(cb);
   }
 }
 
-mongoose.model('Article', ArticleSchema);
+var Article = mongoose.model('Article', articleSchema);
+
+
+// DEBUG OBJECTS:
+Article.remove({}, function(err) {
+  console.log("hei");
+});
+
+var testArticle2 = new Article({
+  title: 'Hei',
+  body: 'Hei2',
+  description: 'Hei3',
+  author: 'Abakus',
+  priority: 5,
+  small_image: 'Url1',
+  large_image: 'Url2',
+});
+var testArticle = new Article({
+  title: 'Hei',
+  body: 'Hei2',
+  description: 'Hei3',
+  author: 'Abakus',
+  priority: 10,
+  small_image: 'Url1',
+  large_image: 'Url2',
+});
+
+var testArticle3 = new Article({
+  title: 'Hei',
+  body: 'Hei2',
+  description: 'Hei3',
+  author: 'Abakus',
+  priority: 1,
+  small_image: 'Url1',
+  large_image: 'Url2',
+});
+testArticle3.save(function (err) {
+  if (err) return handleError(err);
+  console.log("saved");
+});
+testArticle2.save(function (err) {
+  if (err) return handleError(err);
+  console.log("saved");
+});
+testArticle.save(function (err) {
+  if (err) return handleError(err);
+  console.log("saved");
+});

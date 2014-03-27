@@ -52,6 +52,12 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+require('./app/models/article.js');
+
+require('./config/routes')(app)
+
 app.listen(app.get('port'), function() {
   console.log('Listening on %d', app.get('port'));
 });
+
+
