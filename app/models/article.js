@@ -35,17 +35,13 @@ articleSchema.path('body').required('true', 'Body is a required field');
 // Add methods for putting data the db
 
 articleSchema.statics = {
-  findBySlug: function (slug,options,cb){
+  findBySlug: function (slug,cb){
         this
             .find({slug:slug})
             .sort('-priority')
-
-        if(options && options.limit){
-          this.limit(options.limit);
-        }
-
-        this.exec(cb);
+            .exec(cb);
   }
+
 
 }
 module.exports = mongoose.model('Article', articleSchema);
