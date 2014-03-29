@@ -53,8 +53,9 @@ app.get('/', function(req, res) {
 });
 
 require('./app/models/article.js');
+require('./app/models/union.js');
 
-require('./config/routes')(app)
+require('./config/routes')(app);
 
 app.listen(app.get('port'), function() {
   console.log('Listening on %d', app.get('port'));
