@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 exports.getUnionArticles = function(req, res) {
   var numberOfArticles = 4;
-  Article.listUnion(numberOfArticles, "Abakus", function(err, articles) {
+  Article.listUnionArticles(numberOfArticles, "Abakus", function(err, articles) {
     if (err) return res.render('500');
     console.log('her', articles);
     res.send(articles);

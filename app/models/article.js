@@ -37,19 +37,23 @@ articleSchema.path('body').required('true', 'Body is a required field');
 articleSchema.statics = {
   findBySlug: function (slug,options,cb){
         this
-            .find({slug:slug})
-            .sort('-priority')
+          .find({slug:slug})
+          .sort('-priority')
 
         if(options && options.limit){
           this.limit(options.limit);
         }
 
         this.exec(cb);
+  },
+
+  listUnionArticles: function(numberOfArticles, author, cb) {
+    this
+      .find({ author: author })
+      .sort('-priority')
+      .limit(numberOfArticles)
+      .exec(cb);
   }
-
 }
-module.exports = mongoose.model('Article', articleSchema);
 
-
-
-
+mongoose.model('Article', articleSchema);
