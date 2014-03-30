@@ -21,5 +21,6 @@ unionSchema.statics = {
         .exec(cb);
   }
 }
-module.exports = mongoose.model('Union', unionSchema);;
+
+mongoose.model('Union', unionSchema);;
 
