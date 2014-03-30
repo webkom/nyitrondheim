@@ -139,7 +139,7 @@ describe('Create and get articles', function(){
   });
 
   it('check union abakus', function(done){
-    Union.load('abakus',function(err, union){
+    Union.findById('abakus',function(err, union){
       if (err) throw err;
       union._id.should.eql('abakus');
       union.description.should.eql('aids e kult');
@@ -149,7 +149,7 @@ describe('Create and get articles', function(){
   });
 
   it('check union marin', function(done){
-    Union.load('abakus',function(err, union){
+    Union.findById('abakus',function(err, union){
       if (err) throw err;
       union._id.should.eql('abakus');
       union.description.should.eql('aids e kult');
