@@ -1,5 +1,4 @@
-var frontpage = require('../app/controllers/frontpage.js')
-  , articles  = require('../app/controllers/articles.js')
+var articles  = require('../app/controllers/articles.js')
   , unions    = require('../app/controllers/unions.js')
   , url       = require('url')
   ;

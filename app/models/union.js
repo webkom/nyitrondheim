@@ -17,8 +17,8 @@ var unionSchema = new Schema({
 unionSchema.statics = {
   findById: function(id, cb) {
     this
-        .findOne({_id: id})
-        .exec(cb);
+      .findOne({_id: id})
+      .exec(cb);
   }
 }
 

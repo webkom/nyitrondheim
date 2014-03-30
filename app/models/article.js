@@ -35,20 +35,69 @@ articleSchema.path('body').required('true', 'Body is a required field');
 // Add methods for putting data the db
 
 articleSchema.statics = {
-  findBySlug: function (slug,cb){
+  findBySlug: function (slug, union_id, cb){
     this
-      .find({slug:slug})
+      .find({ union_id: union_id, slug: slug })
       .sort('-priority')
       .exec(cb);
   },
 
-  listUnionArticles: function(numberOfArticles, author, cb) {
+  listUnionArticles: function(limit, union_id, cb) {
     this
-      .find({ author: author })
+      .find({ union_id: union_id }, 'title description priority small_image')
       .sort('-priority')
-      .limit(numberOfArticles)
+      .limit(limit)
       .exec(cb);
   }
 }
 
-mongoose.model('Article', articleSchema);
+var Article = mongoose.model('Article', articleSchema);
+
+
+// DEBUG OBJECTS:
+
+Article.remove({}, function(err) {
+  if (err) console.error(err);
+});
+
+var testArticle2 = new Article({
+  title: 'Hei',
+  body: 'Hei2',
+  description: 'Hei3',
+  union_id: 'Abakus',
+  priority: 5,
+  small_image: 'Url1',
+  large_image: 'Url2',
+});
+var testArticle = new Article({
+  title: 'Hei',
+  body: 'Hei2',
+  description: 'Hei3',
+  union_id: 'Abakus',
+  priority: 10,
+  small_image: 'Url1',
+  large_image: 'Url2',
+});
+
+var testArticle3 = new Article({
+  title: 'Hei',
+  body: 'Hei2',
+  description: 'Hei3',
+  union_id: 'Abakus',
+  slug: 'hei',
+  priority: 1,
+  small_image: 'Url1',
+  large_image: 'Url2',
+});
+testArticle3.save(function (err) {
+  if (err) return handleError(err);
+  console.log('saved');
+});
+testArticle2.save(function (err) {
+  if (err) return handleError(err);
+  console.log('saved');
+});
+testArticle.save(function (err) {
+  if (err) return handleError(err);
+  console.log('saved');
+});
