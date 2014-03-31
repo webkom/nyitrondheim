@@ -1,7 +1,8 @@
 var mongoose   = require('mongoose')
-    , Schema     = mongoose.Schema
-    , env        = process.env.NODE_ENV || 'development'
-    ;
+  , slug       = require('mongoose-slug')    
+  , Schema     = mongoose.Schema
+  , env        = process.env.NODE_ENV || 'development'
+  ;
 
 //TODO: Should be able to upload images with the articles, thus the model needs to be able to remove these files 
 //      when the article is deleted (use imager).
@@ -29,6 +30,9 @@ var articleSchema = new Schema({
   }
 });
 
+// Slugify the title:
+articleSchema.plugin(slug('title'));
+
 articleSchema.path('title').required('true', 'Title is a required field');
 articleSchema.path('body').required('true', 'Body is a required field');
 
@@ -44,60 +48,11 @@ articleSchema.statics = {
 
   listUnionArticles: function(limit, union_id, cb) {
     this
-      .find({ union_id: union_id }, 'title description priority small_image')
+      .find({ union_id: union_id }, 'title description priority small_image slug')
       .sort('-priority')
       .limit(limit)
       .exec(cb);
   }
 }
 
-var Article = mongoose.model('Article', articleSchema);
-
-
-// DEBUG OBJECTS:
-
-Article.remove({}, function(err) {
-  if (err) console.error(err);
-});
-
-var testArticle2 = new Article({
-  title: 'Hei',
-  body: 'Hei2',
-  description: 'Hei3',
-  union_id: 'Abakus',
-  priority: 5,
-  small_image: 'Url1',
-  large_image: 'Url2',
-});
-var testArticle = new Article({
-  title: 'Hei',
-  body: 'Hei2',
-  description: 'Hei3',
-  union_id: 'Abakus',
-  priority: 10,
-  small_image: 'Url1',
-  large_image: 'Url2',
-});
-
-var testArticle3 = new Article({
-  title: 'Hei',
-  body: 'Hei2',
-  description: 'Hei3',
-  union_id: 'Abakus',
-  slug: 'hei',
-  priority: 1,
-  small_image: 'Url1',
-  large_image: 'Url2',
-});
-testArticle3.save(function (err) {
-  if (err) return handleError(err);
-  console.log('saved');
-});
-testArticle2.save(function (err) {
-  if (err) return handleError(err);
-  console.log('saved');
-});
-testArticle.save(function (err) {
-  if (err) return handleError(err);
-  console.log('saved');
-});
+mongoose.model('Article', articleSchema);

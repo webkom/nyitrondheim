@@ -13,7 +13,8 @@
     "browserify-middleware": "~2.3.0",
     "superagent": "~0.17.0",
     "should": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "mongoose-slug": "*"
   },
   "repository": {
     "type": "git",
