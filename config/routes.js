@@ -3,6 +3,9 @@ var articles  = require('../app/controllers/articles.js')
   , url       = require('url')
   ;
 module.exports = function(app) {
+
+  app.param('slug', articles.load);
+
   app.get('/api/unions/:union', unions.getUnion);
 
   app.get('/api/unions/:union/articles/new', articles.new);
@@ -11,6 +14,10 @@ module.exports = function(app) {
 
   app.post('/api/unions/:union/articles', articles.create);
 
-  app.get('/api/unions/:union/articles/:slug', articles.getArticleBySlug);
+  app.get('/api/unions/:union/articles/:slug', articles.show);
+
+  app.get('/api/unions/:union/articles/:slug/edit', articles.edit);
+
+  app.put('/api/unions/:union/articles/:slug', articles.update);
 
 };

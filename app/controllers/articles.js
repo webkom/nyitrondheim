@@ -1,12 +1,20 @@
 var mongoose = require('mongoose')
+    , util   = require('util')
     , Article  = mongoose.model('Article')
     ;
 
-exports.getArticleBySlug = function(req, res) {
-  Article.findBySlug(req.params.slug, req.params.union, function(err,articles){
+
+exports.load = function(req, res, next, id) {
+  Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
     if (err) return res.render('500');
-    res.send(articles);
+    req.article = article[0];
+    next();
   });
+
+};
+
+exports.show = function(req, res) {
+  res.send(req.article);
 }
 
 exports.getUnionArticles = function(req, res) {
@@ -21,10 +29,12 @@ exports.getUnionArticles = function(req, res) {
 }
 
 exports.new = function(req, res) {
+  var article = new Article({});
+  article.union_id = req.params.union;
+
   res.render('new_article', {
     title: 'Submit Test',
-    union_id: req.params.union,
-    article: new Article({})
+    article: article
   });
 }
 
@@ -36,4 +46,22 @@ exports.create = function(req, res) {
     console.log('Saved article');
     res.redirect('/api/unions/' + article.union_id + '/articles');
   });
+}
+
+exports.edit = function(req, res) {
+  res.render('new_article', {
+    title: "Endre Artikkel",
+    article: req.article,
+  });
+}
+
+exports.update = function(req, res) {
+  article = util._extend(req.article, req.body);
+  article.save(function (err) {
+    if (err) return handleError(err);
+    console.log('Updated article');
+    res.redirect('/api/unions/' + article.union_id + '/articles/' + article.slug);
+  });
+
+
 }
