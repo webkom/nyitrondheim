@@ -14,8 +14,6 @@ app.configure(function() {
   app.set('views', __dirname + '/app/views');
   app.use(express.urlencoded());
   app.use(express.json());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
   app.use(stylus.middleware({
     src: __dirname + '/public/assets',
     dest: __dirname + '/public',
@@ -62,5 +60,3 @@ require('./config/routes')(app);
 app.listen(app.get('port'), function() {
   console.log('Listening on %d', app.get('port'));
 });
-
-
