@@ -10,4 +10,12 @@ exports.getUnion = function(req, res) {
         if (err) return res.render('500');
         res.send(union);
     })
+
+}
+
+exports.getUnions = function(req, res) {
+  Union.getAll(function(err, unions) {
+    res.send(unions);
+  })
+
 }
