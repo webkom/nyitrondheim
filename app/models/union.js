@@ -3,7 +3,11 @@ var mongoose   = require('mongoose')
   , Schema     = mongoose.Schema;
 
 var unionSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
+
   description: {
     type: String,
     default: ''
