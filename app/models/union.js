@@ -1,4 +1,5 @@
 var mongoose   = require('mongoose')
+  , slug       = require('mongoose-slug')
   , Schema     = mongoose.Schema;
 
 var unionSchema = new Schema({
@@ -10,6 +11,8 @@ var unionSchema = new Schema({
   smallImage: String,
   largeImage: String
 });
+
+unionSchema.plugin(slug('name'));
 
 unionSchema.statics = {
 

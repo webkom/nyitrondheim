@@ -28,7 +28,6 @@ var articleSchema = new Schema({
     ref: 'Union'
   },
 
-  slug: String,
   priority: Number,
   smallImage: String,
   largeImage: String,
