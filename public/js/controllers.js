@@ -27,3 +27,17 @@ nitControllers.controller('MainController',
 nitControllers.controller('PageController', ['$scope', '$routeParams', function($scope, $routeParams) {
   console.log($scope.chosenFraternity)
 }]);
+
+nitControllers.controller('AdminController', 
+['$scope', 'Article', function($scope, Article) {
+  var union = 'abakus'; // test
+  console.log(Article);
+  Article.getArticles(union)
+    .success(function (articles) {
+      $scope.articles = articles;
+      console.log($scope.articles);
+    })
+    .error(function (error) {
+      console.log("error loading shit");
+    });
+}]);

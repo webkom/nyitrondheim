@@ -1,13 +1,13 @@
 var nitServices = angular.module('nitServices', ['ngResource']);
 
-nitServices.factory('Article', ['$resource',
-  function($resource) {
-    return $resource('api/unions/:union/articles', {}, {
-      query: {
-        method: 'GET',
-        params: {union_id: 'abakus'},
-        isArray: true
-      }
-    });
+nitServices.factory('Article', ['$http', function($http) {
+    var urlBase = '/api/unions/';
+    var articleFactory = {};
+
+    articleFactory.getArticles = function(union) {
+      return $http.get(urlBase + union + '/articles');
+    }
+
+    return articleFactory;
   }
 ]);

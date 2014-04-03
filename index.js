@@ -52,6 +52,10 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+app.get('/admin', function(req, res) {
+  res.render('admin');
+});
+
 require('./app/models/article.js');
 require('./app/models/union.js');
 

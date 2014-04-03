@@ -10,7 +10,7 @@
 //   modalContainer.classList.remove('active');
 // });
 
-var app = angular.module('nitApp', ['ngRoute', 'ngAnimate', 'LocalStorageModule', 'nitControllers']);
+var app = angular.module('nitApp', ['ngRoute', 'ngAnimate', 'LocalStorageModule', 'nitControllers', 'nitServices']);
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
