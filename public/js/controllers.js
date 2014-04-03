@@ -68,9 +68,6 @@ nitControllers.controller('AdminController',
       Article.editArticle($scope.union, $scope.chosenArticle)
         .success(function(data, status, headers, config) {
           console.log("success", data, status);
-        })
-        .error(function(data, status, headers, config) {
-          console.log("error", status);
         });
     }
     else {
@@ -78,10 +75,7 @@ nitControllers.controller('AdminController',
         .success(function(data, status, headers, config) {
           $scope.articles.push(data);
           $scope.createNewArticle();
-          console.log("succ", data, status);
-        })
-        .error(function(data, status, headers, config) {
-          console.log("error", status);
+          console.log("success", data, status);
         });
     }
   }
@@ -94,8 +88,5 @@ nitControllers.controller('AdminController',
         $scope.createNewArticle();
         console.log('success', data, status);
       })
-      .error(function(data, status, headers, config) {
-        console.log('error', status);
-      });
   }
 }]);
