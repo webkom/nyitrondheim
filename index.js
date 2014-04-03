@@ -28,7 +28,7 @@ app.configure(function() {
   app.locals.pretty = true;
 });
 
-var db = mongoose.connect('mongodb://webkom:aidslol@oceanic.mongohq.com:10044/nyitrondheim');
+var db = mongoose.connect('mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
 
 mongoose.connection.on('error', function(err) {
   console.log('Mongoose error:', err);
@@ -51,6 +51,10 @@ app.get('/partials/:partial', function(req, res) {
 
 app.get('/', function(req, res) {
   res.render('index');
+});
+
+app.get('/admin', function(req, res) {
+  res.render('admin');
 });
 
 require('./app/models/article.js');
