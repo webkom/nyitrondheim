@@ -30,41 +30,43 @@ nitControllers.controller('PageController', ['$scope', '$routeParams', function(
 
 nitControllers.controller('AdminController', 
 ['$scope', 'Article', function($scope, Article) {
+
   $scope.union = '533ddf1d704547f33ef1df98'; // test
-  console.log("HEI");
-  $scope.newArticle = true;
+
   Article.getArticles($scope.union)
     .success(function (articles) {
       $scope.articles = articles;
     })
     .error(function (error) {
-      console.log("error loading shit");
+      console.log("error loading articles");
   });
 
+  // Create priority array from max priority
   var maxPriority = 5;
   $scope.priorities = [];
   for (var i = 1; i <= maxPriority; i++) {
     $scope.priorities.push(i);
   }
-  $scope.chosenPriority = 1;
 
   $scope.chooseArticle = function(article) {
     $scope.chosenArticle = article;
-    $scope.chosenPriority = article.priority;
     $scope.newArticle = false;
   }
 
   $scope.createNewArticle = function() {
     $scope.newArticle = true;
     $scope.chosenArticle = {};
-    $scope.chosenPriority = 1;
+    $scope.chosenArticle.priority = 1;
   }
+  $scope.createNewArticle();
 
   $scope.submitArticle = function() {
     console.log("submitting", $scope.chosenArticle);
     if ($scope.newArticle) {
       Article.newArticle($scope.union, $scope.chosenArticle)
         .success(function(success) {
+          $scope.articles.push($scope.chosenArticle);
+          $scope.createNewArticle();
           console.log("succ", success);
         })
         .error(function(error) {
@@ -86,6 +88,8 @@ nitControllers.controller('AdminController',
     console.log("deleting");
     Article.deleteArticle($scope.union, $scope.chosenArticle)
       .success(function(success) {
+        $scope.articles.splice($scope.articles.indexOf($scope.chosenArticle), 1);
+        $scope.createNewArticle();
         console.log('success', success);
       })
       .error(function(error) {
