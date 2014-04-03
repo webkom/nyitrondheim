@@ -21,6 +21,6 @@ clean:
 	rm -f $(HTML)
 
 test:
-	mocha --colors --reporter list
+	./node_modules/.bin/mocha --colors --reporter nyan
 
 .PHONY: clean test server install

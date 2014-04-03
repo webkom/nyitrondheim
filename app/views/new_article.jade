@@ -1,0 +1,48 @@
+html
+  head
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/style.css')
+
+  body
+    - var action = '/api/unions/' + article.union_id + '/articles'
+    - action += article.isNew ? '' : '/' + article.slug
+
+    #top-bar
+      div
+        p Velkommen til Trondheim!
+    
+    #container
+      header
+        h1(style="color: #fff; margin-top: 50px") Ny Artikkel (Simpel Test)
+
+      section
+        form(method='post', action=action, role='form')
+
+          if !article.isNew
+            input(type='hidden', name='_method', value='put')
+
+          .form-group
+            label(for='title') Tittel
+            input.form-control#title(type='text', name='title', placeholder='Title', value=article.title)
+          .form-group
+            label(for='priority') Prioritet
+            select.form-control#priority(name='priority')
+              each i in [1, 2, 3, 4, 5]
+                if i === article.priority
+                  option(selected="selected")= i
+                else
+                  option= i
+          .form-group
+            label(for='description') Beskrivelse
+            textarea.form-control#description(rows='2', name='description', placeholder='Description')=article.description
+          .form-group
+            label(for='body') Tekst
+            textarea.form-control#body(rows='5', name='body', placeholder='Body')=article.body
+
+          button.btn.btn-primary(type='submit') Send
+
+        form(method='post', action=action)
+          if !article.isNew
+            input(type='hidden', name='_method', value='delete')
+          button.btn.btn-danger.right-button Delete
