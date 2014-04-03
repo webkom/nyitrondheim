@@ -1,74 +1,54 @@
 var mongoose = require('mongoose')
-    , util   = require('util')
-    , Article  = mongoose.model('Article')
-    ;
+  , util     = require('util')
+  , Article  = require('../models/article')
 
+var handleError = function(err, req, res) {
+  console.log(err);
+  res.send(500, err);
+};
 
 exports.load = function(req, res, next, id) {
   Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
-    if (err) return res.render('500');
+    if (err) return handleError(err, req, res);
     req.article = article[0];
+    if (!req.article) return res.send(404, {message: "Article Not Found"});
     next();
   });
-
 };
 
 exports.show = function(req, res) {
   res.send(req.article);
-}
+};
 
 exports.getUnionArticles = function(req, res) {
-  var limit = parseInt(req.query.limit);
-  if (isNaN(limit)) {
-    limit = 0;
-  }
+  var limit = req.query.limit|0;
   Article.listUnionArticles(limit, req.params.union, function(err, articles) {
-    if (err) return res.render('500');
+    if (err) return handleError(err, req, res);
     res.send(articles);
   });
-}
-
-exports.new = function(req, res) {
-  var article = new Article({});
-  article.union_id = req.params.union;
-
-  res.render('new_article', {
-    title: 'Submit Test',
-    article: article
-  });
-}
+};
 
 exports.create = function(req, res) {
   var article = new Article(req.body);
-  article.union_id = req.params.union;
+  article.union = req.params.union;
   article.save(function (err) {
-    if (err) return console.log(err);
-    console.log('Saved article');
-    res.redirect('/api/unions/' + article.union_id + '/articles');
+    if (err) return handleError(err, req, res);
+    res.send(201, article);
   });
-}
-
-exports.edit = function(req, res) {
-  res.render('new_article', {
-    title: "Endre Artikkel",
-    article: req.article,
-  });
-}
+};
 
 exports.update = function(req, res) {
   article = util._extend(req.article, req.body);
   article.save(function (err) {
-    if (err) return console.log(err);
-    console.log('Updated article');
-    res.redirect('/api/unions/' + article.union_id + '/articles/' + article.slug);
+    if (err) return handleError(err, req, res);
+    res.send(200, article);
   });
-}
+};
 
 exports.delete = function(req, res) {
   var article = req.article;
   article.remove(function(err) {
-    // Should probably flash a message or something too.
-    console.log('Article deleted');
-    res.redirect('/api/unions/' + article.union_id + '/articles');
+    if (err) return handleError(err, req, res);
+    res.send(204);
   });
-}
+};
