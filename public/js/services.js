@@ -4,7 +4,7 @@ nitServices.factory('Article', ['$http', function($http) {
     var urlBase = '/api/unions/';
     var articleFactory = {};
 
-    articleFactory.getArticles = function(union) {
+    articleFactory.findAll = function(union) {
       return $http.get(urlBase + union + '/articles');
     }
 

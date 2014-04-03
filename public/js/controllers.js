@@ -33,13 +33,17 @@ nitControllers.controller('AdminController',
 
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
-  Article.getArticles($scope.union)
-    .success(function (articles) {
-      $scope.articles = articles;
-    })
-    .error(function (error) {
-      console.log("error loading articles");
-  });
+  $scope.findAll = function() {
+    Article.findAll($scope.union)
+      .success(function (articles) {
+        $scope.articles = articles;
+      })
+      .error(function (error) {
+        console.log("error loading articles");
+    });
+  }
+
+  $scope.findAll();
 
   // Create priority array from max priority
   var maxPriority = 5;
@@ -58,28 +62,29 @@ nitControllers.controller('AdminController',
     $scope.chosenArticle = {};
     $scope.chosenArticle.priority = 1;
   }
+
   $scope.createNewArticle();
 
   $scope.submitArticle = function() {
     console.log("submitting", $scope.chosenArticle);
     if ($scope.newArticle) {
       Article.newArticle($scope.union, $scope.chosenArticle)
-        .success(function(success) {
-          $scope.articles.push($scope.chosenArticle);
+        .success(function(data, status, headers, config) {
+          $scope.articles.push(data);
           $scope.createNewArticle();
-          console.log("succ", success);
+          console.log("succ", data, status);
         })
-        .error(function(error) {
-          console.log("error", error);
+        .error(function(data, status, headers, config) {
+          console.log("error", status);
         });
     }
     else {
       Article.editArticle($scope.union, $scope.chosenArticle)
-        .success(function(success) {
-          console.log("success", success);
+        .success(function(data, status, headers, config) {
+          console.log("success", data, status);
         })
-        .error(function(error) {
-          console.log("error", error);
+        .error(function(data, status, headers, config) {
+          console.log("error", status);
         });
     }
   }
@@ -87,13 +92,13 @@ nitControllers.controller('AdminController',
   $scope.deleteArticle = function() {
     console.log("deleting");
     Article.deleteArticle($scope.union, $scope.chosenArticle)
-      .success(function(success) {
+      .success(function(data, status, headers, config) {
         $scope.articles.splice($scope.articles.indexOf($scope.chosenArticle), 1);
         $scope.createNewArticle();
-        console.log('success', success);
+        console.log('success', data, status);
       })
-      .error(function(error) {
-        console.log('error', error);
+      .error(function(data, status, headers, config) {
+        console.log('error', status);
       });
   }
 
