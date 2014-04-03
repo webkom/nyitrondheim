@@ -42,7 +42,7 @@ mongoose.connection.on('connect', function() {
   console.log('inne');
 });
 
-app.get('/app.js', browserify('./public/js/nit.js'));
+app.get('/app.js', browserify('./public/js/app.js'));
 
 app.get('/partials/:partial', function(req, res) {
   res.render('partials/' + req.param('partial').replace('.', '/'));
