@@ -19,6 +19,11 @@ unionSchema.statics = {
     this
       .findOne({_id: id})
       .exec(cb);
+  },
+  getAll:function(cb) {
+    this
+        .find({})
+        .exec(cb);
   }
 }
 
