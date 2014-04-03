@@ -30,7 +30,6 @@ nitControllers.controller('PageController', ['$scope', '$routeParams', function(
 
 nitControllers.controller('AdminController', 
 ['$scope', 'Article', function($scope, Article) {
-
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
   $scope.findAll = function() {
@@ -54,11 +53,9 @@ nitControllers.controller('AdminController',
 
   $scope.chooseArticle = function(article) {
     $scope.chosenArticle = article;
-    $scope.newArticle = false;
   }
 
   $scope.createNewArticle = function() {
-    $scope.newArticle = true;
     $scope.chosenArticle = {};
     $scope.chosenArticle.priority = 1;
   }
@@ -67,21 +64,21 @@ nitControllers.controller('AdminController',
 
   $scope.submitArticle = function() {
     console.log("submitting", $scope.chosenArticle);
-    if ($scope.newArticle) {
-      Article.newArticle($scope.union, $scope.chosenArticle)
+    if ($scope.chosenArticle._id) {
+      Article.editArticle($scope.union, $scope.chosenArticle)
         .success(function(data, status, headers, config) {
-          $scope.articles.push(data);
-          $scope.createNewArticle();
-          console.log("succ", data, status);
+          console.log("success", data, status);
         })
         .error(function(data, status, headers, config) {
           console.log("error", status);
         });
     }
     else {
-      Article.editArticle($scope.union, $scope.chosenArticle)
+      Article.newArticle($scope.union, $scope.chosenArticle)
         .success(function(data, status, headers, config) {
-          console.log("success", data, status);
+          $scope.articles.push(data);
+          $scope.createNewArticle();
+          console.log("succ", data, status);
         })
         .error(function(data, status, headers, config) {
           console.log("error", status);
@@ -101,5 +98,4 @@ nitControllers.controller('AdminController',
         console.log('error', status);
       });
   }
-
 }]);
