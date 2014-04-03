@@ -1,5 +1,6 @@
 var mongoose   = require('mongoose')
   , slug       = require('mongoose-slug')
+  , Union      = require('./union')
   , Schema     = mongoose.Schema
 
 /**
@@ -49,11 +50,13 @@ articleSchema.statics = {
   },
 
   listUnionArticles: function(limit, unionId, cb) {
-    this
-      .find({union: unionId}, 'union title description priority small_image slug')
-      .sort('-priority')
-      .limit(limit)
-      .exec(cb);
+    if (unionId.match(/^[0-9a-fA-F]{24}$/))
+      return this.find({union: unionId}).sort('-priority').limit(limit).exec(cb);
+
+    var that = this;
+    Union.findByName(unionId, function(err, union) {
+      return that.find({union: union}).sort('-priority').limit(limit).exec(cb);
+    });
   }
 }
 
