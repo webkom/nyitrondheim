@@ -19,6 +19,7 @@
   "dependencies": {
     "angular-animate": "~1.2.14",
     "angular-route": "~1.2.14",
-    "angular-local-storage": "~0.0.1"
+    "angular-local-storage": "~0.0.1",
+    "animate.css": "~3.1.0"
   }
 }
