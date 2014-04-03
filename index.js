@@ -27,7 +27,7 @@ app.configure(function() {
   app.locals.pretty = true;
 });
 
-var db = mongoose.connect('mongodb://webkom:aidslol@oceanic.mongohq.com:10044/nyitrondheim');
+var db = mongoose.connect('mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
 
 mongoose.connection.on('error', function(err) {
   console.log('Mongoose error:', err);

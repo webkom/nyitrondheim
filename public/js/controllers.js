@@ -30,12 +30,12 @@ nitControllers.controller('PageController', ['$scope', '$routeParams', function(
 
 nitControllers.controller('AdminController', 
 ['$scope', 'Article', function($scope, Article) {
-  $scope.union = 'abakus'; // test
+  $scope.union = '533ddf1d704547f33ef1df98'; // test
   console.log("HEI");
+  $scope.newArticle = true;
   Article.getArticles($scope.union)
     .success(function (articles) {
       $scope.articles = articles;
-      console.log($scope.articles[0].title);
     })
     .error(function (error) {
       console.log("error loading shit");
@@ -49,29 +49,48 @@ nitControllers.controller('AdminController',
   $scope.chosenPriority = 1;
 
   $scope.chooseArticle = function(article) {
-    console.log('clicked article');
     $scope.chosenArticle = article;
     $scope.chosenPriority = article.priority;
+    $scope.newArticle = false;
   }
 
-  $scope.newArticle = function() {
+  $scope.createNewArticle = function() {
+    $scope.newArticle = true;
     $scope.chosenArticle = {};
     $scope.chosenPriority = 1;
   }
 
   $scope.submitArticle = function() {
-    console.log("submitting");
-    if ($scope.chosenArticle) {
-      Article.editArticle($scope.union, $scope.chosenArticle)
-        .success(function(wut) {
-          console.log("succ", wut);
+    console.log("submitting", $scope.chosenArticle);
+    if ($scope.newArticle) {
+      Article.newArticle($scope.union, $scope.chosenArticle)
+        .success(function(success) {
+          console.log("succ", success);
         })
         .error(function(error) {
           console.log("error", error);
         });
     }
     else {
-      Article.newArticle($scope.union, $scope.chosenArticle);
+      Article.editArticle($scope.union, $scope.chosenArticle)
+        .success(function(success) {
+          console.log("success", success);
+        })
+        .error(function(error) {
+          console.log("error", error);
+        });
     }
   }
+
+  $scope.deleteArticle = function() {
+    console.log("deleting");
+    Article.deleteArticle($scope.union, $scope.chosenArticle)
+      .success(function(success) {
+        console.log('success', success);
+      })
+      .error(function(error) {
+        console.log('error', error);
+      });
+  }
+
 }]);
