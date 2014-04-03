@@ -30,14 +30,48 @@ nitControllers.controller('PageController', ['$scope', '$routeParams', function(
 
 nitControllers.controller('AdminController', 
 ['$scope', 'Article', function($scope, Article) {
-  var union = 'abakus'; // test
-  console.log(Article);
-  Article.getArticles(union)
+  $scope.union = 'abakus'; // test
+  console.log("HEI");
+  Article.getArticles($scope.union)
     .success(function (articles) {
       $scope.articles = articles;
-      console.log($scope.articles);
+      console.log($scope.articles[0].title);
     })
     .error(function (error) {
       console.log("error loading shit");
-    });
+  });
+
+  var maxPriority = 5;
+  $scope.priorities = [];
+  for (var i = 1; i <= maxPriority; i++) {
+    $scope.priorities.push(i);
+  }
+  $scope.chosenPriority = 1;
+
+  $scope.chooseArticle = function(article) {
+    console.log('clicked article');
+    $scope.chosenArticle = article;
+    $scope.chosenPriority = article.priority;
+  }
+
+  $scope.newArticle = function() {
+    $scope.chosenArticle = {};
+    $scope.chosenPriority = 1;
+  }
+
+  $scope.submitArticle = function() {
+    console.log("submitting");
+    if ($scope.chosenArticle) {
+      Article.editArticle($scope.union, $scope.chosenArticle)
+        .success(function(wut) {
+          console.log("succ", wut);
+        })
+        .error(function(error) {
+          console.log("error", error);
+        });
+    }
+    else {
+      Article.newArticle($scope.union, $scope.chosenArticle);
+    }
+  }
 }]);

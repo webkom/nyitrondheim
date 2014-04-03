@@ -48,7 +48,7 @@ articleSchema.statics = {
 
   listUnionArticles: function(limit, union_id, cb) {
     this
-      .find({ union_id: union_id }, 'title description priority small_image slug')
+      .find({ union_id: union_id })
       .sort('-priority')
       .limit(limit)
       .exec(cb);

@@ -1,15 +1,42 @@
-doctype html
 html(ng-app='nitApp')
   head
     meta(charset='utf-8')
-    title Ny i Trondheim
-
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/style.css')
-    link(rel='stylesheet', href='/bower_components/animate.css/animate.min.css')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
 
   body(ng-controller='AdminController')
-    p {{articles}}
+    #top-bar
+      div
+        p Velkommen til Trondheim!
+    
+    #container
+      header
+        h1(style="color: #fff; margin-top: 50px") Test
+
+      section
+        ul#admin-article-list
+          li#new-article
+            a(href='', ng-click='newArticle()') Ny artikkel
+          li(ng-repeat='article in articles')
+            a(href='', ng-click='chooseArticle(article)') {{article.title}}
+
+        form(method='post', action=action, role='form')
+
+          .form-group
+            label(for='title') Tittel
+            input.form-control#title(type='text', name='title', placeholder='Title', value='{{chosenArticle.title}}')
+          .form-group
+            label(for='priority') Prioritet
+            select.form-control#priority(name='priority', ng-options='option for option in priorities', ng-model='chosenPriority')
+          .form-group
+            label(for='description') Beskrivelse
+            textarea.form-control#description(rows='2', name='description', placeholder='Description')='{{chosenArticle.description}}'
+          .form-group
+            label(for='body') Tekst
+            textarea.form-control#text-body(rows='5', name='body', placeholder='Body')='{{chosenArticle.body}}'
+
+          button.btn.btn-primary(ng-click='submitArticle()') Send
+          button.btn.btn-danger(ng-click='deleteArticle()') Delete
 
     script(src='/bower_components/angular/angular.min.js')
     script(src='/bower_components/angular-local-storage/angular-local-storage.min.js')

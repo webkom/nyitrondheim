@@ -8,6 +8,14 @@ nitServices.factory('Article', ['$http', function($http) {
       return $http.get(urlBase + union + '/articles');
     }
 
+    articleFactory.newArticle = function(union, article) {
+      return $http.post(urlBase + union + '/articles', article);
+    }
+
+    articleFactory.editArticle = function(union, article) {
+      return $http.put(urlBase + union + '/articles/' + article.slug, article);
+    }
+
     return articleFactory;
   }
 ]);
