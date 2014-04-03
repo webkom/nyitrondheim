@@ -17,7 +17,7 @@ html
         h1(style="color: #fff; margin-top: 50px") Ny Artikkel (Simpel Test)
 
       section
-        form(method='post', action=action, enctype='multipart/form-data' role='form')
+        form(method='post', action=action, role='form')
 
           if !article.isNew
             input(type='hidden', name='_method', value='put')
@@ -41,3 +41,8 @@ html
             textarea.form-control#body(rows='5', name='body', placeholder='Body')=article.body
 
           button.btn.btn-primary(type='submit') Send
+
+        form(method='post', action=action)
+          if !article.isNew
+            input(type='hidden', name='_method', value='delete')
+          button.btn.btn-danger.right-button Delete

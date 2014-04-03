@@ -42,7 +42,7 @@ exports.create = function(req, res) {
   var article = new Article(req.body);
   article.union_id = req.params.union;
   article.save(function (err) {
-    if (err) return handleError(err);
+    if (err) return console.log(err);
     console.log('Saved article');
     res.redirect('/api/unions/' + article.union_id + '/articles');
   });
@@ -58,10 +58,17 @@ exports.edit = function(req, res) {
 exports.update = function(req, res) {
   article = util._extend(req.article, req.body);
   article.save(function (err) {
-    if (err) return handleError(err);
+    if (err) return console.log(err);
     console.log('Updated article');
     res.redirect('/api/unions/' + article.union_id + '/articles/' + article.slug);
   });
+}
 
-
+exports.delete = function(req, res) {
+  var article = req.article;
+  article.remove(function(err) {
+    // Should probably flash a message or something too.
+    console.log('Article deleted');
+    res.redirect('/api/unions/' + article.union_id + '/articles');
+  });
 }
