@@ -9,6 +9,7 @@ var env         = process.env.NODE_ENV || 'development'
   , mongoose    = require('mongoose');
 
 app.configure(function() {
+  app.disable('x-powered-by');
   app.set('port', process.env.PORT || 3000);
   app.set('view engine', 'jade');
   app.set('views', __dirname + '/app/views');
