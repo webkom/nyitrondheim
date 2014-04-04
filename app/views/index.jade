@@ -4,8 +4,8 @@ html(ng-app='nitApp')
     meta(charset='utf-8')
     title Ny i Trondheim
 
-    link(rel='stylesheet', href='/css/style.css')
-    link(rel='stylesheet', href='/bower_components/animate.css/animate.min.css')
+    link(rel='stylesheet', href='/vendor.css')
+    link(rel='stylesheet', href='/app.css')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
 
   body(ng-controller='MainController')
@@ -48,9 +48,5 @@ html(ng-app='nitApp')
       footer
         p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
 
-    script(src='/bower_components/angular/angular.min.js')
-    script(src='/bower_components/angular-local-storage/angular-local-storage.min.js')
-    script(src='/bower_components/angular-route/angular-route.min.js')
-    script(src='/bower_components/angular-resource/angular-resource.min.js')
-    script(src='/bower_components/angular-animate/angular-animate.min.js')
+    script(src='/vendor.js')
     script(src='/app.js')

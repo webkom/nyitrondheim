@@ -22,8 +22,13 @@ nitServices.factory('Article', ['$http', function($http) {
       return $http.put(urlBase + union + '/articles/' + article.slug, article).error(error);
     },
 
-    delete: function(union, article) {
+    destroy: function(union, article) {
       return $http.delete(urlBase + union + '/articles/' + article.slug).error(error);
+    },
+
+    save: function(union, article) {
+      if (article._id) return this.update(union, article);
+      return this.create(union, article);
     }
   };
 }]);

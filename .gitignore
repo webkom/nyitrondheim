@@ -1,6 +1,8 @@
 .powder
 .DS_Store
-public/css/
+public/*.css
+public/*.js
 public/bower_components/
 node_modules/
 logs/
+app/assets/vendor

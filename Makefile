@@ -1,26 +1,38 @@
-STYL=$(shell find public -name *.styl)
-JADE=$(shell find public -name "*.jade")
-HTML=$(JADE:.jade=.html)
+STYL=$(shell find app/assets/css -name *.styl)
+JS=$(shell find app/assets/js -name *.js)
 
-all: $(HTML) public/style.css
+BIN=node_modules/.bin
+VENDORJS=$(shell echo app/assets/vendor/{angular/angular.min.js,angular-local-storage/angular-local-storage.min.js,angular-route/angular-route.min.js,angular-resource/angular-resource.min.js,angular-animate/angular-animate.js,lodash/dist/lodash.min.js})
+VENDORCSS=$(shell echo app/assets/vendor/{animate.css/animate.min.css,font-awesome/css/font-awesome.min.css})
 
-public/style.css: $(STYL)
-	stylus < public/style.styl --include /usr/local/share/npm/lib/node_modules/nib/lib > public/style.css
+# Where build files should be stored
+DIST=public
 
-%.html: %.jade
-	jade --pretty < $< > $@
+all: $(DIST)/vendor.js $(DIST)/app.js $(DIST)/vendor.css $(DIST)/app.css
+
+$(DIST)/vendor.js: $(VENDORJS)
+	cat $(VENDORJS) > $(DIST)/vendor.js
+
+$(DIST)/app.js: $(JS)
+	$(BIN)/browserify app/assets/js/app.js -o $(DIST)/app.js
+
+$(DIST)/vendor.css: $(VENDORCSS)
+	cat $(VENDORCSS) > $(DIST)/vendor.css
+
+$(DIST)/app.css: $(STYL)
+	$(BIN)/stylus < app/assets/css/style.styl --include node_modules/nib/lib > $(DIST)/app.css
 
 install:
 	npm install
 	bower install
 
 server:
-	node_modules/.bin/supervisor index.js
+	$(BIN)/supervisor index.js
 
 clean:
-	rm -f $(HTML)
+	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css
 
 test:
-	./node_modules/.bin/mocha --colors --reporter nyan
+	$(BIN)/mocha --colors --reporter nyan
 
-.PHONY: clean test server install
+.PHONY: all clean test server install
