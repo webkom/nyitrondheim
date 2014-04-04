@@ -9,7 +9,7 @@ nitServices.factory('Article', ['$http', function($http) {
   };
 
   return {
-    
+
     findAll: function(union) {
       return $http.get(urlBase + union + '/articles').error(error);
     },
@@ -24,6 +24,11 @@ nitServices.factory('Article', ['$http', function($http) {
 
     delete: function(union, article) {
       return $http.delete(urlBase + union + '/articles/' + article.slug).error(error);
+    },
+
+    save: function(union, article) {
+      if (article._id) return this.update(union, article);
+      return this.create(union, article);
     }
   };
 }]);

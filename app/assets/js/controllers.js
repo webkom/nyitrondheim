@@ -32,12 +32,15 @@ nitControllers.controller('AdminController',
 ['$scope', 'Article', function($scope, Article) {
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
+  $scope.articles = [];
+  $scope.article  = {};
+
   $scope.findAll = function() {
     Article.findAll($scope.union)
       .success(function (articles) {
         $scope.articles = articles;
-      })
-    });
+        $scope.article = $scope.articles[0];
+      });
   };
 
   $scope.findAll();
@@ -50,41 +53,23 @@ nitControllers.controller('AdminController',
   }
 
   $scope.chooseArticle = function(article) {
-    $scope.chosenArticle = article;
-  }
+    $scope.article = article;
+  };
 
-  $scope.createNewArticle = function() {
-    $scope.chosenArticle = {};
-    $scope.chosenArticle.priority = 1;
-  }
+  $scope.createArticle = function() {
+    $scope.article = {};
+  };
 
-  $scope.createNewArticle();
+  $scope.saveArticle = function(article) {
+    Article.save($scope.union, article).success(function(data) {
+      if (!article._id) $scope.articles.push(data);
+    });
+  };
 
-  $scope.submitArticle = function() {
-    console.log("submitting", $scope.chosenArticle);
-    if ($scope.chosenArticle._id) {
-      Article.update($scope.union, $scope.chosenArticle)
-        .success(function(data, status, headers, config) {
-          console.log("success", data, status);
-        });
-    }
-    else {
-      Article.create($scope.union, $scope.chosenArticle)
-        .success(function(data, status, headers, config) {
-          $scope.articles.push(data);
-          $scope.createNewArticle();
-          console.log("success", data, status);
-        });
-    }
-  }
-
-  $scope.deleteArticle = function() {
-    console.log("deleting");
-    Article.delete($scope.union, $scope.chosenArticle)
-      .success(function(data, status, headers, config) {
-        $scope.articles.splice($scope.articles.indexOf($scope.chosenArticle), 1);
-        $scope.createNewArticle();
-        console.log('success', data, status);
-      })
-  }
+  $scope.deleteArticle = function(article) {
+    Article.delete($scope.union, article).success(function(data) {
+      $scope.articles.splice($scope.articles.indexOf($scope.article), 1);
+      $scope.article = {};
+    });
+  };
 }]);

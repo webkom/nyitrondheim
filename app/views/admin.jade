@@ -16,7 +16,7 @@ html(ng-app='nitApp')
       section
         ul#admin-article-list
           li#new-article
-            a(href='', ng-click='createNewArticle()') Ny artikkel
+            a(href='', ng-click='createArticle()') Ny artikkel
           li(ng-repeat='article in articles')
             a(href='', ng-click='chooseArticle(article)') {{article.title}}
 
@@ -25,22 +25,22 @@ html(ng-app='nitApp')
           .form-group
             label(for='title') Tittel
             input.form-control#title(type='text', name='title', placeholder='Title',
-                                     value='{{chosenArticle.title}}', ng-model='chosenArticle.title' required)
+                                     value='{{article.title}}', ng-model='article.title' required)
           .form-group
             label(for='priority') Prioritet
             select.form-control#priority(name='priority', ng-options='option for option in priorities',
-                                         ng-model='chosenArticle.priority' required)
+                                         ng-model='article.priority' required)
           .form-group
             label(for='description') Beskrivelse
             textarea.form-control#description(rows='2', name='description', placeholder='Description',
-                                              ng-model='chosenArticle.description' required)='{{chosenArticle.description}}'
+                                              ng-model='article.description' required)='{{article.description}}'
           .form-group
             label(for='body') Tekst
             textarea.form-control#text-body(rows='5', name='body', placeholder='Body',
-                                            ng-model='chosenArticle.body' required)='{{chosenArticle.body}}'
+                                            ng-model='article.body' required)='{{article.body}}'
 
-          button.btn.btn-primary(ng-click='submitArticle()') Send
-          button.btn.btn-danger(ng-click='deleteArticle()', ng-show='!newArticle') Delete
+          button.btn.btn-primary(ng-click='saveArticle(article)') Send
+          button.btn.btn-danger(ng-click='deleteArticle(article)', ng-hide='!article._id') Delete
 
     script(src='/bower_components/angular/angular.min.js')
     script(src='/bower_components/angular-local-storage/angular-local-storage.min.js')
