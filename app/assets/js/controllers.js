@@ -66,8 +66,8 @@ nitControllers.controller('AdminController',
     });
   };
 
-  $scope.deleteArticle = function(article) {
-    Article.delete($scope.union, article).success(function(data) {
+  $scope.destroyArticle = function(article) {
+    Article.destroy($scope.union, article).success(function(data) {
       $scope.articles.splice($scope.articles.indexOf($scope.article), 1);
       $scope.article = {};
     });

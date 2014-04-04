@@ -40,7 +40,7 @@ html(ng-app='nitApp')
                                             ng-model='article.body' required)='{{article.body}}'
 
           button.btn.btn-primary(ng-click='saveArticle(article)') Send
-          button.btn.btn-danger(ng-click='deleteArticle(article)', ng-hide='!article._id') Delete
+          button.btn.btn-danger(ng-click='destroyArticle(article)', ng-hide='!article._id') Delete
 
     script(src='/bower_components/angular/angular.min.js')
     script(src='/bower_components/angular-local-storage/angular-local-storage.min.js')
