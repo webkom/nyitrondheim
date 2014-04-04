@@ -64,6 +64,8 @@ nitControllers.controller('AdminController',
     if ($scope.chosenArticle._id) {
       Article.update($scope.union, $scope.chosenArticle)
         .success(function(data, status, headers, config) {
+          $scope.articles[$scope.articles.indexOf($scope.chosenArticle)] = data;
+          $scope.chosenArticle = data;
           console.log("success", data, status);
         });
     }
