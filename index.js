@@ -2,10 +2,7 @@ var express     = require('express')
   , stylus      = require('stylus')
   , nib         = require('nib')
   , browserify  = require('browserify-middleware')
-  , app         = module.exports = express();
-
-var env         = process.env.NODE_ENV || 'development'
-  , config      = require('./config/config')[env]
+  , app         = module.exports = express()
   , mongoose    = require('mongoose');
 
 app.configure(function() {
@@ -16,7 +13,7 @@ app.configure(function() {
   app.use(express.urlencoded());
   app.use(express.json());
   app.use(stylus.middleware({
-    src: __dirname + '/public/assets',
+    src: __dirname + '/app/assets',
     dest: __dirname + '/public',
     compile: function(str, path) {
       return stylus(str)
@@ -28,7 +25,7 @@ app.configure(function() {
   app.locals.pretty = true;
 });
 
-var db = mongoose.connect('mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
+mongoose.connect('mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
 
 mongoose.connection.on('error', function(err) {
   console.log('Mongoose error:', err);
@@ -43,7 +40,7 @@ mongoose.connection.on('connect', function() {
   console.log('inne');
 });
 
-app.get('/app.js', browserify('./public/js/app.js'));
+app.get('/app.js', browserify('./app/assets/js/app.js'));
 
 app.get('/partials/:partial', function(req, res) {
   res.render('partials/' + req.param('partial').replace('.', '/'));
@@ -56,9 +53,6 @@ app.get('/', function(req, res) {
 app.get('/admin', function(req, res) {
   res.render('admin');
 });
-
-require('./app/models/article.js');
-require('./app/models/union.js');
 
 require('./config/routes')(app);
 
