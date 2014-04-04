@@ -9,19 +9,20 @@ nitServices.factory('Article', ['$http', function($http) {
   };
 
   return {
+    
     findAll: function(union) {
       return $http.get(urlBase + union + '/articles').error(error);
     },
 
-    newArticle: function(union, article) {
+    create: function(union, article) {
       return $http.post(urlBase + union + '/articles', article).error(error);
     },
 
-    editArticle: function(union, article) {
+    update: function(union, article) {
       return $http.put(urlBase + union + '/articles/' + article.slug, article).error(error);
     },
 
-    deleteArticle: function(union, article) {
+    delete: function(union, article) {
       return $http.delete(urlBase + union + '/articles/' + article.slug).error(error);
     }
   };

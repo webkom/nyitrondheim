@@ -28,7 +28,7 @@ nitControllers.controller('PageController', ['$scope', '$routeParams', function(
   console.log($scope.chosenFraternity)
 }]);
 
-nitControllers.controller('AdminController', 
+nitControllers.controller('AdminController',
 ['$scope', 'Article', function($scope, Article) {
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
@@ -37,10 +37,8 @@ nitControllers.controller('AdminController',
       .success(function (articles) {
         $scope.articles = articles;
       })
-      .error(function (error) {
-        console.log("error loading articles");
     });
-  }
+  };
 
   $scope.findAll();
 
@@ -65,13 +63,13 @@ nitControllers.controller('AdminController',
   $scope.submitArticle = function() {
     console.log("submitting", $scope.chosenArticle);
     if ($scope.chosenArticle._id) {
-      Article.editArticle($scope.union, $scope.chosenArticle)
+      Article.update($scope.union, $scope.chosenArticle)
         .success(function(data, status, headers, config) {
           console.log("success", data, status);
         });
     }
     else {
-      Article.newArticle($scope.union, $scope.chosenArticle)
+      Article.create($scope.union, $scope.chosenArticle)
         .success(function(data, status, headers, config) {
           $scope.articles.push(data);
           $scope.createNewArticle();
@@ -82,7 +80,7 @@ nitControllers.controller('AdminController',
 
   $scope.deleteArticle = function() {
     console.log("deleting");
-    Article.deleteArticle($scope.union, $scope.chosenArticle)
+    Article.delete($scope.union, $scope.chosenArticle)
       .success(function(data, status, headers, config) {
         $scope.articles.splice($scope.articles.indexOf($scope.chosenArticle), 1);
         $scope.createNewArticle();
