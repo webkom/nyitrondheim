@@ -33,43 +33,32 @@ nitControllers.controller('AdminController',
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
   $scope.articles = [];
-  $scope.article  = {};
-
-  // Create priority array from max priority
-  var maxPriority = 5;
-  $scope.priorities = [];
-  for (var i = 1; i <= maxPriority; i++) {
-    $scope.priorities.push(i);
-  }
+  $scope.article = {priority: 1};
+  $scope.priorities = _.range(1, 6);
 
   $scope.chooseArticle = function(article) {
     $scope.article = article;
-  };
-
-  $scope.createNewArticle = function() {
-    $scope.article = {};
-    $scope.article.priority = 1;
   };
 
   $scope.findAll = function() {
     Article.findAll($scope.union)
       .success(function (articles) {
         $scope.articles = articles;
-        $scope.createNewArticle();
+        $scope.createArticle();
       });
   };
 
   $scope.findAll();
 
   $scope.createArticle = function() {
-    $scope.article = {};
+    $scope.article = {priority: 1};
   };
 
   $scope.saveArticle = function(article) {
     Article.save($scope.union, article).success(function(data) {
       if (!article._id) {
         $scope.articles.push(data);
-        $scope.createNewArticle();
+        $scope.createArticle();
       }
       else {
         $scope.articles[$scope.articles.indexOf($scope.article)] = data;
