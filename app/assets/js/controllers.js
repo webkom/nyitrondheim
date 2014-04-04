@@ -43,12 +43,12 @@ nitControllers.controller('AdminController',
   }
 
   $scope.chooseArticle = function(article) {
-    $scope.chosenArticle = article;
+    $scope.article = article;
   };
 
   $scope.createNewArticle = function() {
-    $scope.chosenArticle = {};
-    $scope.chosenArticle.priority = 1;
+    $scope.article = {};
+    $scope.article.priority = 1;
   };
 
   $scope.findAll = function() {
@@ -72,8 +72,8 @@ nitControllers.controller('AdminController',
         $scope.createNewArticle();
       }
       else {
-        $scope.articles[$scope.articles.indexOf($scope.chosenArticle)] = data;
-        $scope.chosenArticle = data;
+        $scope.articles[$scope.articles.indexOf($scope.article)] = data;
+        $scope.article = data;
       }
     });
   };
