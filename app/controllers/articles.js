@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
   , util     = require('util')
-  , Article  = require('../models/article')
+  , Article  = require('../models/article');
 
 var handleError = function(err, req, res) {
   console.log(err);

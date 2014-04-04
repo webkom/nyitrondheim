@@ -9,7 +9,7 @@ nitServices.factory('Article', ['$http', function($http) {
   };
 
   return {
-    
+
     findAll: function(union) {
       return $http.get(urlBase + union + '/articles').error(error);
     },

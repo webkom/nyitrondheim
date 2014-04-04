@@ -25,7 +25,7 @@ nitControllers.controller('MainController',
 }]);
 
 nitControllers.controller('PageController', ['$scope', '$routeParams', function($scope, $routeParams) {
-  console.log($scope.chosenFraternity)
+  console.log($scope.chosenFraternity);
 }]);
 
 nitControllers.controller('AdminController',
@@ -36,8 +36,7 @@ nitControllers.controller('AdminController',
     Article.findAll($scope.union)
       .success(function (articles) {
         $scope.articles = articles;
-      })
-    });
+      });
   };
 
   $scope.findAll();
@@ -51,12 +50,12 @@ nitControllers.controller('AdminController',
 
   $scope.chooseArticle = function(article) {
     $scope.chosenArticle = article;
-  }
+  };
 
   $scope.createNewArticle = function() {
     $scope.chosenArticle = {};
     $scope.chosenArticle.priority = 1;
-  }
+  };
 
   $scope.createNewArticle();
 
@@ -76,7 +75,7 @@ nitControllers.controller('AdminController',
           console.log("success", data, status);
         });
     }
-  }
+  };
 
   $scope.deleteArticle = function() {
     console.log("deleting");
@@ -85,6 +84,6 @@ nitControllers.controller('AdminController',
         $scope.articles.splice($scope.articles.indexOf($scope.chosenArticle), 1);
         $scope.createNewArticle();
         console.log('success', data, status);
-      })
-  }
+      });
+  };
 }]);

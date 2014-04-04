@@ -1,7 +1,7 @@
 var mongoose   = require('mongoose')
   , slug       = require('mongoose-slug')
   , Union      = require('./union')
-  , Schema     = mongoose.Schema
+  , Schema     = mongoose.Schema;
 
 /**
  * @todo Should be able to upload images with the articles, thus the model needs to be able to remove these files
@@ -58,6 +58,6 @@ articleSchema.statics = {
       return that.find({union: union}).sort('-priority').limit(limit).exec(cb);
     });
   }
-}
+};
 
 module.exports = mongoose.model('Article', articleSchema);

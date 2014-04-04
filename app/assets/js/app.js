@@ -1,4 +1,3 @@
-
 require('./services');
 require('./controllers');
 
@@ -9,5 +8,5 @@ app.config(function($routeProvider, $locationProvider) {
    .when('/:slug', {
      templateUrl: 'partials/page',
      controller: 'PageController'
-  })
+  });
 });
