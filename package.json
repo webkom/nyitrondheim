@@ -2,23 +2,26 @@
   "name": "nyitrondheim",
   "version": "0.0.1",
   "description": "http://nyitrondheim.no",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:webkom/nyitrondheimv2.git"
+  },
+  "author": "webkom",
   "main": "index.js",
   "dependencies": {
     "stylus": "*",
     "jade": "*",
     "nib": "*",
-    "mocha": "*",
     "express": "*",
-    "supervisor": "*",
-    "browserify-middleware": "~2.3.0",
     "superagent": "~0.17.0",
-    "should": "*",
     "mongoose": "*",
     "mongoose-slug": "*"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@abahub.abakus.no:hkkoren/nyitrondheim.git"
-  },
-  "author": "webkom"
+  "devDependencies": {
+    "supervisor": "^0.5.7",
+    "should": "^3.2.0",
+    "supertest": "^0.10.0",
+    "mocha": "^1.18.2",
+    "browserify": "^3.38.0"
+  }
 }

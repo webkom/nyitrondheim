@@ -2,7 +2,7 @@ html(ng-app='nitApp')
   head
     meta(charset='utf-8')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/app.css')
 
   body(ng-controller='AdminController')
     #top-bar
@@ -42,9 +42,5 @@ html(ng-app='nitApp')
           button.btn.btn-primary(ng-click='saveArticle(article)') Send
           button.btn.btn-danger(ng-click='destroyArticle(article)', ng-hide='!article._id') Delete
 
-    script(src='/bower_components/angular/angular.min.js')
-    script(src='/bower_components/angular-local-storage/angular-local-storage.min.js')
-    script(src='/bower_components/angular-route/angular-route.min.js')
-    script(src='/bower_components/angular-resource/angular-resource.min.js')
-    script(src='/bower_components/angular-animate/angular-animate.min.js')
+    script(src='/vendor.js')
     script(src='/app.js')
