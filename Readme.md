@@ -5,6 +5,7 @@ Ny I Trondheim is built using [Node.js](http://nodejs.org/), [express](http://ex
 To install a fresh clone, you must have node, npm and bower installed then run
 ```bash
 $ make install
+$ make
 ```
 
 Bower can be installed via `npm install -g bower`.
