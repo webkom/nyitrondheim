@@ -12,8 +12,8 @@ html(ng-app='nitApp')
     #modal-container(ng-class='{active: modalOpen}')
       .modal(ng-click='closeModal()')
         ul.fraternities
-          li(ng-repeat='fraternity in fraternities')
-            a(href='', ng-click='chooseFraternity(fraternity)') {{fraternity}}
+          li(ng-repeat='union in unions')
+            a(href='', ng-click='chooseUnion(union)') {{union.name}}
 
     #top-bar
       div
@@ -25,7 +25,7 @@ html(ng-app='nitApp')
           a(href='#') Ny i Trondheim
         #choose-fraternity
           a(href='', ng-click='openModal()') Velg linje
-            em(ng-show='chosenFraternity != null')  ({{chosenFraternity}})
+            em(ng-show='chosenUnion != null')  ({{chosenUnion.name}})
             i.fa.fa-bars
 
       section
@@ -43,7 +43,7 @@ html(ng-app='nitApp')
 
         #content(ng-controller='PageController', ng-view)
 
-        .no-fraternity-chosen(ng-show='chosenFraternity == null') Du har ikke valgt noen linjeforening.
+        .no-fraternity-chosen(ng-show='chosenUnion == null') Du har ikke valgt noen linjeforening.
 
       footer
         p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>

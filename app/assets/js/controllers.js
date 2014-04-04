@@ -1,12 +1,11 @@
 var nitControllers = angular.module('nitControllers', []);
 
 nitControllers.controller('MainController',
-['$scope', '$routeParams', 'localStorageService', function($scope, $routeParams, localStorageService) {
-
-  $scope.fraternities = ["Abakus", "Online", "Volvox og Alkymisten", "Pareto", "EMIL", "Nabla", "Delta", "Janus", "AF Smørekoppen", "Mordi", "C++"];
+['$scope', '$routeParams', 'unionService', function($scope, $routeParams, unionService) {
 
   $scope.name = $routeParams.slug;
-  $scope.chosenFraternity = localStorageService.get('fraternity');
+  $scope.unions = [];
+  $scope.chosenUnion = unionService.last();
 
   $scope.modalOpen = false;
   $scope.openModal = function() {
@@ -17,15 +16,20 @@ nitControllers.controller('MainController',
     $scope.modalOpen = false;
   };
 
-  $scope.chooseFraternity = function(fraternity) {
-    $scope.chosenFraternity = fraternity;
-    localStorageService.add('fraternity', fraternity);
+  unionService.findAll().success(function(unions) {
+    $scope.unions = unions;
+  });
+
+  $scope.chooseUnion = function(union) {
+    $scope.chosenUnion = union;
+    unionService.save();
     $scope.closeModal();
   };
 }]);
 
 nitControllers.controller('PageController', ['$scope', '$routeParams', function($scope, $routeParams) {
   console.log($scope.chosenFraternity);
+  console.log($routeParams)
 }]);
 
 nitControllers.controller('AdminController',

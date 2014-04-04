@@ -8,5 +8,9 @@ app.config(function($routeProvider, $locationProvider) {
    .when('/:slug', {
      templateUrl: 'partials/page',
      controller: 'PageController'
-  });
+   })
+   .otherwise({
+     templateUrl: 'partials/front',
+     controller: 'PageController'
+   });
 });
