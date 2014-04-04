@@ -3,7 +3,7 @@ JS=$(shell find app/assets/js -name *.js)
 
 BIN=node_modules/.bin
 VENDORJS=$(shell echo app/assets/vendor/{angular/angular.min.js,angular-local-storage/angular-local-storage.min.js,angular-route/angular-route.min.js,angular-resource/angular-resource.min.js,angular-animate/angular-animate.js})
-VENDORCSS=$(shell echo app/assets/vendor/animate.css/animate.min.css)
+VENDORCSS=$(shell echo app/assets/vendor/{animate.css/animate.min.css,font-awesome/css/font-awesome.min.css})
 
 # Where build files should be stored
 DIST=public
