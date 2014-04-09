@@ -49,7 +49,7 @@ exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       console.log("Login error, handle it!");
-      return res.render('login', { union: req.union });
+      return res.render('login', { union: req.user });
     }
     if (!user) {
       console.log("Handle it..");
@@ -75,7 +75,7 @@ exports.register = function(req, res) {
   Union.register(union, req.body.password, function(err, account) {
     if (err) {
       return res.render('register', {
-        union: union
+        union: user
       });
     }
 

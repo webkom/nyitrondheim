@@ -14,11 +14,15 @@ module.exports = function(app) {
     res.render('partials/' + req.param('partial').replace('.', '/'));
   });
   app.get('/admin', ensureAuthenticated, function(req, res) {
-    res.render('admin');
+    console.log("her: ", req);
+    res.render('admin', {
+      union: req.user,
+      title: 'Artikler'
+    });
   });
   app.get('/login', function(req, res) {
     if (!req.isAuthenticated()) {
-      return res.render('login', { user: req.user });
+      return res.render('login', { union: req.user });
     }
     res.redirect('/admin');
   });
