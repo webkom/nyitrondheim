@@ -28,21 +28,7 @@ html(ng-app='nitApp')
             em(ng-show='chosenUnion != null')  ({{chosenUnion.name}})
             i.fa.fa-bars
 
-      section
-        #grid
-          a(href='/#bo') Finn et sted å bo
-          a(href='/#papir') Skaff deg papirer
-          a(href='/#drikke') Lokalisér polet
-          a(href='/#party') Ha det gøy
-          a.small.training(href='/') Trening
-          a.small.nightclubs(href='/') Utesteder
-          a.small.activities(href='/') Aktiviteter
-          a.small(href='/') Busstilbud
-
-          p.clear
-
-        #content(ng-controller='PageController', ng-view)
-
+      section(ng-controller='PageController', ng-view)
         .no-fraternity-chosen(ng-show='chosenUnion == null') Du har ikke valgt noen linjeforening.
 
       footer

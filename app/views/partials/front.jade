@@ -1,5 +1,18 @@
-h2 {{chosenUnion.name}}
 
-ul.articles
-  li(ng-repeat='article in articles')
-    strong {{article.title}}
+#grid
+  a(href='/#bo') Finn et sted å bo
+  a(href='/#papir') Skaff deg papirer
+  a(href='/#drikke') Lokalisér polet
+  a(href='/#party') Ha det gøy
+  a.small.training(href='/') Trening
+  a.small.nightclubs(href='/') Utesteder
+  a.small.activities(href='/') Aktiviteter
+  a.small(href='/') Busstilbud
+
+  p.clear
+
+  h2 Spesifikke artikler for {{chosenUnion.name}}
+
+  a.small(ng-repeat='article in articles', href='/#/{{article.slug}}') {{article.title}}
+
+  p.clear

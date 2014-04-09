@@ -18,10 +18,6 @@ a
   color #444
   cursor pointer
 
-centered()
-  max-width 960px
-  margin 0 auto
-
 body
   font-family $font-family
   color #444
@@ -29,7 +25,6 @@ body
   font-size 16px
   background url('/images/brygga1.png') fixed
   background-size cover
-  position relative
 
 #top-bar
   background rgba(0, 0, 0, .6)
@@ -40,7 +35,8 @@ body
     color #ccc
 
 #container
-  centered()
+  max-width 960px
+  margin 0 auto
 
 header
   height 150px
@@ -124,8 +120,20 @@ section
         line-height @height
         background rgba(0, 0, 0, .8)
 
+  h2
+    border-bottom 2px solid #ddd
+    font-size 24px
+    font-weight 700
+    text-align left
+    margin 20px 0
+
 #content
   background #fff
+  border-radius 5px
+
+  h2
+    font-size 20px
+    font-weight 700
 
 footer
   clear both
@@ -179,3 +187,7 @@ h2#fraternity
   // Ghetto-CSS, just to put up a
   margin-top -4%
   float right
+
+
+.back
+  text-align center

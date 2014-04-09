@@ -1,7 +1,7 @@
 var nitControllers = angular.module('nitControllers', []);
 
 nitControllers.controller('MainController',
-['$scope', '$routeParams', 'unionService', function($scope, $routeParams, unionService) {
+  ['$scope', '$routeParams', 'unionService', function($scope, $routeParams, unionService) {
 
   $scope.name = $routeParams.slug;
   $scope.unions = [];
@@ -28,10 +28,19 @@ nitControllers.controller('MainController',
   };
 }]);
 
-nitControllers.controller('PageController', ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
+nitControllers.controller('PageController',
+  ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
+
+  $scope.articles = [];
+  $scope.article  = {};
+  $scope.slug = $routeParams.slug;
+
   $scope.update = function() {
     articleService.findAll($scope.chosenUnion.slug).success(function(articles) {
       $scope.articles = articles;
+      $scope.articles.forEach(function(article) {
+        if (article.slug === $scope.slug) $scope.article = article;
+      });
     });
   };
 
@@ -42,8 +51,10 @@ nitControllers.controller('PageController', ['$scope', '$routeParams', 'articleS
   $scope.update();
 }]);
 
+
 nitControllers.controller('AdminController',
-['$scope', 'articleService', function($scope, articleService) {
+  ['$scope', 'articleService', function($scope, articleService) {
+
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
   $scope.articles = [];
@@ -55,11 +66,10 @@ nitControllers.controller('AdminController',
   };
 
   $scope.findAll = function() {
-    articleService.findAll($scope.union)
-      .success(function (articles) {
-        $scope.articles = articles;
-        $scope.createArticle();
-      });
+    articleService.findAll($scope.union).success(function (articles) {
+      $scope.articles = articles;
+      $scope.createArticle();
+    });
   };
 
   $scope.findAll();
