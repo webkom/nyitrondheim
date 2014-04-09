@@ -24,7 +24,6 @@ app.configure(function() {
 });
 
 var Union = require('./app/models/union.js');
-console.log("UNION?" + Union);
 passport.use(Union.createStrategy());
 passport.serializeUser(Union.serializeUser());
 passport.deserializeUser(Union.deserializeUser());

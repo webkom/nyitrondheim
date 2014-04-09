@@ -41,8 +41,6 @@ nitControllers.controller('AdminController',
   $scope.priorities = _.range(1, 6);
 
   $scope.chooseArticle = function(article) {
-        console.log($scope.testt);
-
     $scope.article = article;
   };
 

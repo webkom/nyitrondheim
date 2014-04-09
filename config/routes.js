@@ -14,7 +14,6 @@ module.exports = function(app) {
     res.render('partials/' + req.param('partial').replace('.', '/'));
   });
   app.get('/admin', ensureAuthenticated, function(req, res) {
-    console.log("her: ", req);
     res.render('admin', {
       union: req.user,
       title: 'Artikler'
