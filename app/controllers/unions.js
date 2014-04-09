@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
-  , Union    = require('../models/union');
+  , Union    = require('../models/union')
+  , passport = require('passport');
 
 var nameOrId = function(value) {
   if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
@@ -33,5 +34,37 @@ exports.create = function(req, res) {
   union.save(function(err) {
     if (err) return handleError(err, req, res);
     res.send(201, union);
+  });
+};
+
+exports.login = function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      console.log("Login error, handle it!");
+      return res.render('login', { name: name});
+    }
+    if (!user) {
+      return res.render('login');
+    }
+    res.redirect('/admin');
+  })(req, res, next);
+};
+
+exports.logout = function(req, res) {
+  req.logout();
+  res.redirect('/');
+};
+
+exports.register = function(req, res) {
+  var union = new Union({ name: req.body.name });
+
+  Union.register(union, req.body.password, function(err, account) {
+    if (err) {
+      return res.render('register', { name: name });
+    }
+
+    passport.authenticate('local')(req, res, function() {
+      res.redirect('/admin');
+    });
   });
 };
