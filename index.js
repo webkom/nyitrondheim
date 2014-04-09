@@ -12,8 +12,10 @@ app.configure(function() {
   app.set('mongourl', process.env.MONGO_URL || 'mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
   app.use(express.urlencoded());
   app.use(express.json());
-  app.use(express.cookieParser('testsecret'));
-  app.use(express.session());
+  app.use(express.cookieParser('cookiesecret'));
+  app.use(express.session({
+    cookie: { maxAge : 3600000*24*30*12} // A year of cookies :)
+  }));
   app.use(passport.initialize());
   app.use(passport.session());
 
