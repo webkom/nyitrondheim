@@ -29,22 +29,25 @@ nitControllers.controller('MainController',
 
 nitControllers.controller('PageController', ['$scope', '$routeParams', function($scope, $routeParams) {
   console.log($scope.chosenFraternity);
-  console.log($routeParams)
+  console.log($routeParams);
 }]);
 
 nitControllers.controller('AdminController',
 ['$scope', 'Article', function($scope, Article) {
-  $scope.union = '533ddf1d704547f33ef1df98'; // test
+  $scope.union = union._id;
 
   $scope.articles = [];
   $scope.article = {priority: 1};
   $scope.priorities = _.range(1, 6);
 
   $scope.chooseArticle = function(article) {
+        console.log($scope.testt);
+
     $scope.article = article;
   };
 
   $scope.findAll = function() {
+
     Article.findAll($scope.union)
       .success(function (articles) {
         $scope.articles = articles;

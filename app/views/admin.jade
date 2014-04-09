@@ -4,14 +4,14 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='/app.css')
 
-  body(ng-controller='AdminController')
+  body(ng-controller='AdminController', ng-init='testt="#{title}"')
     #top-bar
       div
         p Velkommen til Trondheim!
 
     #container
       header
-        h1(style="color: #fff; margin-top: 50px") Test
+        h1(style='color: #fff; margin-top: 50px') #{title}
 
       section
         ul#admin-article-list
@@ -42,5 +42,7 @@ html(ng-app='nitApp')
           button.btn.btn-primary(ng-click='saveArticle(article)') Send
           button.btn.btn-danger(ng-click='destroyArticle(article)', ng-hide='!article._id') Delete
 
+    script.
+      union = !{JSON.stringify(union)}
     script(src='/vendor.js')
     script(src='/app.js')
