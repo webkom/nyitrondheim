@@ -29,6 +29,14 @@ exports.show = function(req, res) {
   });
 };
 
+exports.new = function(req, res) {
+  var union = new Union({});
+  res.render('register', {
+    title: 'Registrer',
+    union: union
+  });
+};
+
 exports.create = function(req, res) {
   var union = new Union({name: req.body.name, description: req.body.description});
   union.save(function(err) {
@@ -41,12 +49,18 @@ exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
       console.log("Login error, handle it!");
-      return res.render('login', { name: name});
+      return res.render('login', { union: req.union });
     }
     if (!user) {
+      console.log("Handle it..");
       return res.render('login');
     }
-    res.redirect('/admin');
+    req.logIn(user, function(err) {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/admin');
+    });
   })(req, res, next);
 };
 
@@ -60,7 +74,9 @@ exports.register = function(req, res) {
 
   Union.register(union, req.body.password, function(err, account) {
     if (err) {
-      return res.render('register', { name: name });
+      return res.render('register', {
+        union: union
+      });
     }
 
     passport.authenticate('local')(req, res, function() {

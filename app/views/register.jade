@@ -18,7 +18,7 @@ html
       section
         form(method='post', action='/register', role='form')
           .form-group
-            input.form-control(type='text', name='name', placeholder='Linjeforeningsnavn')=name
+            input.form-control(type='text', name='name', placeholder='Linjeforeningsnavn', value=union.name)
           .form-group
             input.form-control(type='password', name='password', placeholder='Passord')
 
