@@ -24,16 +24,26 @@ nitControllers.controller('MainController',
     $scope.chosenUnion = union;
     unionService.save(union);
     $scope.closeModal();
+    $scope.$broadcast('union:changed', union);
   };
 }]);
 
-nitControllers.controller('PageController', ['$scope', '$routeParams', function($scope, $routeParams) {
-  console.log($scope.chosenFraternity);
-  console.log($routeParams)
+nitControllers.controller('PageController', ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
+  $scope.update = function() {
+    articleService.findAll($scope.chosenUnion.slug).success(function(articles) {
+      $scope.articles = articles;
+    });
+  };
+
+  $scope.$on('union:changed', function(e) {
+    $scope.update();
+  });
+
+  $scope.update();
 }]);
 
 nitControllers.controller('AdminController',
-['$scope', 'Article', function($scope, Article) {
+['$scope', 'articleService', function($scope, articleService) {
   $scope.union = '533ddf1d704547f33ef1df98'; // test
 
   $scope.articles = [];
@@ -45,7 +55,7 @@ nitControllers.controller('AdminController',
   };
 
   $scope.findAll = function() {
-    Article.findAll($scope.union)
+    articleService.findAll($scope.union)
       .success(function (articles) {
         $scope.articles = articles;
         $scope.createArticle();
@@ -59,7 +69,7 @@ nitControllers.controller('AdminController',
   };
 
   $scope.saveArticle = function(article) {
-    Article.save($scope.union, article).success(function(data) {
+    articleService.save($scope.union, article).success(function(data) {
       if (!article._id) {
         $scope.articles.push(data);
         $scope.createArticle();
@@ -72,7 +82,7 @@ nitControllers.controller('AdminController',
   };
 
   $scope.destroyArticle = function(article) {
-    Article.destroy($scope.union, article).success(function(data) {
+    articleService.destroy($scope.union, article).success(function(data) {
       $scope.articles.splice($scope.articles.indexOf($scope.article), 1);
       $scope.article = {};
     });

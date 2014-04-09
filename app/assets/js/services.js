@@ -2,7 +2,7 @@ var nitServices = angular.module('nitServices', ['ngResource', 'LocalStorageModu
 
 var urlBase = '/api/unions/';
 
-nitServices.factory('Article', ['$http', function($http) {
+nitServices.factory('articleService', ['$http', function($http) {
   var error = function() {
     console.log(arguments);
     alert("Error", arguments);
