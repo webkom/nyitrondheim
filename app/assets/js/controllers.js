@@ -22,7 +22,7 @@ nitControllers.controller('MainController',
 
   $scope.chooseUnion = function(union) {
     $scope.chosenUnion = union;
-    unionService.save();
+    unionService.save(union);
     $scope.closeModal();
   };
 }]);

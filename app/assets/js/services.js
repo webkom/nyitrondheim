@@ -1,4 +1,4 @@
-var nitServices = angular.module('nitServices', ['ngResource']);
+var nitServices = angular.module('nitServices', ['ngResource', 'LocalStorageModule']);
 
 var urlBase = '/api/unions/';
 
