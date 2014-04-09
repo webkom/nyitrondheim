@@ -1,6 +1,7 @@
-var mongoose   = require('mongoose')
-  , slug       = require('mongoose-slug')
-  , Schema     = mongoose.Schema;
+var mongoose              = require('mongoose')
+  , slug                  = require('mongoose-slug')
+  , Schema                = mongoose.Schema
+  , passportLocalMongoose = require('passport-local-mongoose');
 
 var unionSchema = new Schema({
   name: {
@@ -16,8 +17,6 @@ var unionSchema = new Schema({
   largeImage: String
 });
 
-unionSchema.plugin(slug('name'));
-
 unionSchema.statics = {
 
   findById: function(id, cb) {
@@ -28,5 +27,10 @@ unionSchema.statics = {
     return this.findOne({name: name}).exec(cb);
   },
 };
+
+unionSchema.plugin(passportLocalMongoose, {
+  usernameField: 'name'
+});
+unionSchema.plugin(slug('name'));
 
 module.exports = mongoose.model('Union', unionSchema);
