@@ -51,12 +51,10 @@ nitControllers.controller('PageController',
   $scope.update();
 }]);
 
-
 nitControllers.controller('AdminController',
   ['$scope', 'articleService', function($scope, articleService) {
 
-  $scope.union = '533ddf1d704547f33ef1df98'; // test
-
+  $scope.union = union._id;
   $scope.articles = [];
   $scope.article = {priority: 1};
   $scope.priorities = _.range(1, 6);
