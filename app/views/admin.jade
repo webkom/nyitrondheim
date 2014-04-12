@@ -14,33 +14,36 @@ html(ng-app='nitApp')
         h1(style='color: #fff; margin-top: 50px') #{title}
 
       section
-        ul#admin-article-list
-          li#new-article
-            a(href='', ng-click='createArticle()') Ny artikkel
-          li(ng-repeat='article in articles')
-            a(href='', ng-click='chooseArticle(article)') {{article.title}}
+        .row
+          .col-xs-3.admin-article-sidebar
+            ul#admin-article-list
+              li.new-article-li(ng-click='createArticle()', ng-class='{"selected-article": selectedIndex==0}') Ny artikkel
+              li.article-li(ng-repeat='article in articles',
+                ng-click='chooseArticle(article, $index + 1)',
+                ng-class='{"selected-article": selectedIndex==($index+1)}') {{article.title}}
 
-        form(method='post', action=action, role='form')
+          .col-xs-9.admin-article-main
+            form(method='post', action=action, role='form')
 
-          .form-group
-            label(for='title') Tittel
-            input.form-control#title(type='text', name='title', placeholder='Title',
-                                     value='{{article.title}}', ng-model='article.title' required)
-          .form-group
-            label(for='priority') Prioritet
-            select.form-control#priority(name='priority', ng-options='option for option in priorities',
-                                         ng-model='article.priority' required)
-          .form-group
-            label(for='description') Beskrivelse
-            textarea.form-control#description(rows='2', name='description', placeholder='Description',
-                                              ng-model='article.description' required)='{{article.description}}'
-          .form-group
-            label(for='body') Tekst
-            textarea.form-control#text-body(rows='5', name='body', placeholder='Body',
-                                            ng-model='article.body' required)='{{article.body}}'
+              .form-group
+                label(for='title') Tittel
+                input.form-control#title(type='text', name='title', placeholder='Title',
+                                         value='{{article.title}}', ng-model='article.title' required)
+              .form-group
+                label(for='priority') Prioritet
+                select.form-control#priority(name='priority', ng-options='option for option in priorities',
+                                             ng-model='article.priority' required)
+              .form-group
+                label(for='description') Beskrivelse
+                textarea.form-control#description(rows='2', name='description', placeholder='Description',
+                                                  ng-model='article.description' required)='{{article.description}}'
+              .form-group
+                label(for='body') Tekst
+                textarea.form-control#text-body(rows='5', name='body', placeholder='Body',
+                                                ng-model='article.body' required)='{{article.body}}'
 
-          button.btn.btn-primary(ng-click='saveArticle(article)') Send
-          button.btn.btn-danger(ng-click='destroyArticle(article)', ng-hide='!article._id') Delete
+              button.btn.btn-primary(ng-click='saveArticle(article)') Send
+              button.btn.btn-danger(ng-click='destroyArticle(article)', ng-hide='!article._id') Delete
 
     script.
       union = !{JSON.stringify(union)}

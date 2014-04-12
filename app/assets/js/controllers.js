@@ -59,7 +59,8 @@ nitControllers.controller('AdminController',
   $scope.article = {priority: 1};
   $scope.priorities = _.range(1, 6);
 
-  $scope.chooseArticle = function(article) {
+  $scope.chooseArticle = function(article, selectedIndex) {
+    $scope.selectedIndex = selectedIndex;
     $scope.article = article;
   };
 
@@ -73,6 +74,7 @@ nitControllers.controller('AdminController',
   $scope.findAll();
 
   $scope.createArticle = function() {
+    $scope.selectedIndex = 0;
     $scope.article = {priority: 1};
   };
 
