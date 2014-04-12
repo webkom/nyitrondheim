@@ -1,6 +1,6 @@
 var articles  = require('../app/controllers/articles')
   , unions    = require('../app/controllers/unions')
-  , Union     = require('../app/models/union.js')
+  , Union     = require('../app/models/union')
   , passport  = require('passport');
 
 module.exports = function(app) {
