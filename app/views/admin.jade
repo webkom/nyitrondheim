@@ -42,8 +42,10 @@ html(ng-app='nitApp')
                 textarea.form-control#text-body(rows='5', name='body', placeholder='Body',
                                                 ng-model='article.body' required)='{{article.body}}'
 
-              button.btn.btn-primary(ng-click='saveArticle(article)') Send
-              button.btn.btn-danger(ng-click='destroyArticle(article)', ng-hide='!article._id') Delete
+              button.btn.btn-primary(ng-click='saveArticle(article)', ng-hide='article._id') Send
+              .btn-group(ng-hide='!article._id')
+                button.btn.btn-primary(ng-click='saveArticle(article)') Send
+                button.btn.btn-danger(ng-click='destroyArticle(article)') Slett
 
     script.
       union = !{JSON.stringify(union)}
