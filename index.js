@@ -1,32 +1,35 @@
 var express       = require('express')
+  , bodyParser    = require('body-parser')
+  , cookieParser  = require('cookie-parser')
+  , session       = require('express-session')
   , app           = module.exports = express()
   , mongoose      = require('mongoose')
   , passport      = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
-app.configure(function() {
-  app.disable('x-powered-by');
-  app.set('port', process.env.PORT || 3000);
-  app.set('view engine', 'jade');
-  app.set('views', __dirname + '/app/views');
-  app.set('mongourl', process.env.MONGO_URL || 'mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
-  app.use(express.urlencoded());
-  app.use(express.json());
-  app.use(express.cookieParser('cookiesecret'));
-  app.use(express.session({
-    cookie: { maxAge : 3600000*24*30*12} // A year of cookies :)
-  }));
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.disable('x-powered-by');
+app.set('port', process.env.PORT || 3000);
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/app/views');
+app.set('mongourl', process.env.MONGO_URL || 'mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
 
-  app.use(express.static(__dirname + '/public'));
-  app.locals.pretty = true;
-});
+app.use(bodyParser());
+app.use(cookieParser('cookiesecret'));
+app.use(session({
+  cookie: { maxAge : 3600000*24*30*12} // A year of cookies :)
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(express.static(__dirname + '/public'));
+app.locals.pretty = true;
 
 var Union = require('./app/models/union.js');
 passport.use(Union.createStrategy());
 passport.serializeUser(Union.serializeUser());
 passport.deserializeUser(Union.deserializeUser());
+
 mongoose.connect(app.get('mongourl'));
 
 mongoose.connection.on('error', function(err) {

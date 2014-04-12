@@ -12,14 +12,16 @@
     "stylus": "*",
     "jade": "*",
     "nib": "*",
-    "express": "*",
+    "express": "~4.0.0",
     "superagent": "~0.17.0",
     "mongoose": "*",
     "mongoose-slug": "*",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
     "passport-local-mongoose": "~0.3.0",
-    "cookie-parser": "~1.0.1"
+    "cookie-parser": "~1.0.1",
+    "express-session": "~1.0.2",
+    "body-parser": "~1.0.1"
   },
   "devDependencies": {
     "supervisor": "^0.5.7",
