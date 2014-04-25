@@ -31,11 +31,15 @@ nitControllers.controller('MainController',
 nitControllers.controller('PageController',
   ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
   $scope.article = {};
-  $scope.slug = $routeParams.slug;
+
+  var slugSegments = ($routeParams.slug || '').split('/');
+  $scope.slug = slugSegments.pop();
+  $scope.isGeneral = slugSegments[0] === 'generelt';
 
   $scope.update = function() {
     if ($scope.slug) {
-      articleService.findBySlug($scope.chosenUnion._id, $scope.slug).success(function(article) {
+      var union = $scope.isGeneral ? 'general' : $scope.chosenUnion._id;
+      articleService.findBySlug(union, $scope.slug).success(function(article) {
         $scope.article = article;
       });
     }
