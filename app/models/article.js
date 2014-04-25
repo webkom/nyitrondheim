@@ -43,20 +43,21 @@ articleSchema.plugin(slug('title'));
 articleSchema.statics = {
 
   findBySlug: function (slug, unionId, cb){
-    this
-      .find({slug: slug, union: unionId})
-      .sort('-priority')
-      .exec(cb);
+    if (unionId.match(/^[0-9a-fA-F]{24}$/))
+      return this.find({slug: slug, union: unionId}).sort('-priority').exec(cb);
+
+    Union.findByName(unionId, function(err, union) {
+      return this.find({slug: slug, union: union}).sort('-priority').exec(cb);
+    }.bind(this));
   },
 
   listUnionArticles: function(limit, unionId, cb) {
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
       return this.find({union: unionId}).sort('-priority').limit(limit).exec(cb);
 
-    var that = this;
     Union.findByName(unionId, function(err, union) {
-      return that.find({union: union}).sort('-priority').limit(limit).exec(cb);
-    });
+      return this.find({union: union}).sort('-priority').limit(limit).exec(cb);
+    }.bind(this));
   }
 };
 

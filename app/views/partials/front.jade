@@ -1,18 +1,18 @@
 
 #grid
-  a(href='/#bo') Finn et sted å bo
-  a(href='/#papir') Skaff deg papirer
-  a(href='/#drikke') Lokalisér polet
-  a(href='/#party') Ha det gøy
-  a.small.training(href='/') Trening
-  a.small.nightclubs(href='/') Utesteder
-  a.small.activities(href='/') Aktiviteter
-  a.small(href='/') Busstilbud
+  a(href='/bo') Finn et sted å bo
+  a(href='/papir') Skaff deg papirer
+  a(href='/drikke') Lokalisér polet
+  a(href='/party') Ha det gøy
+  a.small.training(href='/generelt/trening') Trening
+  a.small.nightclubs(href='/generelt/utesteder') Utesteder
+  a.small.activities(href='/generelt/aktiviteter') Aktiviteter
+  a.small(href='/generelt/busstilbud') Busstilbud
 
   p.clear
 
   h2 Spesifikke artikler for {{chosenUnion.name}}
 
-  a.small(ng-repeat='article in articles', href='/#/{{article.slug}}') {{article.title}}
+  a.small(ng-repeat='article in articles', href='/{{article.slug}}') {{article.title}}
 
   p.clear

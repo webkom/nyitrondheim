@@ -43,6 +43,10 @@ mongoose.connection.on('disconnect', function() {
 
 require('./config/routes')(app);
 
+app.get('*', function(req, res) {
+  res.render('index');
+});
+
 app.listen(app.get('port'), function() {
   console.log('Listening on %d', app.get('port'));
 });
