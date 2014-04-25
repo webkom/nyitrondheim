@@ -30,17 +30,32 @@ nitControllers.controller('MainController',
 
 nitControllers.controller('PageController',
   ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
+  $scope.article = {};
+  $scope.slug = $routeParams.slug;
+
+  $scope.update = function() {
+    if ($scope.slug) {
+      articleService.findBySlug($scope.chosenUnion._id, $scope.slug).success(function(article) {
+        $scope.article = article;
+      });
+    }
+  };
+
+  $scope.$on('union:changed', function() {
+    $scope.update();
+  });
+
+  $scope.update();
+}]);
+
+nitControllers.controller('PagesController',
+  ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
 
   $scope.articles = [];
-  $scope.article  = {};
-  $scope.slug = $routeParams.slug;
 
   $scope.update = function() {
     articleService.findAll($scope.chosenUnion.slug).success(function(articles) {
       $scope.articles = articles;
-      $scope.articles.forEach(function(article) {
-        if (article.slug === $scope.slug) $scope.article = article;
-      });
     });
   };
 

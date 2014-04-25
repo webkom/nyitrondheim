@@ -4,6 +4,7 @@ require('./controllers');
 var app = angular.module('nitApp', ['ngRoute', 'ngAnimate', 'nitControllers', 'nitServices']);
 
 app.config(function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
   $routeProvider
    .when('/:slug', {
      templateUrl: 'partials/page',
@@ -11,6 +12,7 @@ app.config(function($routeProvider, $locationProvider) {
    })
    .otherwise({
      templateUrl: 'partials/front',
-     controller: 'PageController'
+     controller: 'PagesController'
    });
+
 });

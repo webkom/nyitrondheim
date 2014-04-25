@@ -5,7 +5,6 @@ var urlBase = '/api/unions/';
 nitServices.factory('articleService', ['$http', function($http) {
   var error = function() {
     console.log(arguments);
-    alert("Error", arguments);
   };
 
   return {
