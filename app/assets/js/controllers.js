@@ -28,6 +28,11 @@ nitControllers.controller('MainController',
   };
 }]);
 
+nitControllers.controller('CalendarController',
+  ['$scope', 'articleService', function($scope, articleService) {
+
+}]);
+
 nitControllers.controller('PageController',
   ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
 

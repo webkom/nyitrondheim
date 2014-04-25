@@ -1,0 +1,27 @@
+html(ng-app='nitApp')
+  head
+    meta(charset='utf-8')
+    link(rel='stylesheet', href='/app.css')
+    link(rel='stylesheet', href='/vendor.css')
+
+  body(ng-controller='CalendarController')
+    #top-bar
+      div
+        p Velkommen til Trondheim!
+
+    #container
+      header
+        h1(style='color: #fff; margin-top: 50px') #{title}
+
+      section
+        #calendar(dhx-scheduler, data='events')
+          .dhc_cal_prev_button &nbsp;
+          .dhl_cal_next_button &nbsp;
+          .dhl_cal_today_button
+          .dhx_cal_date
+          .dhx_cal_tab(name='day_tab')
+          .dhx_cal_tab(name='week_tab')
+          .dhx_cal_tab(name='month_tab')
+
+    script(src='/vendor.js')
+    script(src='/app.js')
