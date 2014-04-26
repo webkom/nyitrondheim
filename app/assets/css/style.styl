@@ -203,29 +203,56 @@ h2#fraternity
 .back
   text-align center
 
+#admin-article-list
+  overflow-y scroll
+  max-height 200px
+  .article-li
+  .new-article-li
+    border-bottom 1px solid #ddd
 
-.article-li
-.new-article-li
-  border-bottom 1px solid #ddd
+  .article-li:hover
+  .new-article-li:hover
+    cursor pointer
 
-.article-li:hover
-.new-article-li:hover
-  cursor pointer
+  .article-li.selected-article
+  .new-article-li.selected-article
+    transition:background .25s ease-in
+    background rgba(253,27,45, 0.1)
 
-.article-li.selected-article
-.new-article-li.selected-article
-  transition:background .25s ease-in
-  background rgba(253,27,45, 0.1)
+  .new-article-li
+    font-size 1.1em
+    color #B62121
 
-.new-article-li
-  font-size 1.1em
-  color #B62121
+  .new-article-li:hover
+    color #d65959
 
-.new-article-li:hover
-  color #d65959
+  .article-li:hover
+    color #666
 
-.article-li:hover
-  color #666
+#admin-event-list
+  margin-top 10px
+  .event-li
+  .new-event-li
+    border-bottom 1px solid #ddd
+
+  .event-li:hover
+  .new-event-li:hover
+    cursor pointer
+
+  .event-li.selected-event
+  .new-event-li.selected-event
+    transition:background .25s ease-in
+    background rgba(34, 85, 51, 0.1)
+
+  .new-event-li
+    font-size 1.1em
+    color #007412
+
+  .new-event-li:hover
+    color #008715
+
+  .event-li:hover
+    color #666
 
 .admin-article-main
   border-left 2px solid #ddd
@@ -235,3 +262,7 @@ h2#fraternity
   height 70%
   border-radius 1.5%
   opacity 0.75
+
+.date
+  #to-date
+    margin-left 10px
