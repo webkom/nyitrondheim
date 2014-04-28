@@ -11,7 +11,7 @@ exports.load = function(req, res, next, id) {
   Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
     if (err) return handleError(err, req, res);
     req.article = article[0];
-    if (!req.article) return res.send(404, {message: "Article Not Found"});
+    if (!req.article) return res.send(404, {message: 'Article Not Found'});
     next();
   });
 };
@@ -28,6 +28,13 @@ exports.getUnionArticles = function(req, res) {
   });
 };
 
+exports.getUnionEvents = function(req, res) {
+  var limit = req.query.limit|0;
+  Article.listUnionEvents(limit, req.params.union, function(err, articles) {
+    if (err) return handleError(err, req, res);
+    res.send(articles);
+  });
+}
 exports.create = function(req, res) {
   var article = new Article(req.body);
   article.union = req.params.union;

@@ -31,8 +31,9 @@ html(ng-app='nitApp')
                   ng-click='chooseArticle(event, $index + articles.length + 1)',
                   ng-class='{"selected-event": selectedIndex==($index+1+articles.length)}') {{event.title}}
 
-          .col-xs-9.admin-article-main(ng-switch='!article.event')
-            form(name='articleForm', role='form', ng-switch-when='true')
+          .col-xs-9.admin-article-main
+
+            form(name='articleForm', role='form')
               .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
                 label(for='title') Tittel
                 input.form-control#title(type='text', name='title', placeholder='Title',
@@ -50,53 +51,25 @@ html(ng-app='nitApp')
                 textarea.form-control#text-body(rows='5', name='body', placeholder='Body',
                                                 ng-model='article.body' required)='{{article.body}}'
 
-              div(ng-switch='articleForm.$valid')
+              div(ng-switch='article.event')
                 div(ng-switch-when='true')
-                  button.btn.btn-primary(ng-click='saveArticle(article)', ng-hide='article._id') Send
-                  .btn-group(ng-hide='!article._id')
-                    button.btn.btn-primary(ng-click='saveArticle(article)') Send
-                    button.btn.btn-danger(ng-click='destroyArticle(article)') Slett
-                div(ng-switch-default)
-                  button.btn.btn-primary.disabled(ng-click='saveArticle(article)', ng-hide='article._id') Fyll inn all feltene!
-                  .btn-group(ng-hide='!article._id')
-                    button.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
-                    button.btn.btn-danger(ng-click='destroyArticle(article)') Slett
-
-            form(name='articleForm', role='form', ng-switch-when='false')
-              .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
-                label(for='title') Tittel
-                input.form-control#title(type='text', name='title', placeholder='Title',
-                                         value='{{article.title}}', ng-model='article.title' required)
-              .form-group(ng-class='{"has-warning": articleForm.priority.$invalid, "has-success": articleForm.priority.$valid}')
-                label(for='priority') Prioritet
-                select.form-control#priority(name='priority', ng-options='option for option in priorities',
-                                             ng-model='article.priority' required)
-              .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
-                label(for='description') Beskrivelse
-                textarea.form-control#description(rows='2', name='description', placeholder='Description',
-                                                  ng-model='article.description' required)='{{article.description}}'
-              .form-group(ng-class='{"has-warning": articleForm.body.$invalid, "has-success": articleForm.body.$valid}')
-                label(for='body') Tekst
-                textarea.form-control#text-body(rows='5', name='body', placeholder='Body',
-                                                ng-model='article.body' required)='{{article.body}}'
-
-              .form-group
-                label Dato
-                  .date
-                    quick-datepicker#from-date(name='startDate', ng-model='article.startDate', placeholder='Startdato', required=true)
-                    quick-datepicker#to-date(name='endDate', ng-model='article.fdsa', placeholder='Sluttdato', required=true)
-              .form-group
-                .form-inline
-                  label(for='time') Tidspunkt
-                    .time
-                      .form-group(ng-class='{"has-error": articleForm.startTime.$error.pattern, "has-success": !articleForm.startTime.$error.pattern && articleForm.startTime.$valid}')
-                        input.form-control(validateTime, name='startTime', ng-model='article.startTime',
-                          ng-pattern='/^[0-9]{1,2}:[0-9]{2}$/' placeholder='Starttidspunkt (hh:mm)',
-                          ng-class='{"has-error": articleForm.startTime.$error.pattern}', required)
-                      .form-group(ng-class='{"has-error": articleForm.endTime.$error.pattern, "has-success": !articleForm.endTime.$error.pattern && articleForm.endTime.$valid}')
-                        input.form-control(validateTime, name='endTime', ng-model='article.endTime',
-                          ng-pattern='/^[0-9]{1,2}:[0-9]{2}$/' placeholder='Sluttidspunkt (hh:mm)',
-                          required)
+                  .form-group
+                    label Dato
+                      .date
+                        quick-datepicker#from-date(name='startDate', ng-model='article.startDate', placeholder='Startdato')
+                        quick-datepicker#to-date(name='endDate', ng-model='article.endDate', placeholder='Sluttdato')
+                  .form-group
+                    .form-inline
+                      label(for='time') Tidspunkt
+                        .time
+                          .form-group(ng-class='{"has-error": articleForm.startTime.$error.pattern, "has-success": !articleForm.startTime.$error.pattern && articleForm.startTime.$valid}')
+                            input.form-control(validateTime, name='startTime', ng-model='article.startTime',
+                              ng-pattern='/^[0-9]{1,2}:[0-9]{2}$/' placeholder='Starttidspunkt (hh:mm)',
+                              ng-class='{"has-error": articleForm.startTime.$error.pattern}', required)
+                          .form-group(ng-class='{"has-error": articleForm.endTime.$error.pattern, "has-success": !articleForm.endTime.$error.pattern && articleForm.endTime.$valid}')
+                            input.form-control(validateTime, name='endTime', ng-model='article.endTime',
+                              ng-pattern='/^[0-9]{1,2}:[0-9]{2}$/' placeholder='Sluttidspunkt (hh:mm)',
+                              required)
 
               div(ng-switch='articleForm.$valid')
                 div(ng-switch-when='true')

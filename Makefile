@@ -2,8 +2,8 @@ STYL=$(shell find app/assets/css -name '*.styl')
 JS=$(shell find app/assets/js -name '*.js')
 
 BIN=node_modules/.bin
-VENDORJS=$(shell echo app/assets/vendor/{angular/angular.min.js,angular-local-storage/angular-local-storage.min.js,angular-route/angular-route.min.js,angular-resource/angular-resource.min.js,angular-animate/angular-animate.js,lodash/dist/lodash.min.js,scheduler/sources/dhtmlxscheduler.js,scheduler/sources/locale/locale_nb.js})
-VENDORCSS=$(shell echo app/assets/vendor/{animate.css/animate.min.css,scheduler/sources/dhtmlxscheduler.css})
+VENDORJS=$(shell echo app/assets/vendor/{angular/angular.min.js,angular-local-storage/angular-local-storage.min.js,angular-route/angular-route.min.js,angular-resource/angular-resource.min.js,angular-animate/angular-animate.js,lodash/dist/lodash.min.js,scheduler/sources/dhtmlxscheduler.js,scheduler/sources/locale/locale_nb.js,ngQuickDate/dist/ng-quick-date.js})
+VENDORCSS=$(shell echo app/assets/vendor/{animate.css/animate.min.css,scheduler/sources/dhtmlxscheduler.css,ngQuickDate/dist/ng-quick-date.css,ngQuickDate/dist/ng-quick-date-plus-default-theme.css})
 
 # Where build files should be stored
 DIST=public

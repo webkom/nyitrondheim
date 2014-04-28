@@ -29,8 +29,28 @@ nitControllers.controller('MainController',
 }]);
 
 nitControllers.controller('CalendarController',
-  ['$scope', 'articleService', function($scope, articleService) {
-
+  ['$scope', 'articleService', 'unionService', function($scope, articleService, unionService) {
+  articleService.findAllEvents(unionService.last()).success(function(events) {
+    $scope.unionEvents = events.map(function(e) {
+      return {
+        id: e._id,
+        text: e.title,
+        start_date: e.fromDate,
+        to_date: e.toDate
+      };
+    });
+  });
+  articleService.findAllEvents('general').success(function(events) {
+    $scope.generalEvents = events.map(function(e) {
+      return {
+        id: e._id,
+        text: e.title,
+        start_date: e.fromDate,
+        to_date: e.toDate
+      };
+    });
+  });
+  $scope.events = $scope.unionEvents.concat($scope.generalEvents);
 }]);
 
 nitControllers.controller('PageController',
@@ -77,20 +97,26 @@ nitControllers.controller('PagesController',
 
 nitControllers.controller('AdminController',
   ['$scope', 'articleService', function($scope, articleService) {
-
+  $scope.selectedDate = new Date('6/22');
   $scope.union = union._id;
   $scope.articles = [];
   $scope.article = {priority: 1};
   $scope.priorities = _.range(1, 6);
 
   $scope.chooseArticle = function(article, selectedIndex) {
+    console.log(article.startDate);
     $scope.selectedIndex = selectedIndex;
     $scope.article = article;
   };
 
   $scope.findAll = function() {
     articleService.findAll($scope.union).success(function (articles) {
-      $scope.articles = articles;
+      $scope.articles = articles.filter(function(article) {
+        return !article.event;
+      });
+      $scope.events = articles.filter(function(article) {
+        return article.event;
+      });
       $scope.createArticle();
     });
   };
@@ -102,11 +128,23 @@ nitControllers.controller('AdminController',
     $scope.article = {priority: 1};
   };
 
+  $scope.createEvent = function() {
+    $scope.selectedIndex = $scope.articles.length + 1;
+    $scope.article = {priority: 1, event: true};
+  };
+
   $scope.saveArticle = function(article) {
+    console.log(article);
     articleService.save($scope.union, article).success(function(data) {
       if (!article._id) {
         $scope.articles.push(data);
-        $scope.createArticle();
+        if (article.event) {
+          $scope.events.push(data);
+          $scope.createEvent();
+        }
+        else {
+          $scope.createArticle();
+        }
       }
       else {
         $scope.articles[$scope.articles.indexOf($scope.article)] = data;

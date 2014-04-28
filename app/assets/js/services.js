@@ -13,6 +13,10 @@ nitServices.factory('articleService', ['$http', function($http) {
       return $http.get(urlBase + union + '/articles').error(error);
     },
 
+    findAllEvents: function(union) {
+      return $http.get(urlBase + union + '/events').error(error);
+    },
+
     findBySlug: function(union, slug) {
       return $http.get(urlBase + union + '/articles/' + slug).error(error);
     },
