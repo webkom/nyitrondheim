@@ -53,23 +53,39 @@ html(ng-app='nitApp')
 
               div(ng-switch='article.event')
                 div(ng-switch-when='true')
-                  .form-group
-                    label Dato
-                      .date
-                        quick-datepicker#from-date(name='startDate', ng-model='article.startDate', placeholder='Startdato')
-                        quick-datepicker#to-date(name='endDate', ng-model='article.endDate', placeholder='Sluttdato')
-                  .form-group
-                    .form-inline
-                      label(for='time') Tidspunkt
-                        .time
-                          .form-group(ng-class='{"has-error": articleForm.startTime.$error.pattern, "has-success": !articleForm.startTime.$error.pattern && articleForm.startTime.$valid}')
-                            input.form-control(validateTime, name='startTime', ng-model='article.startTime',
-                              ng-pattern='/^[0-9]{1,2}:[0-9]{2}$/' placeholder='Starttidspunkt (hh:mm)',
-                              ng-class='{"has-error": articleForm.startTime.$error.pattern}', required)
-                          .form-group(ng-class='{"has-error": articleForm.endTime.$error.pattern, "has-success": !articleForm.endTime.$error.pattern && articleForm.endTime.$valid}')
-                            input.form-control(validateTime, name='endTime', ng-model='article.endTime',
-                              ng-pattern='/^[0-9]{1,2}:[0-9]{2}$/' placeholder='Sluttidspunkt (hh:mm)',
-                              required)
+                  .row
+                    .col-md-6
+                      label Dato
+                    .col-md-6
+                      label Tidspunkt
+                  .row
+                    .col-md-6
+                      .form-group(ng-class='{"has-warning": articleForm.startDate.$invalid, "has-success": articleForm.startDate.$valid}')
+                        .input-group
+                          input.form-control(name='startDate', type='text', is-open='$parent.opened1', datepicker-popup='dd/MM/yyyy', ng-model='article.start', min='today', required)
+                          span.input-group-btn
+                            button.btn.btn-default(type='button', ng-click='open($event, "opened1")') Startdato
+                    .col-md-6
+                      .form-group(ng-class='{"has-warning": articleForm.startTime.$invalid, "has-error": articleForm.startTime.$error.pattern, "has-success": !articleForm.startTime.$error.pattern && articleForm.startTime.$valid}')
+                        .input-group
+                          input.form-control(name='startTime', ng-model='article.startTime',
+                            ng-pattern='/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/' placeholder='Starttidspunkt (hh:mm)',
+                            ng-class='{"has-error": articleForm.startTime.$error.pattern}', required)
+                          span.input-group-addon Starttidspunkt
+                  .row
+                    .col-md-6
+                      .form-group(ng-class='{"has-warning": articleForm.endDate.$invalid, "has-success": articleForm.endDate.$valid}')
+                        .input-group
+                          input.form-control(name='endDate', type='text', is-open='$parent.opened2', datepicker-popup='dd/MM/yyyy', ng-model='article.end', min='today', required)
+                          span.input-group-btn
+                            button.btn.btn-default(type='button', ng-click='open($event, "opened2")') Sluttdato
+                    .col-md-6
+                      .form-group(ng-class='{"has-warning": articleForm.endTime.$invalid, "has-error": articleForm.endTime.$error.pattern, "has-success": !articleForm.endTime.$error.pattern && articleForm.endTime.$valid}')
+                        .input-group
+                          input.form-control(name='endTime', ng-model='article.endTime',
+                            ng-pattern='/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/' placeholder='Sluttidspunkt (hh:mm)',
+                            required)
+                          span.input-group-addon Sluttidspunkt&nbsp;&nbsp;
 
               div(ng-switch='articleForm.$valid')
                 div(ng-switch-when='true')
