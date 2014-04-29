@@ -229,7 +229,12 @@ nitControllers.controller('AdminController',
 
   $scope.destroyArticle = function(article) {
     articleService.destroy($scope.union, article).success(function(data) {
-      $scope.articles.splice($scope.articles.indexOf($scope.article), 1);
+      if (article.event) {
+        $scope.events.splice($scope.events.indexOf(article), 1);
+      }
+      else {
+        $scope.articles.splice($scope.articles.indexOf(article), 1);
+      }
       $scope.article = {};
     });
   };
