@@ -30,6 +30,7 @@ var articleSchema = new Schema({
   end: Date,
   startTime: String,
   endTime: String,
+  location: String,
   smallImage: String,
   largeImage: String,
   createdAt: {
