@@ -1,7 +1,8 @@
 require('./services');
 require('./controllers');
+require('./directives');
 
-var app = angular.module('nitApp', ['ngRoute', 'ngAnimate', 'nitControllers', 'nitServices']);
+var app = angular.module('nitApp', ['ngRoute', 'ngAnimate', 'nitControllers', 'nitDirectives', 'nitServices', 'ui.calendar', 'ui.bootstrap']);
 
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);

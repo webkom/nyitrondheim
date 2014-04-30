@@ -13,6 +13,9 @@ module.exports = function(app) {
   app.get('/partials/:partial', function(req, res) {
     res.render('partials/' + req.param('partial').replace('.', '/'));
   });
+  app.get('/calendar', function(req, res) {
+    res.render('calendar');
+  });
   app.get('/admin', ensureAuthenticated, function(req, res) {
     res.render('admin', {
       union: req.user,
@@ -39,6 +42,8 @@ module.exports = function(app) {
 
   app.get('/api/unions/:union/articles' , articles.getUnionArticles);
   app.post('/api/unions/:union/articles', ensureAuthenticated, articles.create);
+
+  app.get('/api/unions/:union/events', articles.getUnionEvents);
 
   app.get('/api/unions/:union/articles/:slug', articles.show);
   app.put('/api/unions/:union/articles/:slug', ensureAuthenticated, articles.update);

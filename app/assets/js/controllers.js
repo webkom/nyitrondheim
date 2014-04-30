@@ -28,6 +28,89 @@ nitControllers.controller('MainController',
   };
 }]);
 
+nitControllers.controller('CalendarController',
+  ['$scope', 'articleService', 'unionService', function($scope, articleService, unionService) {
+  $scope.uiConfig = {
+    calendar: {
+      height: 450,
+      editable: false,
+      dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
+      dayNamesShort: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
+      header: {
+        left: 'month agendaWeek agendaDay',
+        center: 'title',
+        right: 'today prev,next'
+      },
+      allDaySlot: true,
+      allDayText: 'all-day',
+      firstHour: 6,
+      slotMinutes: 30,
+      defaultEventMinutes: 120,
+      axisFormat: 'H:mm', //,'h(:mm)tt',
+      timeFormat: 'H:mm',
+      columnFormat: {
+        month: 'ddd',
+        week: 'ddd dd/MM',
+        day: 'dddd dd/MM'
+      },
+      titleFormat: {
+        month: 'MMMM yyyy',
+        week: 'dd. MMM [ yyyy]{ &#8212; dd.[ MMM] yyyy}',
+        day: 'dddd, d. MMM yyyy'
+      },
+      buttonText: {
+        today: 'I dag',
+        month: 'Måned',
+        week: 'Uke',
+        day: 'Dag'
+      },
+      dragOpacity: {
+          agenda: 0.5
+      },
+      minTime: 0,
+      maxTime: 24
+    }
+  };
+
+  $scope.generalEvents = [];
+  $scope.unionEvents = [];
+  $scope.eventSources = [$scope.generalEvents, $scope.unionEvents];
+
+  articleService.findAllEvents(unionService.last()._id)
+    .success(function(events) {
+      events.forEach(function(e) {
+        $scope.unionEvents.push({
+          title: e.title,
+          start: new Date(e.start),
+          end: new Date(e.end),
+          url: '/' + e.slug,
+          allDay: false,
+          color: '#ff7c82'
+        });
+      });
+    })
+    .then(articleService.findAllEvents('general')
+      .success(function(events) {
+        events.forEach(function(e) {
+          $scope.generalEvents.push({
+            title: e.title,
+            start: new Date(e.start),
+            end: new Date(e.end),
+            url: '/' + e.slug,
+            allDay: false,
+            color: '#ff3e4c'
+          });
+        });
+      })
+      .finally(function() {
+        console.log("got to finally", $scope.unionEvents, $scope.generalEvents);
+        $scope.eventSources = [$scope.unionEvents, $scope.generalEvents];
+        console.log("her",$scope.eventSources);
+      })
+    );
+
+}]);
+
 nitControllers.controller('PageController',
   ['$scope', '$routeParams', 'articleService', function($scope, $routeParams, articleService) {
   $scope.article = {};
@@ -72,20 +155,32 @@ nitControllers.controller('PagesController',
 
 nitControllers.controller('AdminController',
   ['$scope', 'articleService', function($scope, articleService) {
-
+  $scope.selectedDate = new Date('6/22');
   $scope.union = union._id;
   $scope.articles = [];
   $scope.article = {priority: 1};
   $scope.priorities = _.range(1, 6);
+  $scope.today = new Date();
 
   $scope.chooseArticle = function(article, selectedIndex) {
     $scope.selectedIndex = selectedIndex;
     $scope.article = article;
   };
 
+  $scope.open = function($event, opened) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope[opened] = true
+  };
+
   $scope.findAll = function() {
     articleService.findAll($scope.union).success(function (articles) {
-      $scope.articles = articles;
+      $scope.articles = articles.filter(function(article) {
+        return !article.event;
+      });
+      $scope.events = articles.filter(function(article) {
+        return article.event;
+      });
       $scope.createArticle();
     });
   };
@@ -97,11 +192,33 @@ nitControllers.controller('AdminController',
     $scope.article = {priority: 1};
   };
 
+  $scope.createEvent = function() {
+    $scope.selectedIndex = $scope.articles.length + 1;
+    $scope.article = {priority: 1, event: true};
+  };
+
   $scope.saveArticle = function(article) {
+    if (article.event) {
+      // Merge times and dates into one:
+      var start = moment(article.start);
+      var end = moment(article.end);
+      start.hour(article.startTime.slice(0, article.startTime.indexOf(':')));
+      start.minutes(article.startTime.slice(article.startTime.indexOf(':')+1));
+      end.hour(article.endTime.slice(0, article.endTime.indexOf(':')));
+      end.minutes(article.endTime.slice(article.endTime.indexOf(':')+1));
+      article.start = start.toDate();
+      article.end = end.toDate();
+    }
     articleService.save($scope.union, article).success(function(data) {
       if (!article._id) {
-        $scope.articles.push(data);
-        $scope.createArticle();
+        if (article.event) {
+          $scope.events.push(data);
+          $scope.createEvent();
+        }
+        else {
+          $scope.articles.push(data);
+          $scope.createArticle();
+        }
       }
       else {
         $scope.articles[$scope.articles.indexOf($scope.article)] = data;
@@ -112,7 +229,12 @@ nitControllers.controller('AdminController',
 
   $scope.destroyArticle = function(article) {
     articleService.destroy($scope.union, article).success(function(data) {
-      $scope.articles.splice($scope.articles.indexOf($scope.article), 1);
+      if (article.event) {
+        $scope.events.splice($scope.events.indexOf(article), 1);
+      }
+      else {
+        $scope.articles.splice($scope.articles.indexOf(article), 1);
+      }
       $scope.article = {};
     });
   };

@@ -23,6 +23,11 @@
     "animate.css": "~3.1.0",
     "angular-resource": "~1.2.16",
     "lodash": "~2.4.1",
-    "angular": "~1.2.16"
+    "scheduler": "~4.0.0",
+    "angular": "~1.2.16",
+    "angular-ui-calendar": "~0.8.1",
+    "momentjs": "~2.6.0",
+    "angular-bootstrap": "~0.10.0",
+    "angular-i18n": "~1.2.16"
   }
 }

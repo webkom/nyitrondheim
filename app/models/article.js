@@ -8,28 +8,29 @@ var mongoose   = require('mongoose')
  * when the article is deleted (use imager).
  */
 var articleSchema = new Schema({
-
   title: {
     type: String,
     required: true
   },
-
   body:  {
     type: String,
     required: true
   },
-
   description: {
     type: String,
     default: ''
   },
-
   union: {
     type: Schema.ObjectId,
     ref: 'Union'
   },
-
   priority: Number,
+  event: Boolean,
+  start: Date,
+  end: Date,
+  startTime: String,
+  endTime: String,
+  location: String,
   smallImage: String,
   largeImage: String,
   createdAt: {
@@ -57,6 +58,15 @@ articleSchema.statics = {
 
     Union.findByName(unionId, function(err, union) {
       return this.find({union: union}).sort('-priority').limit(limit).exec(cb);
+    }.bind(this));
+  },
+
+  listUnionEvents: function(limit, unionId, cb) {
+    if (unionId.match(/^[0-9a-fA-F]{24}$/))
+      return this.find({union: unionId, event: true}).sort('-priority').limit(limit).exec(cb);
+
+    Union.findByName(unionId, function(err, union) {
+      return this.find({union: union, event: true}).sort('-priority').limit(limit).exec(cb);
     }.bind(this));
   }
 };
