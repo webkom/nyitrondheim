@@ -4,6 +4,7 @@
 @import url('http://fonts.googleapis.com/css?family=Open\+Sans:400,700')
 @import url('http://fonts.googleapis.com/css?family=Vollkorn:400,700')
 @import url('http://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('http://fonts.googleapis.com/css?family=Lobster:400,700');
 
 global-reset()
 
@@ -23,18 +24,18 @@ body
   color #444
   line-height 1.8
   font-size 16px
-  background url('/images/brygga1.png') fixed
+  background url('/images/vaattakammen.jpg') fixed
   background-size cover
 
 #top-bar
-  background rgba(0, 0, 0, .6)
+  background rgba(0, 0, 0, .4)
   padding 6px
 
   div
     centered()
     color #ccc
 
-#container
+.middle
   max-width 960px
   margin 0 auto
 
@@ -44,7 +45,7 @@ header
 
 h1
   font-size 40px
-  font-family Montserrat, serif
+  font-family Lobster, Montserrat, serif
   font-weight 700
 
   &.title
@@ -70,55 +71,12 @@ h1
     margin-left 10px
 
 section
-  background rgba(255, 255, 255, .6)
+  background rgba(255, 255, 255, .85)
   padding 40px
   border-radius 20px
 
 #grid
   text-align center
-
-  a
-    color #fff
-    display inline-block
-    height 200px
-    width @height
-    border-radius (@height/2)
-    line-height @height
-    text-align center
-    font-size 20px
-    font-weight bold
-    transition all .5s
-    margin 0 10px 10px 0
-    background rgba(47, 55, 65, .9)
-
-    &.training
-      background #415959
-
-    &.nightclubs
-      background #7D2934
-
-    &.activities
-      background #887C6E
-
-    &:hover
-      width @height
-      line-height @height
-      border-radius (@height/2) - 20px
-
-    &.small
-      height 100px
-      width @height
-      border-radius (@height/2)
-      line-height @height
-      font-weight 400
-      font-size 16px
-
-      &:hover
-        height 100px
-        width @height
-        border-radius (@height/2) - 20px
-        line-height @height
-        background rgba(0, 0, 0, .8)
 
   h2
     border-bottom 2px solid #ddd
@@ -126,6 +84,103 @@ section
     font-weight 700
     text-align left
     margin 20px 0
+
+#grid
+  .main-bubbles
+    a
+      color #fff
+      display inline-block
+      height 200px
+      width @height
+      border-radius (@height/2) - 20px
+      line-height @height
+      text-align center
+      font-size 20px
+      font-weight bold
+      transition all .2s
+      margin 0 15px 15px 0
+      background rgb(53, 61, 71)
+
+      i.fa
+        font-size 45px
+        display inline
+
+      span
+        display none
+
+      &:hover
+        line-height @height
+        border-radius (@height/3)
+
+        i.fa
+          display none
+
+        span
+          display block
+
+  .small-bubbles
+    margin-top 20px
+    a
+      display inline-block
+      color #fff
+      height 80px
+      width 20%
+      line-height @height
+      font-weight 400
+      font-size 16px
+      background rgb(53, 61, 71)
+      transition background .5s
+
+      &:first-child
+        border-radius 10px 0 0 10px
+
+      &:last-child
+        border-radius 0 10px 10px 0
+
+      &:hover
+        background rgba(0, 0, 0, .8)
+
+      &:nth-child(1)
+        background #570A05
+
+      &:nth-child(2)
+        background #E76400
+
+      &:nth-child(3)
+        background #FFA400
+
+      &:nth-child(4)
+        background #F73700
+
+      &:nth-child(5)
+        background #580B0E
+
+      &:hover
+        font-weight 700
+
+
+
+  .union-specific-articles
+    margin 20px 0
+
+    div
+      width 50%
+      float left
+      height 300px
+      text-align left
+      overflow hidden
+      padding 20px
+      color #777
+
+      &:hover
+        color #555
+
+      h3 a
+        font-size 20px
+        font-weight 700
+        text-transform uppercase
+        color #440507
+
 
 #content
   background #fff
@@ -190,9 +245,18 @@ h2#fraternity
       padding 20px
       overflow scroll
 
+      h2
+        color #002C5C
+        font-weight 700
+
 .fraternities
   a
     display block
+    padding 5px 10px
+    border-bottom 1px solid #eee
+
+    &:hover
+      background #fafafa
 
 .right-button
   // Ghetto-CSS, just to put up a
