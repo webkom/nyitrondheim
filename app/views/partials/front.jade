@@ -29,6 +29,6 @@
       h3
         a(href='/{{article.slug}}') {{article.title}}
 
-      p {{article.body}}
+      p {{article.description|limitDescription}}
 
     p.clear
