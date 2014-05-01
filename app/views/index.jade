@@ -12,15 +12,16 @@ html(ng-app='nitApp')
   body(ng-controller='MainController')
     #modal-container(ng-class='{active: modalOpen}')
       .modal(ng-click='closeModal()')
+        h2 Velg linjeforening :)
         ul.fraternities
           li(ng-repeat='union in unions')
             a(href='', ng-click='chooseUnion(union)') {{union.name}}
 
     #top-bar
-      div
+      div.middle
         p Velkommen til Trondheim!
 
-    #container
+    #container.middle
       header
         h1
           a(href='#') Ny i Trondheim

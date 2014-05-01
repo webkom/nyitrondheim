@@ -1,18 +1,34 @@
 
 #grid
-  a(href='/bo') Finn et sted å bo
-  a(href='/papir') Skaff deg papirer
-  a(href='/drikke') Lokalisér polet
-  a(href='/party') Ha det gøy
-  a.small.training(href='/generelt/trening') Trening
-  a.small.nightclubs(href='/generelt/utesteder') Utesteder
-  a.small.activities(href='/generelt/aktiviteter') Aktiviteter
-  a.small(href='/generelt/busstilbud') Busstilbud
+  .main-bubbles
+    a(href='/bo')
+      i.fa.fa-building-o
+      span Finn et sted å bo
+    a(href='/papir')
+      i.fa.fa-file-text-o
+      span Skaff deg papirer
+    a(href='/drikke')
+      i.fa.fa-money
+      span Søk lån
+    a(href='/party')
+      i.fa.fa-users
+      span Ha det gøy
 
-  p.clear
+  .small-bubbles
+    a.training(href='/') Trening
+    a.maps(href='/') Kart
+    a.bus(href='/') Kollektivtrafikk
+    a.info(href='/') Trondheim
+    a.samfundet(href='/') Samfundet
 
-  h2 Spesifikke artikler for {{chosenUnion.name}}
 
-  a.small(ng-repeat='article in articles', href='/{{article.slug}}') {{article.title}}
+  //h2 Artikler for linjeforeningen {{chosenUnion.name}}
 
-  p.clear
+  .union-specific-articles
+    div(ng-repeat='article in articles')
+      h3
+        a(href='/{{article.slug}}') {{article.title}}
+
+      p {{article.body}}
+
+    p.clear
