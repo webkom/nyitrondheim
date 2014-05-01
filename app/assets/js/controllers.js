@@ -85,7 +85,7 @@ nitControllers.controller('CalendarController',
           end: new Date(e.end),
           url: '/' + e.slug,
           allDay: false,
-          color: '#ff7c82'
+          color: e.color
         });
       });
     })
@@ -98,7 +98,7 @@ nitControllers.controller('CalendarController',
             end: new Date(e.end),
             url: '/' + e.slug,
             allDay: false,
-            color: '#ff3e4c'
+            color: e.color
           });
         });
       })
@@ -194,7 +194,17 @@ nitControllers.controller('AdminController',
 
   $scope.createEvent = function() {
     $scope.selectedIndex = $scope.articles.length + 1;
-    $scope.article = {priority: 1, event: true};
+    $scope.article = {
+      priority: 1,
+      event: true,
+      color: '#5bc0de'
+    };
+  };
+
+  $scope.setColor = function(color) {
+    if ($scope.article.event) {
+      $scope.article.color = color;
+    }
   };
 
   $scope.saveArticle = function(article) {
