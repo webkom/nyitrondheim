@@ -1,7 +1,7 @@
 #article-content
     h2 {{article.title}}
 
-    p.description {{article.description}}
-    p.body {{article.body}}
+    p.description(ng-bind-html='article.description')
+    p.body(ng-bind-html='article.body')
 
     a.back(href='/') &larr; Tilbake til liste
