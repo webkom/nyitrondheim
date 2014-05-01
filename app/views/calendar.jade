@@ -17,9 +17,11 @@ html(ng-app='nitApp')
       section
         div(ui-calendar='uiConfig.calendar', config='uiConfig.calendar', ng-model='eventSources', calendar='eventCal')
 
-        ul
-          li(ng-repeat='event in events')
-            input(ng-model='event.title')
+        div.legend-colors
+          em.legend#school NTNU-arrangement
+          em.legend#union Linjeforeningsarrangement
+          em.legend#common Fellesarrangement
+          em.legend#other Annet
 
     script(src='/vendor.js')
     script(src='/app.js')

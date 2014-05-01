@@ -57,6 +57,17 @@ html(ng-app='nitApp')
                     label(for='body') Sted
                     input.form-control#text-body(type='text', name='location', placeholder='Sted',
                       ng-model='article.location', value='{{article.location}}', required)
+                  .form-group
+                    label.block-label Arrangementtype
+                    .btn-group.btn-group-justified
+                      a.btn.btn-success(type='button', ng-class='{"active": "#5cb85c" == article.color}',
+                        ng-click='setColor("#5cb85c")') NTNU-arrangement
+                      a.btn.btn-info(type='button', ng-class='{"active": "#5bc0de" == article.color}'
+                        ng-click='setColor("#5bc0de")') Linjearrangement
+                      a.btn.btn-warning(type='button', ng-class='{"active": "#f0ad4e" == article.color}'
+                        ng-click='setColor("#f0ad4e")') Felles
+                      a.btn.btn-danger.active(type='button', ng-class='{"active": "#d9534f" == article.color}'
+                        ng-click='setColor("#d9534f")') Annet
                   .row
                     .col-md-6
                       label Dato
