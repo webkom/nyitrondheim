@@ -132,16 +132,13 @@ section
       font-weight 400
       font-size 16px
       background rgb(53, 61, 71)
-      transition background .5s
+      transition background .1s
 
       &:first-child
         border-radius 10px 0 0 10px
 
       &:last-child
         border-radius 0 10px 10px 0
-
-      &:hover
-        background rgba(0, 0, 0, .8)
 
       &:nth-child(1)
         background #570A05
@@ -160,22 +157,23 @@ section
 
       &:hover
         font-weight 700
-
-
+        background rgba(0, 0, 0, .7)
 
   .union-specific-articles
-    margin 20px 0
+    margin-top 20px
 
     div
       width 50%
       float left
-      height 300px
+      height 120px
       text-align left
-      overflow hidden
-      padding 20px
+      padding 10px
       color #777
 
       &:hover
+        cursor pointer
+        transition background-color .25s ease-in
+        background-color rgba(255, 62, 72, 0.1)
         color #555
 
       h3 a
@@ -231,7 +229,7 @@ h2#fraternity
   height 0
   opacity 0
   width 0
-  transition opacity .5s
+  transition opacity .2s
 
   &.active
     height 100%

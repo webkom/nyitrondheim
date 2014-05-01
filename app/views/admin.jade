@@ -45,7 +45,8 @@ html(ng-app='nitApp')
                   ng-model='article.priority' required)
               .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
                 label(for='description') Beskrivelse
-                div(text-angular, name='description', ng-model='article.description', required)='{{article.description}}'
+                textarea.form-control#description(rows='2', name='description', placeholder='Beskrivelse',
+                  ng-model='article.description' required)='{{article.description}}'
               .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
                 label(for='body') Tekst
                 div(text-angular, name='body', ng-model='article.body', required)='{{article.body}}'
