@@ -2,7 +2,7 @@ html(ng-app='nitApp')
   head
     meta(charset='utf-8')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css')
     link(rel='stylesheet', href='/vendor.css')
     link(rel='stylesheet', href='/app.css')
 
@@ -16,6 +16,7 @@ html(ng-app='nitApp')
         h1(style='color: #fff; margin-top: 50px') #{title}
 
       section
+        h2 Hei
         .row
           .col-xs-3.admin-article-sidebar
             .row
@@ -44,18 +45,16 @@ html(ng-app='nitApp')
                   ng-model='article.priority' required)
               .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
                 label(for='description') Beskrivelse
-                textarea.form-control#description(rows='2', name='description', placeholder='Beskrivelse',
-                  ng-model='article.description' required)='{{article.description}}'
-              .form-group(ng-class='{"has-warning": articleForm.body.$invalid, "has-success": articleForm.body.$valid}')
+                div(text-angular, name='description', ng-model='article.description', required)='{{article.description}}'
+              .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
                 label(for='body') Tekst
-                textarea.form-control#text-body(rows='5', name='body', placeholder='Tekst',
-                  ng-model='article.body' required)='{{article.body}}'
+                div(text-angular, name='body', ng-model='article.body', required)='{{article.body}}'
 
               div(ng-switch='article.event')
                 div(ng-switch-when='true')
                   .form-group(ng-class='{"has-warning": articleForm.location.$invalid, "has-success": articleForm.location.$valid}')
                     label(for='body') Sted
-                    input.form-control#text-body(type='text', name='location', placeholder='Sted',
+                    input.form-control(type='text', name='location', placeholder='Sted',
                       ng-model='article.location', value='{{article.location}}', required)
                   .row
                     .col-md-6
@@ -106,4 +105,5 @@ html(ng-app='nitApp')
     script.
       union = !{JSON.stringify(union)}
     script(src='/vendor.js')
+    script(src='/rangy-1.3/rangy-core.js')
     script(src='/app.js')

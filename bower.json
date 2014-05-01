@@ -28,6 +28,7 @@
     "angular-ui-calendar": "~0.8.1",
     "momentjs": "~2.6.0",
     "angular-bootstrap": "~0.10.0",
-    "angular-i18n": "~1.2.16"
+    "angular-i18n": "~1.2.16",
+    "textAngular": "~1.2.0"
   }
 }
