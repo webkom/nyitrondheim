@@ -20,6 +20,14 @@ exports.show = function(req, res) {
   res.send(req.article);
 };
 
+exports.all = function(req, res) {
+  var limit = req.query.limit|0;
+  Article.listAll(limit, function(err, articles) {
+    if (err) return handleError(err, req, res);
+    res.send(articles);
+  });
+};
+
 exports.getUnionArticles = function(req, res) {
   var limit = req.query.limit|0;
   Article.listUnionArticles(limit, req.params.union, function(err, articles) {

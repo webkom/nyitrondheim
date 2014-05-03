@@ -52,7 +52,7 @@ exports.login = function(req, res, next) {
       return res.render('login', { union: req.user });
     }
     if (!user) {
-      console.log("Handle it..");
+      console.log("Handle it..", user);
       return res.render('login');
     }
     req.logIn(user, function(err) {
@@ -74,8 +74,9 @@ exports.register = function(req, res) {
 
   Union.register(union, req.body.password, function(err, account) {
     if (err) {
+      console.log(err);
       return res.render('register', {
-        union: user
+        union: account
       });
     }
 

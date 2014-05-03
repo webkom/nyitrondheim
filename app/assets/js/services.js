@@ -17,6 +17,10 @@ nitServices.factory('articleService', ['$http', function($http) {
       return $http.get(urlBase + union + '/events').error(error);
     },
 
+    findAllNoUnion: function() {
+      return $http.get('/api/articles').error(error);
+    },
+
     findBySlug: function(union, slug) {
       return $http.get(urlBase + union + '/articles/' + slug).error(error);
     },

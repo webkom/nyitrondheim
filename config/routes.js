@@ -19,7 +19,13 @@ module.exports = function(app) {
   app.get('/admin', ensureAuthenticated, function(req, res) {
     res.render('admin', {
       union: req.user,
-      title: 'Artikler'
+      title: 'Artikler og arrangement'
+    });
+  });
+  app.get('/superadmin', ensureAuthenticated, ensureAdmin, function(req, res) {
+    res.render('superadmin', {
+      union: req.user,
+      title: 'Artikler og arrangement'
     });
   });
   app.get('/login', function(req, res) {
@@ -35,6 +41,8 @@ module.exports = function(app) {
   app.get('/register', ensureAuthenticated, unions.new);
 
   app.post('/register', ensureAuthenticated, unions.register);
+
+  app.get('/api/articles', articles.all);
 
   app.get('/api/unions/:union', unions.show);
   app.get('/api/unions'       , unions.list);
@@ -52,5 +60,10 @@ module.exports = function(app) {
   function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect('/login');
+  }
+
+  function ensureAdmin(req, res, next) {
+    if (req.user.name === 'admin') return next();
+    res.redirect('/admin');
   }
 };
