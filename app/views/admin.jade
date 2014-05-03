@@ -6,17 +6,16 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='/vendor.css')
     link(rel='stylesheet', href='/app.css')
 
-  body(ng-controller='AdminController', ng-init='testt="#{title}"')
+  body(ng-controller='AdminController')
     #top-bar
-      div
+      div.middle
         p Velkommen til Trondheim!
 
-    #container
+    #container.middle
       header
         h1(style='color: #fff; margin-top: 50px') #{title}
 
       section
-        h2 Hei
         .row
           .col-xs-3.admin-article-sidebar
             .row
@@ -27,10 +26,10 @@ html(ng-app='nitApp')
                   ng-class='{"selected-article": selectedIndex==($index+1)}') {{article.title}}
             .row
               ul#admin-event-list
-                li.new-event-li(ng-click='createEvent()', ng-class='{"selected-article": selectedIndex==articles.length}') Nytt arrangement
+                li.new-event-li(ng-click='createEvent()', ng-class='{"selected-event": selectedIndex==articles.length+1}') Nytt arrangement
                 li.event-li(ng-repeat='event in events',
-                  ng-click='chooseArticle(event, $index + articles.length + 1)',
-                  ng-class='{"selected-event": selectedIndex==($index+1+articles.length)}') {{event.title}}
+                  ng-click='chooseArticle(event, $index + articles.length + 2)',
+                  ng-class='{"selected-event": selectedIndex==($index + articles.length + 2)}') {{event.title}}
 
           .col-xs-9.admin-article-main
 
@@ -113,9 +112,12 @@ html(ng-app='nitApp')
                   .btn-group(ng-hide='!article._id')
                     button.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
                     button.btn.btn-danger(ng-click='destroyArticle(article)') Slett
+      footer
+        p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
 
     script.
       union = !{JSON.stringify(union)}
+
     script(src='/vendor.js')
     script(src='/rangy-1.3/rangy-core.js')
     script(src='/app.js')

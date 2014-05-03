@@ -170,7 +170,7 @@ nitControllers.controller('AdminController',
   $scope.open = function($event, opened) {
     $event.preventDefault();
     $event.stopPropagation();
-    $scope[opened] = true
+    $scope[opened] = true;
   };
 
   $scope.findAll = function() {
