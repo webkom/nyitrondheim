@@ -158,11 +158,14 @@ nitControllers.controller('AdminController',
   $scope.selectedDate = new Date('6/22');
   $scope.union = union._id;
   $scope.articles = [];
+  $scope.events = [];
+  $scope.articlesAndEvents = [];
   $scope.article = {priority: 1};
   $scope.priorities = _.range(1, 6);
   $scope.today = new Date();
 
   $scope.chooseArticle = function(article, selectedIndex) {
+    console.log(selectedIndex);
     $scope.selectedIndex = selectedIndex;
     $scope.article = article;
   };
@@ -175,21 +178,36 @@ nitControllers.controller('AdminController',
 
   $scope.findAll = function() {
     articleService.findAll($scope.union).success(function (articles) {
+      console.log(articles);
+      $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;
       });
       $scope.events = articles.filter(function(article) {
         return article.event;
       });
-      $scope.createArticle();
     });
   };
 
-  $scope.findAll();
+  $scope.findAllNoUnion = function() {
+    articleService.findAllNoUnion().success(function (articles) {
+      console.log(articles);
+      $scope.articlesAndEvents = articles;
+      $scope.articles = articles.filter(function(article) {
+        return !article.event;
+      });
+      $scope.events = articles.filter(function(article) {
+        return article.event;
+      });
+    });
+  };
 
   $scope.createArticle = function() {
     $scope.selectedIndex = 0;
-    $scope.article = {priority: 1};
+    $scope.article = {
+      priority: 1,
+      approved: false
+    };
   };
 
   $scope.createEvent = function() {
@@ -197,8 +215,13 @@ nitControllers.controller('AdminController',
     $scope.article = {
       priority: 1,
       event: true,
+      approved: false,
       color: '#5bc0de'
     };
+  };
+
+  $scope.setApprovedStatus = function(status) {
+    $scope.article.approved = status;
   };
 
   $scope.setColor = function(color) {
@@ -221,6 +244,7 @@ nitControllers.controller('AdminController',
     }
     articleService.save($scope.union, article).success(function(data) {
       if (!article._id) {
+        $scope.articlesAndEvents.push(data);
         if (article.event) {
           $scope.events.push(data);
           $scope.createEvent();
