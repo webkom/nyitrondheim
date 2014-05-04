@@ -25,10 +25,9 @@
   //h2 Artikler for linjeforeningen {{chosenUnion.name}}
 
   .union-specific-articles
-    div(ng-repeat='article in articles')
-      h3
-        a(href='/{{article.slug}}') {{article.title}}
-
-      p {{article.description|limitDescription}}
+    a(ng-repeat='article in articles', href='/{{article.slug}}')
+      div
+        h3 {{article.title}}
+        p {{article.description|limitDescription}}
 
     p.clear
