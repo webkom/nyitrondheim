@@ -1,0 +1,36 @@
+
+#modal-container
+  background rgba(0, 0, 0, .8)
+  fixed left right bottom top
+  height 0
+  opacity 0
+  width 0
+  transition opacity .2s
+
+  &.active
+    height 100%
+    width 100%
+    opacity 1
+
+    .modal
+      width 640px
+      height 320px
+      background #fff
+      margin 150px auto
+      border-radius 10px
+      box-shadow 0 -4px 0 #ddd
+      padding 20px
+      overflow scroll
+
+      h2
+        color #002C5C
+        font-weight 700
+
+.fraternities
+  a
+    display block
+    padding 5px 10px
+    border-bottom 1px solid #eee
+
+    &:hover
+      background #fafafa
