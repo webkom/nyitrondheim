@@ -1,27 +1,17 @@
-html(ng-app='nitApp')
-  head
-    meta(charset='utf-8')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-    link(rel='stylesheet', href='/app.css')
-    link(rel='stylesheet', href='/vendor.css')
+extends layout
 
-  body(ng-controller='CalendarController')
-    #top-bar
-      div
-        p Velkommen til Trondheim!
+block header
+  - var controller = 'CalendarController'
 
-    #container
-      header
-        h1.title Kalender
+block content
+  header
+    h1.title Kalender
 
-      section
-        div(ui-calendar='uiConfig.calendar', config='uiConfig.calendar', ng-model='eventSources', calendar='eventCal')
+  section
+    div(ui-calendar='uiConfig.calendar', config='uiConfig.calendar', ng-model='eventSources', calendar='eventCal')
 
-        div.legend-colors
-          em.legend#school NTNU-arrangement
-          em.legend#union Linjeforeningsarrangement
-          em.legend#common Fellesarrangement
-          em.legend#other Annet
-
-    script(src='/vendor.js')
-    script(src='/app.js')
+    div.legend-colors
+      em.legend#school NTNU-arrangement
+      em.legend#union Linjeforeningsarrangement
+      em.legend#common Fellesarrangement
+      em.legend#other Annet
