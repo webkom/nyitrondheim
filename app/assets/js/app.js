@@ -25,7 +25,6 @@ app.config(function($routeProvider, $locationProvider) {
    });
 });
 
-
 app.config(function($provide){
   // this demonstrates how to register a new tool and add it to the default toolbar
   $provide.decorator('taOptions', ['$delegate', function(taOptions){

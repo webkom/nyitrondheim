@@ -2,15 +2,30 @@ var nitServices = angular.module('nitServices', ['ngResource', 'LocalStorageModu
 
 var urlBase = '/api/unions/';
 
-nitServices.factory('articleService', ['$http', function($http) {
+nitServices.factory('articleService', ['$http', '$q', function($http, $q) {
   var error = function() {
     console.log(arguments);
+  };
+
+  var articleCache = {};
+
+  var saveCache = function(union) {
+    return function(response) {
+      articleCache[union] = response.data;
+      return articleCache[union];
+    };
   };
 
   return {
 
     findAll: function(union) {
-      return $http.get(urlBase + union + '/articles').error(error);
+      if (!_.isEmpty(articleCache[union])) {
+        var d = $q.defer();
+        d.resolve(articleCache[union]);
+        console.log('Saved one HTTP request.')
+        return d.promise;
+      }
+      return $http.get(urlBase + union + '/articles').then(saveCache(union), error);
     },
 
     findAllEvents: function(union) {

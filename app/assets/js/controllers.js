@@ -141,7 +141,7 @@ nitControllers.controller('PagesController',
   $scope.articles = [];
 
   $scope.update = function() {
-    articleService.findAll($scope.chosenUnion.slug).success(function(articles) {
+    articleService.findAll($scope.chosenUnion.slug).then(function(articles) {
       $scope.articles = articles;
     });
   };
