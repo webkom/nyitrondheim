@@ -26,6 +26,7 @@ var articleSchema = new Schema({
   },
   priority: Number,
   event: Boolean,
+  approved: Boolean,
   start: Date,
   end: Date,
   startTime: String,
@@ -51,6 +52,10 @@ articleSchema.statics = {
     Union.findByName(unionId, function(err, union) {
       return this.find({slug: slug, union: union}).sort('-priority').exec(cb);
     }.bind(this));
+  },
+
+  listAll: function(limit, cb) {
+    return this.find().sort('-priority').limit(limit).exec(cb);
   },
 
   listUnionArticles: function(limit, unionId, cb) {
