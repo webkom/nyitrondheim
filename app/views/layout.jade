@@ -14,11 +14,15 @@ html(ng-app='nitApp')
 
   body(ng-controller='#{controller}')
     #modal-container(ng-class='{active: modalOpen}')
-      .modal(ng-click='closeModal()')
-        h2 Velg linjeforening :)
-        ul.fraternities
-          li(ng-repeat='union in unions')
-            a(href='', ng-click='chooseUnion(union)') {{union.name}}
+      .modal
+        h2 Velg linjeforening
+        input(ng-model='search.name', placeholder='Søk')
+        ul(ng-click='closeModal()').fraternities
+          li(ng-repeat='union in unions|filter:search')
+            a(href='', ng-click='chooseUnion(union)')
+              i.fa.fa-check(ng-show='chosenUnion == union')
+              i.fa.fa-circle(ng-show='chosenUnion != union')
+              | {{union.name}}
 
     #top-bar
       div.middle
