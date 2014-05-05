@@ -11,6 +11,10 @@ app.config(function($routeProvider, $locationProvider) {
      templateUrl: 'partials/front',
      controller: 'PagesController'
    })
+   .when('/calendar', {
+     templateUrl: 'partials/calendar',
+     controller: 'CalendarController'
+   })
    .when('/:slug*', {
      templateUrl: 'partials/page',
      controller: 'PageController'
@@ -40,7 +44,7 @@ app.filter('limitDescription', function() {
     input = input || '';
     var arr = input.split('.');
     if (arr[0].length > 95) {
-      return arr[0].slice(0, 95) + '..';
+      return arr[0].slice(0, 95) + '…';
     }
     return arr[0] + '.';
   };
