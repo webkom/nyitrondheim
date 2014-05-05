@@ -64,7 +64,7 @@ nitServices.factory('unionService', ['$http', 'localStorageService', function($h
 
   return {
     last: function() {
-      return localStorageService.get('union');
+      return localStorageService.get('union') || {slug: 'general'};
     },
 
     save: function(union) {
