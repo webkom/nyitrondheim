@@ -33,8 +33,7 @@ var articleSchema = new Schema({
   endTime: String,
   location: String,
   color: String,
-  smallImage: String,
-  largeImage: String,
+  image: String,
   createdAt: {
     type: Date,
     default: Date.now

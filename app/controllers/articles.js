@@ -1,6 +1,10 @@
-var mongoose = require('mongoose')
-  , util     = require('util')
-  , Article  = require('../models/article');
+var mongoose    = require('mongoose')
+  , util        = require('util')
+  , Article     = require('../models/article')
+  , multiparty  = require('multiparty')
+  , fs          = require('fs')
+  , gm          = require('gm')
+  , _           = require('lodash');
 
 var handleError = function(err, req, res) {
   console.log(err);
@@ -42,18 +46,45 @@ exports.getUnionEvents = function(req, res) {
     if (err) return handleError(err, req, res);
     res.send(articles);
   });
-}
+};
+
 exports.create = function(req, res) {
-  var article = new Article(req.body);
-  article.union = req.params.union;
-  article.save(function (err) {
-    if (err) return handleError(err, req, res);
-    res.send(201, article);
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    var parsedFields = {};
+    _.forOwn(fields, function(value, key) {
+      parsedFields[key] = value[0];
+    });
+    console.log(files);
+    if (!_.isEmpty(files)) {
+      var image = files.file[0];
+      var newPath = __dirname + '/../../public/images/articles/' + req.params.union + '/' + image.originalFilename;
+      fs.exists(newPath, function(exists) {
+        function cb() {
+          fs.readdir(__dirname + '/../../public/images/articles/', function(dir) {
+          });
+          gm(image.path)
+            .resize(500) // Resize to a width of 500px
+            .noProfile()
+            .write(newPath, function(err) {
+              if (err) return handleError(err, req, res);
+            });
+        }
+        if (!exists) fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, cb);
+        else cb();
+      });
+    }
+    var article = new Article(parsedFields);
+    article.union = req.params.union;
+    article.save(function (err) {
+      if (err) return handleError(err, req, res);
+      res.send(201, article);
+    });
   });
 };
 
 exports.update = function(req, res) {
-  article = util._extend(req.article, req.body);
+  var article = util._extend(req.article, req.body);
   article.save(function (err) {
     if (err) return handleError(err, req, res);
     res.send(200, article);
