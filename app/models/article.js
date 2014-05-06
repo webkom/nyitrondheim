@@ -33,7 +33,9 @@ var articleSchema = new Schema({
   endTime: String,
   location: String,
   color: String,
+  imageName: String,
   image: String,
+  imageCropped: String,
   createdAt: {
     type: Date,
     default: Date.now

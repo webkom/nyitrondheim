@@ -28,6 +28,7 @@ var saveImage = function(updatedArticle, image, req, res) {
           fs.rename(image.path, newPath, function(err) {
             if (err) return handleError(err, req, res);
             updatedArticle.image = newPath;
+            updatedArticle.imageName = image.originalFilename;
             updatedArticle.save(function (err) {
               // maybe do it sync instead and only save the article once
               if (err) return handleError(err, req, res);
@@ -94,17 +95,35 @@ exports.create = function(req, res) {
     article.union = req.params.union;
     article.save(function (err) {
       if (err) return handleError(err, req, res);
-      if (!_.isEmpty(files)) saveImage(article, files.file[0], req, res);
-      res.send(201, article);
+      if (!_.isEmpty(files)) {
+        saveImage(article, files.file[0], req, res);
+      }
+      else {
+        res.send(201, article);
+      }
     });
   });
 };
 
 exports.update = function(req, res) {
-  var article = util._extend(req.article, req.body);
-  article.save(function (err) {
-    if (err) return handleError(err, req, res);
-    res.send(200, article);
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    var parsedFields = {};
+    _.forOwn(fields, function(value, key) {
+      parsedFields[key] = value[0];
+    });
+    console.log("her", req.article, "skil",req);
+    var article = util._extend(req.article, parsedFields);
+    article.save(function (err) {
+      if (err) return handleError(err, req, res);
+      if (!_.isEmpty(files)) {
+        saveImage(article, files.file[0], req, res);
+      }
+      else {
+        console.log("sending shit :(", article);
+        res.send(201, article);
+      }
+    });
   });
 };
 
