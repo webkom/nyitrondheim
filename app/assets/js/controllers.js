@@ -165,6 +165,7 @@ nitControllers.controller('AdminController',
   $scope.setImage = function(image) {
     if (image.size < 10000000 && image.type.slice(0, 5) === 'image') {
       $scope.article.image = image;
+      $scope.article.imageName = image.name;
       $scope.invalidImage = false;
     }
     else {
@@ -255,21 +256,22 @@ nitControllers.controller('AdminController',
       article.start = start.toDate();
       article.end = end.toDate();
     }
-    articleService.save($scope.union, article).success(function(data) {
+    articleService.save($scope.union, article).then(function(data) {
+      console.log("lel", data.data);
       if (!article._id) {
-        $scope.articlesAndEvents.push(data);
+        $scope.articlesAndEvents.push(data.data);
         if (article.event) {
-          $scope.events.push(data);
+          $scope.events.push(data.data);
           $scope.createEvent();
         }
         else {
-          $scope.articles.push(data);
+          $scope.articles.push(data.data);
           $scope.createArticle();
         }
       }
       else {
-        $scope.articles[$scope.articles.indexOf($scope.article)] = data;
-        $scope.article = data;
+        $scope.articles[$scope.articles.indexOf($scope.article)] = data.data;
+        $scope.article = data.data;
       }
     });
 

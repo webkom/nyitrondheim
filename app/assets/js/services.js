@@ -30,13 +30,21 @@ nitServices.factory('articleService', ['$http', '$upload', function($http, $uplo
       article.image = null;
       return $upload.upload({
         url: urlBase + union + '/articles',
+        method: 'POST',
         data: article,
         file: image
-      });
+      }).error(error);
     },
 
     update: function(union, article) {
-      return $http.put(urlBase + union + '/articles/' + article.slug, article).error(error);
+      var image = article.image;
+      article.image = null;
+      return $upload.upload({
+        url: urlBase + union + '/articles/' + article.slug,
+        method: 'PUT',
+        data: article,
+        file: image
+      }).error(error);
     },
 
     destroy: function(union, article) {
