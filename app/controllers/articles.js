@@ -4,6 +4,7 @@ var mongoose    = require('mongoose')
   , multiparty  = require('multiparty')
   , fs          = require('fs')
   , gm          = require('gm')
+  , slug        = require('slug')
   , _           = require('lodash');
 
 var handleError = function(err, req, res) {
@@ -55,26 +56,36 @@ exports.create = function(req, res) {
     _.forOwn(fields, function(value, key) {
       parsedFields[key] = value[0];
     });
-    console.log(files);
+    var article = new Article(parsedFields);
     if (!_.isEmpty(files)) {
       var image = files.file[0];
+      image.originalFilename = slug(image.originalFilename);
       var newPath = __dirname + '/../../public/images/articles/' + req.params.union + '/' + image.originalFilename;
-      fs.exists(newPath, function(exists) {
+      fs.exists(__dirname + '/../../public/images/articles/' + req.params.union, function(exists) {
         function cb() {
-          fs.readdir(__dirname + '/../../public/images/articles/', function(dir) {
-          });
           gm(image.path)
             .resize(500) // Resize to a width of 500px
             .noProfile()
             .write(newPath, function(err) {
               if (err) return handleError(err, req, res);
+              console.log("wrote image");
+              article.image = '/images/articles/' + req.params.union + '/' + image.originalFilename;
+              article.save(function (err) {
+                // maybe do it sync instead and only save the article once
+                if (err) return handleError(err, req, res);
+                res.send(201, article);
+              });
             });
         }
-        if (!exists) fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, cb);
+        if (!exists) {
+          fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, function(err) {
+            if (err) return handleError(err, req, res);
+            cb();
+          });
+        }
         else cb();
       });
     }
-    var article = new Article(parsedFields);
     article.union = req.params.union;
     article.save(function (err) {
       if (err) return handleError(err, req, res);
