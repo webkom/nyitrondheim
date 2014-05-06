@@ -162,8 +162,9 @@ nitControllers.controller('AdminController',
   $scope.priorities = _.range(1, 6);
   $scope.today = new Date();
 
-  $scope.setImage = function(image) {
+  $scope.setImage = function(image, inputField) {
     if (image.size < 10000000 && image.type.slice(0, 5) === 'image') {
+      if (!inputField) angular.element('#file-input').val(null);
       $scope.article.image = image;
       $scope.article.imageName = image.name;
       $scope.invalidImage = false;
@@ -179,7 +180,6 @@ nitControllers.controller('AdminController',
   };
 
   $scope.chooseArticle = function(article, selectedIndex) {
-    console.log(article.image, article);
     $scope.selectedIndex = selectedIndex;
     $scope.article = article;
   };
@@ -192,7 +192,6 @@ nitControllers.controller('AdminController',
 
   $scope.findAll = function() {
     articleService.findAll($scope.union).success(function (articles) {
-      console.log(articles);
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;
@@ -205,7 +204,6 @@ nitControllers.controller('AdminController',
 
   $scope.findAllNoUnion = function() {
     articleService.findAllNoUnion().success(function (articles) {
-      console.log(articles);
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;
@@ -256,25 +254,29 @@ nitControllers.controller('AdminController',
       article.start = start.toDate();
       article.end = end.toDate();
     }
-    articleService.save($scope.union, article).then(function(data) {
-      console.log("lel", data.data);
-      if (!article._id) {
-        $scope.articlesAndEvents.push(data.data);
-        if (article.event) {
-          $scope.events.push(data.data);
-          $scope.createEvent();
+    articleService.save($scope.union, article)
+      .success(function(data) {
+        $scope.uploading = false;
+        if (!article._id) {
+          $scope.articlesAndEvents.push(data.data);
+          if (article.event) {
+            $scope.events.push(data);
+            $scope.createEvent();
+          }
+          else {
+            $scope.articles.push(data);
+            $scope.createArticle();
+          }
         }
         else {
-          $scope.articles.push(data.data);
-          $scope.createArticle();
+          $scope.articles[$scope.articles.indexOf($scope.article)] = data;
+          $scope.article = data;
         }
-      }
-      else {
-        $scope.articles[$scope.articles.indexOf($scope.article)] = data.data;
-        $scope.article = data.data;
-      }
-    });
-
+      })
+      .progress(function(evt) {
+        $scope.uploading = true;
+        $scope.progress = parseInt(100.0 * evt.loaded/evt.total);
+      });
   };
 
   $scope.destroyArticle = function(article) {

@@ -45,7 +45,7 @@ var saveImage = function(updatedArticle, image, req, res) {
     }
     else cb();
   });
-}
+};
 
 exports.load = function(req, res, next, id) {
   Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
@@ -112,7 +112,6 @@ exports.update = function(req, res) {
     _.forOwn(fields, function(value, key) {
       parsedFields[key] = value[0];
     });
-    console.log("her", req.article, "skil",req);
     var article = util._extend(req.article, parsedFields);
     article.save(function (err) {
       if (err) return handleError(err, req, res);
@@ -120,7 +119,6 @@ exports.update = function(req, res) {
         saveImage(article, files.file[0], req, res);
       }
       else {
-        console.log("sending shit :(", article);
         res.send(201, article);
       }
     });
