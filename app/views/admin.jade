@@ -37,11 +37,19 @@ html(ng-app='nitApp')
               .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
                 label(for='title') Tittel
                 input.form-control#title(type='text', name='title', placeholder='Tittel',
-                  value='{{article.title}}', ng-model='article.title' required)
+                  value='{{article.title}}', ng-model='article.title', required)
               .form-group(ng-class='{"has-warning": articleForm.priority.$invalid, "has-success": articleForm.priority.$valid}')
                 label(for='priority') Prioritet (bestemmer forsideposisjon, høyere betyr viktigere)
                 select.form-control#priority(name='priority', ng-options='option for option in priorities',
-                  ng-model='article.priority' required)
+                  ng-model='article.priority', required)
+              .form-group(ng-class='{"has-warning": articleForm.image.$invalid, "has-success": articleForm.image.$valid}')
+                label(for='image') Artikkelbilde
+                .drop-area(ng-file-drop='setImage($files[0])') Dra bilder hit!
+                span(ng-show='invalidImage') Ugyldig bilde! Er det under 10 MB?
+                div(ng-show='article.image | exists')
+                  span Valgt bilde: {{article.image.name}}
+                  button.btn.btn-danger.btn-sm(type='button', ng-click='removeImage()')
+                    i.fa.fa-trash-o    Slett
               .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
                 label(for='description') Beskrivelse
                 textarea.form-control#description(rows='2', name='description', placeholder='Beskrivelse',

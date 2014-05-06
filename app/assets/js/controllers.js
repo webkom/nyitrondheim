@@ -103,9 +103,7 @@ nitControllers.controller('CalendarController',
         });
       })
       .finally(function() {
-        console.log("got to finally", $scope.unionEvents, $scope.generalEvents);
         $scope.eventSources = [$scope.unionEvents, $scope.generalEvents];
-        console.log("her",$scope.eventSources);
       })
     );
 
@@ -164,8 +162,23 @@ nitControllers.controller('AdminController',
   $scope.priorities = _.range(1, 6);
   $scope.today = new Date();
 
+  $scope.setImage = function(image) {
+    if (image.size < 10000000 && image.type.slice(0, 5) === 'image') {
+      $scope.article.image = image;
+      $scope.invalidImage = false;
+    }
+    else {
+      $scope.invalidImage = true;
+      console.log('Invalid image.');
+    }
+  };
+
+  $scope.removeImage = function(image) {
+    $scope.article.image = null;
+  };
+
   $scope.chooseArticle = function(article, selectedIndex) {
-    console.log(selectedIndex);
+    console.log(article.image, article);
     $scope.selectedIndex = selectedIndex;
     $scope.article = article;
   };
@@ -259,6 +272,7 @@ nitControllers.controller('AdminController',
         $scope.article = data;
       }
     });
+
   };
 
   $scope.destroyArticle = function(article) {

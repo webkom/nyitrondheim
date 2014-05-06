@@ -2,7 +2,7 @@ var nitServices = angular.module('nitServices', ['ngResource', 'LocalStorageModu
 
 var urlBase = '/api/unions/';
 
-nitServices.factory('articleService', ['$http', function($http) {
+nitServices.factory('articleService', ['$http', '$upload', function($http, $upload) {
   var error = function() {
     console.log(arguments);
   };
@@ -26,7 +26,13 @@ nitServices.factory('articleService', ['$http', function($http) {
     },
 
     create: function(union, article) {
-      return $http.post(urlBase + union + '/articles', article).error(error);
+      var image = article.image;
+      article.image = null;
+      return $upload.upload({
+        url: urlBase + union + '/articles',
+        data: article,
+        file: image
+      });
     },
 
     update: function(union, article) {
