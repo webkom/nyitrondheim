@@ -12,6 +12,40 @@ var handleError = function(err, req, res) {
   res.send(500, err);
 };
 
+var saveImage = function(updatedArticle, image, req, res) {
+  var arr = image.originalFilename.split('.');
+  var ending = '.' + arr[arr.length-1];
+  var newPath = __dirname + '/../../public/images/articles/' + req.params.union + '/' + updatedArticle._id + ending;
+  var newPathCropped = __dirname + '/../../public/images/articles/' + req.params.union + '/' + updatedArticle._id + '_cropped' + ending;
+  fs.exists(__dirname + '/../../public/images/articles/' + req.params.union, function(exists) {
+    function cb() {
+      gm(image.path)
+        .resize(500) // Resize to a width of 500px
+        .noProfile()
+        .write(newPathCropped, function(err) {
+          if (err) return handleError(err, req, res);
+          updatedArticle.imageCropped = newPathCropped;
+          fs.rename(image.path, newPath, function(err) {
+            if (err) return handleError(err, req, res);
+            updatedArticle.image = newPath;
+            updatedArticle.save(function (err) {
+              // maybe do it sync instead and only save the article once
+              if (err) return handleError(err, req, res);
+              res.send(201, updatedArticle);
+            });
+          });
+        });
+    }
+    if (!exists) {
+      fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, function(err) {
+        if (err) return handleError(err, req, res);
+        cb();
+      });
+    }
+    else cb();
+  });
+}
+
 exports.load = function(req, res, next, id) {
   Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
     if (err) return handleError(err, req, res);
@@ -57,38 +91,10 @@ exports.create = function(req, res) {
       parsedFields[key] = value[0];
     });
     var article = new Article(parsedFields);
-    if (!_.isEmpty(files)) {
-      var image = files.file[0];
-      image.originalFilename = slug(image.originalFilename);
-      var newPath = __dirname + '/../../public/images/articles/' + req.params.union + '/' + image.originalFilename;
-      fs.exists(__dirname + '/../../public/images/articles/' + req.params.union, function(exists) {
-        function cb() {
-          gm(image.path)
-            .resize(500) // Resize to a width of 500px
-            .noProfile()
-            .write(newPath, function(err) {
-              if (err) return handleError(err, req, res);
-              console.log("wrote image");
-              article.image = '/images/articles/' + req.params.union + '/' + image.originalFilename;
-              article.save(function (err) {
-                // maybe do it sync instead and only save the article once
-                if (err) return handleError(err, req, res);
-                res.send(201, article);
-              });
-            });
-        }
-        if (!exists) {
-          fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, function(err) {
-            if (err) return handleError(err, req, res);
-            cb();
-          });
-        }
-        else cb();
-      });
-    }
     article.union = req.params.union;
     article.save(function (err) {
       if (err) return handleError(err, req, res);
+      if (!_.isEmpty(files)) saveImage(article, files.file[0], req, res);
       res.send(201, article);
     });
   });

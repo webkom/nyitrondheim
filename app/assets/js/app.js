@@ -49,7 +49,6 @@ app.filter('limitDescription', function() {
 
 app.filter('exists', function() {
   return function(obj) {
-    console.log(obj, typeof obj);
     return obj !== null && obj !== undefined && obj !== 'null' && obj !== 'undefined';
   };
 });
