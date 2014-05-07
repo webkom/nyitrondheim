@@ -15,10 +15,12 @@ var handleError = function(err, req, res) {
 var saveImage = function(updatedArticle, image, req, res) {
   var arr = image.originalFilename.split('.');
   var ending = '.' + arr[arr.length-1];
-  var newPath = __dirname + '/../../public/images/articles/' + req.params.union + '/' + updatedArticle._id + ending;
-  var newPathCropped = __dirname + '/../../public/images/articles/' + req.params.union + '/' + updatedArticle._id + '_cropped' + ending;
-  fs.exists(__dirname + '/../../public/images/articles/' + req.params.union, function(exists) {
-    function cb() {
+  var unionImages = __dirname + '/../../public/images/unions/';
+  var newPath = unionImages + req.params.union + '/' + updatedArticle._id + ending;
+  var newPathCropped = unionImages + req.params.union + '/' + updatedArticle._id + '_cropped' + ending;
+
+  fs.exists(__dirname + unionImages + req.params.union, function(exists) {
+    function gmWrite() {
       gm(image.path)
         .resize(500) // Resize to a width of 500px
         .noProfile()
@@ -38,12 +40,25 @@ var saveImage = function(updatedArticle, image, req, res) {
         });
     }
     if (!exists) {
-      fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, function(err) {
-        if (err) return handleError(err, req, res);
-        cb();
+      fs.exists(unionImages, function(innerExists) {
+        function mkInner() {
+          fs.mkdir(unionImages + req.params.union, function(err) {
+            if (err) return handleError(err, req, res);
+            gmWrite();
+          });
+        }
+        if (innerExists) {
+          mkInner();
+        }
+        else {
+          fs.mkdir(unionImages, function(err) {
+            if (err) return handleError(err, req, res);
+            mkInner();
+          });
+        }
       });
     }
-    else cb();
+    else gmWrite();
   });
 };
 
