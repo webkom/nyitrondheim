@@ -190,7 +190,6 @@ nitControllers.controller('AdminController',
 
   $scope.findAll = function() {
     articleService.findAll($scope.union).then(function (articles) {
-      console.log("found all", articles);
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;

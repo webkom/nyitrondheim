@@ -1,26 +1,18 @@
-html
-  head
-    title Innlogging
-    meta(charset='utf-8')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/app.css')
+extends layout
 
-  body
+block header
+  link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css')
 
-    #top-bar
-      div.middle
-        p Velkommen til Trondheim!
+block content
+  header
+    h1.title Innlogging
 
-    #container.middle
-      header
-        h1(style="color: #fff; margin-top: 50px") Innlogging
+  section
+    form(method='post', action='/login', role='form')
+      .form-group
+        input.form-control(type='text', name='name', placeholder='Linjeforeningsnavn')
+      .form-group
+        input.form-control(type='password', name='password', placeholder='Passord')
 
-      section
-        form(method='post', action='/login', role='form')
-          .form-group
-            input.form-control(type='text', name='name', placeholder='Linjeforeningsnavn')
-          .form-group
-            input.form-control(type='password', name='password', placeholder='Passord')
-
-          button.btn.btn-primary(type='submit', style='float: right;') Log inn
-          a.btn.btn-default(href='/') Avbryt
+      button.btn.btn-primary(type='submit', style='float: right;') Log inn
+      a.btn.btn-default(href='/') Avbryt

@@ -2,14 +2,13 @@ extends layout
 
 block header
   - var controller = 'AdminController'
-  - var init       = 'findAll(); createArticle();'
   link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css')
 
 block content
   header
-    h1.title Admin
+    h1.title Artikler og arrangement
 
-  section
+  section(ng-init='findAll(); createArticle();')
     .row
       .col-xs-3.admin-article-sidebar
         .row
