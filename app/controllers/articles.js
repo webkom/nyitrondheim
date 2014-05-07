@@ -1,10 +1,50 @@
-var mongoose = require('mongoose')
-  , util     = require('util')
-  , Article  = require('../models/article');
+var mongoose    = require('mongoose')
+  , util        = require('util')
+  , Article     = require('../models/article')
+  , multiparty  = require('multiparty')
+  , fs          = require('fs')
+  , gm          = require('gm')
+  , slug        = require('slug')
+  , _           = require('lodash');
 
 var handleError = function(err, req, res) {
   console.log(err);
   res.send(500, err);
+};
+
+var saveImage = function(updatedArticle, image, req, res) {
+  var arr = image.originalFilename.split('.');
+  var ending = '.' + arr[arr.length-1];
+  var newPath = __dirname + '/../../public/images/articles/' + req.params.union + '/' + updatedArticle._id + ending;
+  var newPathCropped = __dirname + '/../../public/images/articles/' + req.params.union + '/' + updatedArticle._id + '_cropped' + ending;
+  fs.exists(__dirname + '/../../public/images/articles/' + req.params.union, function(exists) {
+    function cb() {
+      gm(image.path)
+        .resize(500) // Resize to a width of 500px
+        .noProfile()
+        .write(newPathCropped, function(err) {
+          if (err) return handleError(err, req, res);
+          updatedArticle.imageCropped = newPathCropped;
+          fs.rename(image.path, newPath, function(err) {
+            if (err) return handleError(err, req, res);
+            updatedArticle.image = newPath;
+            updatedArticle.imageName = image.originalFilename;
+            updatedArticle.save(function (err) {
+              // maybe do it sync instead and only save the article once
+              if (err) return handleError(err, req, res);
+              res.send(201, updatedArticle);
+            });
+          });
+        });
+    }
+    if (!exists) {
+      fs.mkdir(__dirname + '/../../public/images/articles/' + req.params.union, function(err) {
+        if (err) return handleError(err, req, res);
+        cb();
+      });
+    }
+    else cb();
+  });
 };
 
 exports.load = function(req, res, next, id) {
@@ -42,21 +82,46 @@ exports.getUnionEvents = function(req, res) {
     if (err) return handleError(err, req, res);
     res.send(articles);
   });
-}
+};
+
 exports.create = function(req, res) {
-  var article = new Article(req.body);
-  article.union = req.params.union;
-  article.save(function (err) {
-    if (err) return handleError(err, req, res);
-    res.send(201, article);
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    var parsedFields = {};
+    _.forOwn(fields, function(value, key) {
+      parsedFields[key] = value[0];
+    });
+    var article = new Article(parsedFields);
+    article.union = req.params.union;
+    article.save(function (err) {
+      if (err) return handleError(err, req, res);
+      if (!_.isEmpty(files)) {
+        saveImage(article, files.file[0], req, res);
+      }
+      else {
+        res.send(201, article);
+      }
+    });
   });
 };
 
 exports.update = function(req, res) {
-  article = util._extend(req.article, req.body);
-  article.save(function (err) {
-    if (err) return handleError(err, req, res);
-    res.send(200, article);
+  var form = new multiparty.Form();
+  form.parse(req, function(err, fields, files) {
+    var parsedFields = {};
+    _.forOwn(fields, function(value, key) {
+      parsedFields[key] = value[0];
+    });
+    var article = util._extend(req.article, parsedFields);
+    article.save(function (err) {
+      if (err) return handleError(err, req, res);
+      if (!_.isEmpty(files)) {
+        saveImage(article, files.file[0], req, res);
+      }
+      else {
+        res.send(201, article);
+      }
+    });
   });
 };
 

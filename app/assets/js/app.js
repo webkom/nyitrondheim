@@ -2,7 +2,8 @@ require('./services');
 require('./controllers');
 require('./directives');
 
-var app = angular.module('nitApp', ['ngRoute', 'ngAnimate', 'nitControllers', 'nitDirectives', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular']);
+var app = angular.module('nitApp',
+  ['ngRoute', 'ngAnimate', 'nitControllers', 'nitDirectives', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload']);
 
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -45,3 +46,10 @@ app.filter('limitDescription', function() {
     return arr[0] + '.';
   };
 });
+
+app.filter('exists', function() {
+  return function(obj) {
+    return obj !== null && obj !== undefined && obj !== 'null' && obj !== 'undefined';
+  };
+});
+

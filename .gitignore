@@ -2,7 +2,7 @@
 .DS_Store
 public/*.css
 public/*.js
-public/bower_components/
+public/images/articles
 node_modules/
 logs/
 app/assets/vendor

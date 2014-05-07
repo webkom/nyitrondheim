@@ -3,10 +3,6 @@ var mongoose   = require('mongoose')
   , Union      = require('./union')
   , Schema     = mongoose.Schema;
 
-/**
- * @todo Should be able to upload images with the articles, thus the model needs to be able to remove these files
- * when the article is deleted (use imager).
- */
 var articleSchema = new Schema({
   title: {
     type: String,
@@ -22,19 +18,31 @@ var articleSchema = new Schema({
   },
   union: {
     type: Schema.ObjectId,
+    required: true,
     ref: 'Union'
   },
-  priority: Number,
-  event: Boolean,
-  approved: Boolean,
+  priority: {
+    type: Number,
+    default: 1,
+    required: true
+  },
+  event: {
+    type: Boolean,
+    default: false
+  },
+  approved: {
+    type: Boolean,
+    default: false
+  },
   start: Date,
   end: Date,
   startTime: String,
   endTime: String,
   location: String,
   color: String,
-  smallImage: String,
-  largeImage: String,
+  imageName: String,
+  image: String,
+  imageCropped: String,
   createdAt: {
     type: Date,
     default: Date.now

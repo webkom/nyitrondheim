@@ -37,11 +37,21 @@ html(ng-app='nitApp')
               .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
                 label(for='title') Tittel
                 input.form-control#title(type='text', name='title', placeholder='Tittel',
-                  value='{{article.title}}', ng-model='article.title' required)
+                  value='{{article.title}}', ng-model='article.title', required)
               .form-group(ng-class='{"has-warning": articleForm.priority.$invalid, "has-success": articleForm.priority.$valid}')
                 label(for='priority') Prioritet (bestemmer forsideposisjon, høyere betyr viktigere)
                 select.form-control#priority(name='priority', ng-options='option for option in priorities',
-                  ng-model='article.priority' required)
+                  ng-model='article.priority', required)
+              .form-group(ng-class='{"has-warning": articleForm.image.$invalid, "has-success": articleForm.image.$valid}')
+                label(for='image') Artikkelbilde {{article.image.name}}
+                .drop-area(ng-file-drop='setImage($files[0], false)') Dra bilder hit!
+                input#file-input(type='file', accepted='image/*', ng-file-select='setImage($files[0], true)',
+                  ng-value='article.image')
+                span(ng-show='invalidImage') Ugyldig bilde! Er det under 10 MB?
+                div(ng-show='article.image | exists')
+                  span Valgt bilde: {{article.imageName}}
+                  button.btn.btn-danger.btn-sm(type='button', ng-click='removeImage()')
+                    i.fa.fa-trash-o    Slett
               .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
                 label(for='description') Beskrivelse
                 textarea.form-control#description(rows='2', name='description', placeholder='Beskrivelse',
@@ -100,7 +110,6 @@ html(ng-app='nitApp')
                             ng-pattern='/^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/' placeholder='Sluttidspunkt (hh:mm)',
                             required)
                           span.input-group-addon Sluttidspunkt&nbsp;&nbsp;
-
               .form-group(ng-switch='articleForm.$valid')
                 div(ng-switch-when='true')
                   button.btn.btn-primary.wide(ng-click='saveArticle(article)', ng-hide='article._id') Send
@@ -112,6 +121,14 @@ html(ng-app='nitApp')
                   .btn-group.btn-group-justified(ng-hide='!article._id')
                     a.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
                     a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
+              .form-group(ng-show='uploading')
+                .row
+                  .col-xs-3
+                    span Laster opp:
+                  .col-xs-9
+                    .progress.progress-striped.active
+                      .progress-bar(role='progressbar', aria-valuenow='{{progress}}', aria-valuemin='0',
+                      aria-valuemax='100', style='width: 50%')
       footer
         p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
 
