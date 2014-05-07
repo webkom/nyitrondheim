@@ -12,6 +12,10 @@ app.config(function($routeProvider, $locationProvider) {
      templateUrl: 'partials/front',
      controller: 'PagesController'
    })
+   .when('/calendar', {
+     templateUrl: 'partials/calendar',
+     controller: 'CalendarController'
+   })
    .when('/:slug*', {
      templateUrl: 'partials/page',
      controller: 'PageController'
@@ -21,7 +25,6 @@ app.config(function($routeProvider, $locationProvider) {
      controller: 'PagesController'
    });
 });
-
 
 app.config(function($provide){
   // this demonstrates how to register a new tool and add it to the default toolbar
@@ -41,7 +44,7 @@ app.filter('limitDescription', function() {
     input = input || '';
     var arr = input.split('.');
     if (arr[0].length > 95) {
-      return arr[0].slice(0, 95) + '..';
+      return arr[0].slice(0, 95) + '…';
     }
     return arr[0] + '.';
   };

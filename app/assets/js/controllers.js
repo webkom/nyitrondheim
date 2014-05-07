@@ -76,36 +76,34 @@ nitControllers.controller('CalendarController',
   $scope.unionEvents = [];
   $scope.eventSources = [$scope.generalEvents, $scope.unionEvents];
 
-  articleService.findAllEvents(unionService.last()._id)
-    .success(function(events) {
-      events.forEach(function(e) {
-        $scope.unionEvents.push({
-          title: e.title,
-          start: new Date(e.start),
-          end: new Date(e.end),
-          url: '/' + e.slug,
-          allDay: false,
-          color: e.color
-        });
+  articleService.findAllEvents(unionService.last()._id).then(function(events) {
+    events.forEach(function(e) {
+      $scope.unionEvents.push({
+        title: e.title,
+        start: new Date(e.start),
+        end: new Date(e.end),
+        url: '/' + e.slug,
+        allDay: false,
+        color: e.color
       });
-    })
-    .then(articleService.findAllEvents('general')
-      .success(function(events) {
-        events.forEach(function(e) {
-          $scope.generalEvents.push({
-            title: e.title,
-            start: new Date(e.start),
-            end: new Date(e.end),
-            url: '/' + e.slug,
-            allDay: false,
-            color: e.color
-          });
-        });
-      })
-      .finally(function() {
-        $scope.eventSources = [$scope.unionEvents, $scope.generalEvents];
-      })
-    );
+    });
+  })
+  .then(articleService.findAllEvents('general').then(function(events) {
+    events.forEach(function(e) {
+      $scope.generalEvents.push({
+        title: e.title,
+        start: new Date(e.start),
+        end: new Date(e.end),
+        url: '/' + e.slug,
+        allDay: false,
+        color: e.color
+      });
+    });
+  })
+  .finally(function() {
+    $scope.eventSources = [$scope.unionEvents, $scope.generalEvents];
+  })
+);
 
 }]);
 
@@ -139,7 +137,7 @@ nitControllers.controller('PagesController',
   $scope.articles = [];
 
   $scope.update = function() {
-    articleService.findAll($scope.chosenUnion.slug).success(function(articles) {
+    articleService.findAll($scope.chosenUnion.slug).then(function(articles) {
       $scope.articles = articles;
     });
   };
@@ -191,7 +189,8 @@ nitControllers.controller('AdminController',
   };
 
   $scope.findAll = function() {
-    articleService.findAll($scope.union).success(function (articles) {
+    articleService.findAll($scope.union).then(function (articles) {
+      console.log("found all", articles);
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;
@@ -203,7 +202,7 @@ nitControllers.controller('AdminController',
   };
 
   $scope.findAllNoUnion = function() {
-    articleService.findAllNoUnion().success(function (articles) {
+    articleService.findAllNoUnion().then(function (articles) {
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;

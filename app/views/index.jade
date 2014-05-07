@@ -1,40 +1,16 @@
-doctype html
-html(ng-app='nitApp')
-  head
-    meta(charset='utf-8')
-    title Ny i Trondheim
-    base(href='/')
+extends layout
 
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-    link(rel='stylesheet', href='/vendor.css')
-    link(rel='stylesheet', href='/app.css')
+block header
+  - var controller = 'MainController'
 
-  body(ng-controller='MainController')
-    #modal-container(ng-class='{active: modalOpen}')
-      .modal(ng-click='closeModal()')
-        h2 Velg linjeforening :)
-        ul.fraternities
-          li(ng-repeat='union in unions')
-            a(href='', ng-click='chooseUnion(union)') {{union.name}}
+block content
+  header
+    h1
+      a(href='#') Ny i Trondheim
+    #choose-fraternity
+      a(href='', ng-click='openModal()') Velg linje
+        em(ng-show='chosenUnion != null')  ({{chosenUnion.name}})
+        i.fa.fa-bars
 
-    #top-bar
-      div.middle
-        p Velkommen til Trondheim!
-
-    #container.middle
-      header
-        h1
-          a(href='#') Ny i Trondheim
-        #choose-fraternity
-          a(href='', ng-click='openModal()') Velg linje
-            em(ng-show='chosenUnion != null')  ({{chosenUnion.name}})
-            i.fa.fa-bars
-
-      section(ng-controller='PageController', ng-view)
-        .no-fraternity-chosen(ng-show='chosenUnion == null') Du har ikke valgt noen linjeforening.
-
-      footer
-        p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
-
-    script(src='/vendor.js')
-    script(src='/app.js')
+  section(ng-view)
+    .no-fraternity-chosen(ng-show='chosenUnion == null') Du har ikke valgt noen linjeforening.

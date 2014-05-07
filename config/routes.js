@@ -13,9 +13,6 @@ module.exports = function(app) {
   app.get('/partials/:partial', function(req, res) {
     res.render('partials/' + req.param('partial').replace('.', '/'));
   });
-  app.get('/calendar', function(req, res) {
-    res.render('calendar');
-  });
   app.get('/admin', ensureAuthenticated, function(req, res) {
     res.render('admin', {
       union: req.user,

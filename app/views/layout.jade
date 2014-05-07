@@ -1,0 +1,42 @@
+doctype html
+html(ng-app='nitApp')
+  head
+    meta(charset='utf-8')
+    title Ny i Trondheim
+    base(href='/')
+
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+
+    block header
+      - var controller = 'MainController'
+
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
+    link(rel='stylesheet', href='/vendor.css')
+    link(rel='stylesheet', href='/app.css')
+
+  body(ng-controller='#{controller}', ng-init='#{init}')
+    #modal-container(ng-class='{active: modalOpen}')
+      .modal
+        h2 Velg linjeforening
+        input(ng-model='search.name', placeholder='Søk')
+        ul(ng-click='closeModal()').fraternities
+          li(ng-repeat='union in unions|filter:search')
+            a(href='', ng-click='chooseUnion(union)')
+              i.fa.fa-check(ng-show='chosenUnion == union')
+              i.fa.fa-circle(ng-show='chosenUnion != union')
+              | {{union.name}}
+
+    #top-bar
+      div.middle
+        p Velkommen til Trondheim!
+
+    #container.middle
+      block content
+
+      footer
+        p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
+
+    block footer
+    script(src='/vendor.js')
+    script(src='/app.js')
