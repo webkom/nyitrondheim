@@ -15,7 +15,7 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='/vendor.css')
     link(rel='stylesheet', href='/app.css')
 
-  body(ng-controller='#{controller}', ng-init='#{init}')
+  mixin bodyMixin
     #modal-container(ng-class='{active: modalOpen}')
       .modal
         h2 Velg linjeforening
@@ -40,3 +40,11 @@ html(ng-app='nitApp')
     block footer
     script(src='/vendor.js')
     script(src='/app.js')
+
+  if controller
+    body(ng-controller='#{controller}')
+      +bodyMixin()
+  else
+    body
+      +bodyMixin()
+
