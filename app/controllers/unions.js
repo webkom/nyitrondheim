@@ -1,11 +1,15 @@
-var mongoose = require('mongoose')
-  , util        = require('util')
+var util        = require('util')
   , Union    = require('../models/union')
   , passport = require('passport');
 
 var nameOrId = function(value) {
   if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
   return {name: value};
+};
+
+var slugOrId = function(value) {
+  if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
+  return {slug: value};
 };
 
 var handleError = function(err, req, res) {
@@ -23,18 +27,10 @@ exports.list = function(req, res) {
 exports.show = function(req, res) {
   var union = req.params.union;
 
-  Union.findOne(nameOrId(union), function(err, union) {
+  Union.findOne(slugOrId(union), function(err, union) {
     if (err) return res.send(500, err);
     if (null === union) return res.send(404, {message: 'Union not found.'});
     res.send(union);
-  });
-};
-
-exports.new = function(req, res) {
-  var union = new Union({});
-  res.render('register', {
-    title: 'Registrer',
-    union: union
   });
 };
 
@@ -47,7 +43,7 @@ exports.create = function(req, res) {
 };
 
 exports.login = function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', function(err, user) {
     if (err) {
       console.log("Login error, handle it!");
       return res.render('login', { union: req.user });

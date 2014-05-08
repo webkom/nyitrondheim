@@ -38,10 +38,6 @@ module.exports = function(app) {
   app.post('/login', unions.login);
   app.get('/logout', ensureAuthenticated, unions.logout);
 
-  //app.get('/register', ensureAuthenticated, unions.new);
-
-//  app.post('/register', ensureAuthenticated, unions.register);
-
   app.get('/api/articles', articles.all);
 
   app.get('/api/unions/:union', unions.show);

@@ -115,17 +115,13 @@ nitControllers.controller('PageController',
   $scope.loading = true;
   $scope.article = {};
 
-  var slugSegments = ($routeParams.slug || '').split('/');
-  $scope.slug = slugSegments.pop();
-  $scope.isGeneral = slugSegments[0] === 'generelt';
-
-  $rootScope.title = "";
+  $rootScope.title = '';
 
   $scope.update = function() {
     $scope.loading = true;
-    if ($scope.slug) {
-      var union = $scope.isGeneral ? 'general' : $scope.chosenUnion._id;
-      articleService.findBySlug(union, $scope.slug).success(function(article) {
+    if ($routeParams.unionSlug && $routeParams.articleSlug) {
+      var union = $routeParams.unionSlug;
+      articleService.findBySlug(union, $routeParams.articleSlug).success(function(article) {
         $scope.article = article;
         $rootScope.title = $scope.article.title;
         $scope.loading = false;
@@ -150,7 +146,7 @@ nitControllers.controller('PagesController',
 
   $scope.update = function() {
     $scope.loading = true;
-    articleService.findAll($scope.chosenUnion.slug).then(function(articles) {
+    articleService.findAll($scope.chosenUnion._id).then(function(articles) {
       $scope.articles = articles;
       $scope.loading = false;
     });

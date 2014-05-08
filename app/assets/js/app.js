@@ -15,7 +15,7 @@ app.config(function($routeProvider, $locationProvider) {
      templateUrl: 'partials/calendar',
      controller: 'CalendarController'
    })
-   .when('/:slug*', {
+   .when('/:unionSlug/:articleSlug*', {
      templateUrl: 'partials/page',
      controller: 'PageController'
    })

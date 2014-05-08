@@ -1,5 +1,4 @@
-var mongoose    = require('mongoose')
-  , util        = require('util')
+var util        = require('util')
   , Article     = require('../models/article')
   , multiparty  = require('multiparty')
   , fs          = require('fs')
@@ -61,7 +60,7 @@ var saveImage = function(updatedArticle, image, req, res) {
   });
 };
 
-exports.load = function(req, res, next, id) {
+exports.load = function(req, res, next) {
   Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
     if (err) return handleError(err, req, res);
     req.article = article[0];

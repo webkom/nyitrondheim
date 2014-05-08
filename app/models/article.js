@@ -57,7 +57,7 @@ articleSchema.statics = {
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
       return this.find({slug: slug, union: unionId}).sort('-priority').exec(cb);
 
-    Union.findByName(unionId, function(err, union) {
+    Union.findBySlug(unionId, function(err, union) {
       return this.find({slug: slug, union: union}).sort('-priority').exec(cb);
     }.bind(this));
   },
@@ -70,7 +70,7 @@ articleSchema.statics = {
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
       return this.find({union: unionId}).sort('-priority').limit(limit).exec(cb);
 
-    Union.findByName(unionId, function(err, union) {
+    Union.findBySlug(unionId, function(err, union) {
       return this.find({union: union}).sort('-priority').limit(limit).exec(cb);
     }.bind(this));
   },
@@ -79,7 +79,7 @@ articleSchema.statics = {
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
       return this.find({union: unionId, event: true}).sort('-priority').limit(limit).exec(cb);
 
-    Union.findByName(unionId, function(err, union) {
+    Union.findBySlug(unionId, function(err, union) {
       return this.find({union: union, event: true}).sort('-priority').limit(limit).exec(cb);
     }.bind(this));
   }
