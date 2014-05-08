@@ -32,6 +32,10 @@ unionSchema.statics = {
   findByName: function(name, cb) {
     return this.findOne({name: name}).exec(cb);
   },
+
+  findBySlug: function(slug, cb) {
+    return this.findOne({slug: slug}).exec(cb);
+  }
 };
 
 unionSchema.plugin(passportLocalMongoose, {
