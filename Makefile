@@ -1,6 +1,9 @@
 
 BIN = node_modules/.bin
-BROWSERIFY = node_modules/.bin/browserify
+BROWSERIFY = $(BIN)/browserify
+UGLIFY = $(BIN)/uglifyjs
+SUPERVISOR = $(BIN)/supervisor
+STYLUS = $(BIN)/stylus
 
 STYL = $(shell find app/assets/css -name '*.styl')
 JS = $(shell find app/assets/js -name '*.js')
@@ -16,7 +19,6 @@ VENDORJS = \
 	app/assets/vendor/angular-i18n/angular-locale_no.js \
 	app/assets/vendor/angular-local-storage/angular-local-storage.min.js \
 	app/assets/vendor/angular-route/angular-route.min.js \
-	app/assets/vendor/angular-resource/angular-resource.min.js \
 	app/assets/vendor/lodash/dist/lodash.min.js \
 	app/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js \
 	app/assets/vendor/fullcalendar/fullcalendar.js \
@@ -31,7 +33,7 @@ DIST = public
 all: $(DIST)/vendor.js $(DIST)/app.js $(DIST)/vendor.css $(DIST)/app.css
 
 $(DIST)/vendor.js: $(VENDORJS)
-	cat $(VENDORJS) > $(DIST)/vendor.js
+	cat $(VENDORJS) | $(UGLIFY) > $(DIST)/vendor.js
 
 $(DIST)/app.js: $(JS)
 	$(BROWSERIFY) app/assets/js/app.js -o $(DIST)/app.js
@@ -40,14 +42,14 @@ $(DIST)/vendor.css: $(VENDORCSS)
 	cat $(VENDORCSS) > $(DIST)/vendor.css
 
 $(DIST)/app.css: $(STYL)
-	$(BIN)/stylus < app/assets/css/style.styl --include node_modules/nib/lib > $(DIST)/app.css
+	$(STYLUS) < app/assets/css/style.styl --include node_modules/nib/lib > $(DIST)/app.css
 
 install:
 	npm install
-	bower install
+	$(BOWER) install
 
 server:
-	$(BIN)/supervisor index.js
+	$(SUPERVISOR) index.js
 
 clean:
 	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css

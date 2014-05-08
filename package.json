@@ -31,7 +31,6 @@
     "should": "^3.2.0",
     "supertest": "^0.10.0",
     "mocha": "^1.18.2",
-    "browserify": "^3.38.0",
-    "uglifyjs": "~2.3.6"
+    "browserify": "^3.38.0"
   }
 }
