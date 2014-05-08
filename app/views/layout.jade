@@ -2,7 +2,7 @@ doctype html
 html(ng-app='nitApp')
   head
     meta(charset='utf-8')
-    title Ny i Trondheim
+    title {{title}} &mdash; Ny i Trondheim
     base(href='/')
 
     meta(name='apple-mobile-web-app-capable', content='yes')
@@ -47,4 +47,3 @@ html(ng-app='nitApp')
   else
     body
       +bodyMixin()
-
