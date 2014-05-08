@@ -3,7 +3,7 @@ require('./controllers');
 require('./directives');
 
 var app = angular.module('nitApp',
-  ['ngRoute', 'ngAnimate', 'nitControllers', 'nitDirectives', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload']);
+  ['ngRoute', 'nitControllers', 'nitDirectives', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload']);
 
 app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -55,4 +55,3 @@ app.filter('exists', function() {
     return obj !== null && obj !== undefined && obj !== 'null' && obj !== 'undefined';
   };
 });
-
