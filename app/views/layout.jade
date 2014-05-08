@@ -43,8 +43,8 @@ html(ng-app='nitApp')
     script(src='/app.js')
 
   if controller
-    body(ng-controller='#{controller}')
+    body(ng-controller='#{controller}', ng-class='{"modal-open": modalOpen}')
       +bodyMixin()
   else
-    body
+    body(ng-class='{"modal-open": modalOpen}')
       +bodyMixin()
