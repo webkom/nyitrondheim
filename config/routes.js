@@ -25,6 +25,9 @@ module.exports = function(app) {
       title: 'Artikler og arrangement'
     });
   });
+  app.get('/unionadmin', ensureAuthenticated, ensureAdmin, function(req, res) {
+    res.render('unionadmin');
+  });
   app.get('/login', function(req, res) {
     if (!req.isAuthenticated()) {
       return res.render('login', { union: req.user });
@@ -35,15 +38,17 @@ module.exports = function(app) {
   app.post('/login', unions.login);
   app.get('/logout', ensureAuthenticated, unions.logout);
 
-  app.get('/register', ensureAuthenticated, unions.new);
+  //app.get('/register', ensureAuthenticated, unions.new);
 
-  app.post('/register', ensureAuthenticated, unions.register);
+//  app.post('/register', ensureAuthenticated, unions.register);
 
   app.get('/api/articles', articles.all);
 
   app.get('/api/unions/:union', unions.show);
   app.get('/api/unions'       , unions.list);
   app.post('/api/unions'      , ensureAuthenticated, unions.create);
+  app.put('/api/unions/:union', ensureAuthenticated, unions.update);
+  app.del('/api/unions/:union', ensureAuthenticated, unions.delete);
 
   app.get('/api/unions/:union/articles' , articles.getUnionArticles);
   app.post('/api/unions/:union/articles', ensureAuthenticated, articles.create);

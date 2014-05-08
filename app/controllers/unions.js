@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+  , util        = require('util')
   , Union    = require('../models/union')
   , passport = require('passport');
 
@@ -52,7 +53,7 @@ exports.login = function(req, res, next) {
       return res.render('login', { union: req.user });
     }
     if (!user) {
-      console.log("Handle it..", user);
+      console.log("User doesn't exist?", user);
       return res.render('login');
     }
     req.logIn(user, function(err) {
@@ -69,19 +70,52 @@ exports.logout = function(req, res) {
   res.redirect('/');
 };
 
-exports.register = function(req, res) {
-  var union = new Union({ name: req.body.name });
+exports.create = function(req, res) {
+  console.log(req.body);
+  var password = req.body.password;
+  delete req.body.password;
+  var union = new Union(req.body);
+  Union.register(union, password, function (err) {
+    if (err) return handleError(err, req, res);
+    res.send(201, union);
+  });
+};
 
-  Union.register(union, req.body.password, function(err, account) {
-    if (err) {
-      console.log(err);
-      return res.render('register', {
-        union: account
+exports.update = function(req, res) {
+  Union.findById(req.params.union, function(err, union) {
+    if (err) return handleError(err, req, res);
+    if (!union) return res.send(404, {message: 'Union Not Found'});
+    function save(union) {
+      union = util._extend(union, req.body);
+      union.save(function (err) {
+        if (err) return handleError(err, req, res);
+        res.send(200, union);
       });
     }
+    if (req.body.password) {
+      union.setPassword(req.body.password, function(err, user) {
+        delete req.body.password;
+        delete req.body.hash;
+        delete req.body.salt;
+        user.save(function(err, union) {
+          if (err) return handleError(err, req, res);
+          save(union);
+        });
+      });
+    }
+    else {
+      save(union);
+    }
+  });
+};
 
-    passport.authenticate('local')(req, res, function() {
-      res.redirect('/admin');
+exports.delete = function(req, res) {
+  Union.findById(req.params.union, function(err, union) {
+    if (err) return handleError(err, req, res);
+    if (!union) return res.send(404, {message: 'Union Not Found'});
+    union.remove(function(err) {
+      if (err) return handleError(err, req, res);
+      res.send(204);
     });
   });
 };

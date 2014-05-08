@@ -13,6 +13,12 @@ var unionSchema = new Schema({
     type: String,
     default: ''
   },
+
+  school: {
+    type: String,
+    default: 'NTNU'
+  },
+
   smallImage: String,
   largeImage: String
 });
