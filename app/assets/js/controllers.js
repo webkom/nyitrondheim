@@ -22,7 +22,7 @@ nitControllers.controller('MainController',
 
   $scope.chooseUnion = function(union) {
     $scope.chosenUnion = union;
-    unionService.save(union);
+    unionService.pick(union);
     $scope.closeModal();
     $scope.$broadcast('union:changed', union);
   };
@@ -288,4 +288,40 @@ nitControllers.controller('AdminController',
       $scope.article = {};
     });
   };
+}]);
+
+
+nitControllers.controller('UnionAdminController',
+  ['$scope', 'unionService', function($scope, unionService) {
+
+  $scope.unions = [];
+
+  unionService.findAll().success(function(unions) {
+    $scope.unions = unions;
+    console.log(unions);
+  });
+
+  $scope.chooseUnion = function(union, selectedIndex) {
+    $scope.selectedIndex = selectedIndex;
+    $scope.union = union;
+  };
+
+  $scope.createUnion = function() {
+    $scope.union = {};
+    $scope.selectedIndex = 0;
+  };
+
+  $scope.saveUnion = function(union) {
+    unionService.save(union)
+      .success(function(data) {
+        if (!union._id) {
+          $scope.unions.push(data);
+          $scope.createUnion();
+        }
+        else {
+          $scope.unions[$scope.unions.indexOf($scope.unions)] = data;
+          $scope.union = data;
+        }
+      });
+    };
 }]);
