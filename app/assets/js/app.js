@@ -1,6 +1,5 @@
 require('./services');
 require('./controllers');
-require('./directives');
 
 var app = angular.module('nitApp',
   ['ngRoute', 'nitControllers', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload']);
