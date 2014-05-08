@@ -7,18 +7,33 @@
   width 0
   transition opacity .5s
 
+  .overlay
+    height 0
+    opacity 0
+    width 0
+    background transparent
+    fixed left right bottom top
+    z-index 1
+
   &.active
     height 100%
     width 100%
     opacity 1
 
+    .overlay
+      height 100%
+      width 100%
+      opacity 1
+
     .modal
       max-width 640px
+      position relative
       background #fff
       margin 150px auto
       border-radius 10px
       box-shadow 0 -4px 0 #ddd
       padding 20px
+      z-index 100
 
       h2
         color #580B0E

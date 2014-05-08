@@ -17,6 +17,7 @@ html(ng-app='nitApp')
 
   mixin bodyMixin
     #modal-container(ng-class='{active: modalOpen}')
+      .overlay(ng-click='closeModal()')
       .modal
         h2 Velg linjeforening
         input(ng-model='search.name', placeholder='Søk')
