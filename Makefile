@@ -1,13 +1,32 @@
-STYL=$(shell find app/assets/css -name '*.styl')
-JS=$(shell find app/assets/js -name '*.js')
 
-BIN=node_modules/.bin
+BIN = node_modules/.bin
+BROWSERIFY = node_modules/.bin/browserify
 
-VENDORJS=$(shell echo app/assets/vendor/{jquery/dist/jquery.js,jquery-ui/ui/jquery-ui.js,ng-file-upload/angular-file-upload-html5-shim.js,angular/angular.min.js,angular-i18n/angular-locale_no.js,angular-local-storage/angular-local-storage.min.js,angular-route/angular-route.min.js,angular-resource/angular-resource.min.js,angular-animate/angular-animate.js,lodash/dist/lodash.min.js,angular-bootstrap/ui-bootstrap-tpls.min.js,fullcalendar/fullcalendar.js,angular-ui-calendar/src/calendar.js,textAngular/textAngular-sanitize.js,textAngular/textAngular.js,momentjs/min/moment.min.js,ng-file-upload/angular-file-upload.js})
-VENDORCSS=$(shell echo app/assets/vendor/{animate.css/animate.min.css,fullcalendar/fullcalendar.css})
+STYL = $(shell find app/assets/css -name '*.styl')
+JS = $(shell find app/assets/js -name '*.js')
 
-# Where build files should be stored
-DIST=public
+VENDORCSS = \
+	app/assets/vendor/fullcalendar/fullcalendar.css
+
+VENDORJS = \
+	app/assets/vendor/jquery/dist/jquery.js \
+	app/assets/vendor/jquery-ui/ui/jquery-ui.js \
+	app/assets/vendor/ng-file-upload/angular-file-upload-html5-shim.js \
+	app/assets/vendor/angular/angular.min.js \
+	app/assets/vendor/angular-i18n/angular-locale_no.js \
+	app/assets/vendor/angular-local-storage/angular-local-storage.min.js \
+	app/assets/vendor/angular-route/angular-route.min.js \
+	app/assets/vendor/angular-resource/angular-resource.min.js \
+	app/assets/vendor/lodash/dist/lodash.min.js \
+	app/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js \
+	app/assets/vendor/fullcalendar/fullcalendar.js \
+	app/assets/vendor/angular-ui-calendar/src/calendar.js \
+	app/assets/vendor/textAngular/textAngular-sanitize.js \
+	app/assets/vendor/textAngular/textAngular.js \
+	app/assets/vendor/momentjs/min/moment.min.js \
+	app/assets/vendor/ng-file-upload/angular-file-upload.js
+
+DIST = public
 
 all: $(DIST)/vendor.js $(DIST)/app.js $(DIST)/vendor.css $(DIST)/app.css
 
@@ -15,7 +34,7 @@ $(DIST)/vendor.js: $(VENDORJS)
 	cat $(VENDORJS) > $(DIST)/vendor.js
 
 $(DIST)/app.js: $(JS)
-	$(BIN)/browserify app/assets/js/app.js -o $(DIST)/app.js
+	$(BROWSERIFY) app/assets/js/app.js -o $(DIST)/app.js
 
 $(DIST)/vendor.css: $(VENDORCSS)
 	cat $(VENDORCSS) > $(DIST)/vendor.css
