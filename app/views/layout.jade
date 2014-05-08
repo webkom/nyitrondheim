@@ -24,10 +24,10 @@ html(ng-app='nitApp')
         .modal
           h2 Velg linjeforening
           p.school-picker
-            a(ng-click='search.school="ntnu"', ng-class='{selected: search.school=="ntnu"}') NTNU
-            a(ng-click='search.school="bi"', ng-class='{selected: search.school=="bi"}') BI
-            a(ng-click='search.school="hist"', ng-class='{selected: search.school=="hist"}') HiST
-            a(ng-click='search.school="other"', ng-class='{selected: search.school=="other"}') Andre
+            a(ng-click='search.schoolSlug="ntnu"', ng-class='{selected: search.schoolSlug=="ntnu"}') NTNU
+            a(ng-click='search.schoolSlug="bi"', ng-class='{selected: search.schoolSlug=="bi"}') BI
+            a(ng-click='search.schoolSlug="hist"', ng-class='{selected: search.schoolSlug=="hist"}') HiST
+            a(ng-click='search.schoolSlug="other"', ng-class='{selected: search.schoolSlug=="other"}') Andre
           input(ng-model='search.name', placeholder='Søk')
           ul(ng-click='closeModal()').fraternities
             li(ng-repeat='union in unions|filter:search')

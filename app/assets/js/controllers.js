@@ -17,7 +17,10 @@ nitControllers.controller('MainController',
   };
 
   unionService.findAll().success(function(unions) {
-    $scope.unions = unions;
+    $scope.unions = unions.map(function(union) {
+      union.schoolSlug = union.school.toLowerCase();
+      return union;
+    });
   });
 
   $scope.chooseUnion = function(union) {
