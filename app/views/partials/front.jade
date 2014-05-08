@@ -24,6 +24,12 @@
 
   //h2 Artikler for linjeforeningen {{chosenUnion.name}}
 
+  div(ng-class='{loading: loading}')
+    div.loading-indicator
+      .spinner
+        .dot1
+        .dot2
+
   .union-specific-articles
     a(ng-repeat='article in articles', href='/{{article.slug}}')
       div

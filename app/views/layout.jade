@@ -16,35 +16,39 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='/app.css')
 
   mixin bodyMixin
-    #modal-container(ng-class='{active: modalOpen}')
-      .overlay(ng-click='closeModal()')
-      .modal
-        h2 Velg linjeforening
-        input(ng-model='search.name', placeholder='Søk')
-        ul(ng-click='closeModal()').fraternities
-          li(ng-repeat='union in unions|filter:search')
-            a(href='', ng-click='chooseUnion(union)')
-              i.fa.fa-check(ng-show='chosenUnion == union')
-              i.fa.fa-circle(ng-show='chosenUnion != union')
-              | {{union.name}}
+    .loading-splash(ng-cloak)
+      span Laster inn Ny i Trondheim
+    div(ng-cloak)
+      #modal-container(ng-class='{active: modalOpen}')
+        .overlay(ng-click='closeModal()')
+        .modal
+          h2 Velg linjeforening
+          input(ng-model='search.name', placeholder='Søk')
+          ul(ng-click='closeModal()').fraternities
+            li(ng-repeat='union in unions|filter:search')
+              a(href='', ng-click='chooseUnion(union)')
+                i.fa.fa-check(ng-show='chosenUnion == union')
+                i.fa.fa-circle(ng-show='chosenUnion != union')
+                | {{union.name}}
 
-    #top-bar
-      div.middle
-        p Velkommen til Trondheim!
+      #top-bar
+        div.middle
+          p Velkommen til Trondheim!
 
-    #container.middle
-      block content
+      #container.middle(ng-cloak)
+        block content
 
-      footer
-        p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
+        footer
+          p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
 
-    block footer
-    script(src='/vendor.js')
-    script(src='/app.js')
+      block footer
+      script(src='/vendor.js')
+      script(src='/app.js')
 
   if controller
-    body(ng-controller='#{controller}', ng-class='{"modal-open": modalOpen}')
-      +bodyMixin()
+    body(ng-controller='#{controller}', ng-class='{modalopen: modalOpen}')
+        +bodyMixin()
   else
-    body(ng-class='{"modal-open": modalOpen}')
-      +bodyMixin()
+    body(ng-class='{modalopen: modalOpen}')
+      div(ng-cloak)
+        +bodyMixin()

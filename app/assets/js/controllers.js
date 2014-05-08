@@ -109,6 +109,7 @@ nitControllers.controller('CalendarController',
 
 nitControllers.controller('PageController',
   ['$rootScope', '$scope', '$routeParams', 'articleService', function($rootScope, $scope, $routeParams, articleService) {
+  $scope.loading = true;
   $scope.article = {};
 
   var slugSegments = ($routeParams.slug || '').split('/');
@@ -118,11 +119,13 @@ nitControllers.controller('PageController',
   $rootScope.title = "";
 
   $scope.update = function() {
+    $scope.loading = true;
     if ($scope.slug) {
       var union = $scope.isGeneral ? 'general' : $scope.chosenUnion._id;
       articleService.findBySlug(union, $scope.slug).success(function(article) {
         $scope.article = article;
         $rootScope.title = $scope.article.title;
+        $scope.loading = false;
       });
     }
   };
@@ -138,12 +141,15 @@ nitControllers.controller('PagesController',
   ['$rootScope', '$scope', '$routeParams', 'articleService', function($rootScope, $scope, $routeParams, articleService) {
 
   $scope.articles = [];
+  $scope.loading = true;
 
   $rootScope.title = 'Hjem';
 
   $scope.update = function() {
+    $scope.loading = true;
     articleService.findAll($scope.chosenUnion.slug).then(function(articles) {
       $scope.articles = articles;
+      $scope.loading = false;
     });
   };
 
