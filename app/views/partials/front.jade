@@ -32,7 +32,7 @@
 
   .union-specific-articles
     a(ng-repeat='article in articles', href='/{{article.slug}}')
-      div
+      article
         h3 {{article.title}}
         p {{article.description|limitDescription}}
 
