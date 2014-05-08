@@ -25,7 +25,8 @@
     "passport-local-mongoose": "~0.3.0",
     "stylus": "*",
     "superagent": "~0.17.0",
-    "uglify-js": "~2.4.13"
+    "uglify-js": "~2.4.13",
+    "prerender-node": "~1.0.1"
   },
   "devDependencies": {
     "supervisor": "^0.5.7",

@@ -24,6 +24,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/app/assets/vendor'));
 app.use(express.static(__dirname + '/public'));
+app.use(require('prerender-node'));
 
 app.locals.pretty = true;
 
