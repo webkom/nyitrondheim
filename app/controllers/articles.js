@@ -4,7 +4,6 @@ var mongoose    = require('mongoose')
   , multiparty  = require('multiparty')
   , fs          = require('fs')
   , gm          = require('gm')
-  , slug        = require('slug')
   , _           = require('lodash');
 
 var handleError = function(err, req, res) {
