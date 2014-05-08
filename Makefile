@@ -21,8 +21,8 @@ VENDORJS = \
 	app/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js \
 	app/assets/vendor/fullcalendar/fullcalendar.js \
 	app/assets/vendor/angular-ui-calendar/src/calendar.js \
-	app/assets/vendor/textAngular/src/textAngular-sanitize.js \
-	app/assets/vendor/textAngular/src/textAngular.js \
+	app/assets/vendor/textAngular/textAngular-sanitize.js \
+	app/assets/vendor/textAngular/textAngular.js \
 	app/assets/vendor/momentjs/min/moment.min.js \
 	app/assets/vendor/ng-file-upload/angular-file-upload.js
 
