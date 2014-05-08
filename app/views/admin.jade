@@ -14,12 +14,22 @@ block content
         .row
           ul#admin-article-list
             li.new-article-li(ng-click='createArticle()', ng-class='{"selected-article": selectedIndex==0}') Ny artikkel
+            div(ng-class='{loading: loading}')
+              div.loading-indicator
+                .spinner.small
+                  .dot1
+                  .dot2
             li.article-li(ng-repeat='article in articles',
               ng-click='chooseArticle(article, $index + 1)',
               ng-class='{"selected-article": selectedIndex==($index+1)}') {{article.title}}
         .row
           ul#admin-event-list
             li.new-event-li(ng-click='createEvent()', ng-class='{"selected-event": selectedIndex==articles.length+1}') Nytt arrangement
+              div(ng-class='{loading: loading}')
+                div.loading-indicator
+                  .spinner.small
+                    .dot1
+                    .dot2
             li.event-li(ng-repeat='event in events',
               ng-click='chooseArticle(event, $index + articles.length + 2)',
               ng-class='{"selected-event": selectedIndex==($index + articles.length + 2)}') {{event.title}}

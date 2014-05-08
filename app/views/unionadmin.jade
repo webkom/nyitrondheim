@@ -14,6 +14,11 @@ block content
         .row
           ul#admin-event-list
             li.new-event-li(ng-click='createUnion()', ng-class='{"selected-event": selectedIndex==0}') Ny linjeforening
+            div(ng-class='{loading: loading}')
+              div.loading-indicator
+                .spinner.small
+                  .dot1
+                  .dot2
             li.event-li(ng-repeat='union in unions',
               ng-click='chooseUnion(union, $index + 1)',
               ng-class='{"selected-event": selectedIndex==($index+1)}') {{union.name}}

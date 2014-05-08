@@ -14,6 +14,11 @@ block content
         .row
           ul#admin-article-list
             li.new-article-li Ikke-godkjente
+            div(ng-class='{loading: loading}')
+              div.loading-indicator
+                .spinner.small
+                  .dot1
+                  .dot2
             li.article-li(ng-repeat='nA in articlesAndEvents',
               ng-if='!nA.approved'
               ng-click='chooseArticle(nA, $index)',
@@ -21,6 +26,11 @@ block content
         .row
           ul#admin-event-list
             li.new-event-li Godkjente
+            div(ng-class='{loading: loading}')
+              div.loading-indicator
+                .spinner.small
+                  .dot1
+                  .dot2
             li.event-li(ng-repeat='a in articlesAndEvents',
               ng-if='a.approved'
               ng-click='chooseArticle(a, $index)',
