@@ -1,4 +1,4 @@
-@media (max-width: 480px)
+@media (max-width 555px)
   #modal-container
     padding 10px
 
@@ -58,6 +58,46 @@
         padding 0
         margin-bottom 15px
 
-
   footer
     text-align center
+
+@media (max-width 705px)
+  #grid
+    .small-bubbles
+      a
+        box-shadow 0 5px 0 #ccc
+
+        display inline-block
+        text-align center
+        transition all .2s
+        margin 0 10px 10px 0
+        background rgba(47, 55, 65, .9)
+
+        //padding-top 1px
+        line-height 100px
+        font-weight 400
+        font-size 16px
+
+        height 100px
+        width @height
+        border-radius (@height/2)
+        &:first-child
+          border-radius (@height/2)
+        &:last-child
+          border-radius (@height/2)
+        &.split
+          line-height 15px
+          padding-top 25px
+
+
+        &:hover
+          border-radius (@height/2) - 20px
+          background rgba(0, 0, 0, .8)
+
+        for category, bg in categories
+          &.{category}
+            background bg
+            &:hover
+              font-weight 700
+              background lighten(@background, 20%)
+
