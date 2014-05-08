@@ -33,7 +33,7 @@ DIST = public
 all: $(DIST)/vendor.js $(DIST)/app.js $(DIST)/vendor.css $(DIST)/app.css
 
 $(DIST)/vendor.js: $(VENDORJS)
-	cat $(VENDORJS) | $(UGLIFY) > $(DIST)/vendor.js
+	cat $(VENDORJS) > $(DIST)/vendor.js
 
 $(DIST)/app.js: $(JS)
 	$(BROWSERIFY) app/assets/js/app.js -o $(DIST)/app.js
