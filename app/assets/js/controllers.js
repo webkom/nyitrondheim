@@ -205,7 +205,7 @@ nitControllers.controller('AdminController',
 
   $scope.findAll = function() {
     $scope.loading = true;
-    articleService.findAll($scope.union).then(function (articles) {
+    articleService.findAll($scope.union).success(function (articles) {
       $scope.loading = false;
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
@@ -218,7 +218,7 @@ nitControllers.controller('AdminController',
   };
 
   $scope.findAllNoUnion = function() {
-    articleService.findAllNoUnion().then(function (articles) {
+    articleService.findAllNoUnion().success(function (articles) {
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;
