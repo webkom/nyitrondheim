@@ -1,18 +1,38 @@
 
 #grid
-  .main-bubbles
-    a(href='/bo')
-      i.fa.fa-building-o
-      span Finn et sted å bo
-    a(href='/papir')
-      i.fa.fa-file-text-o
-      span Skaff deg papirer
-    a(href='/drikke')
-      i.fa.fa-money
-      span Søk lån
-    a(href='/party')
-      i.fa.fa-users
-      span Ha det gøy
+  #before-after
+    a#before(ng-click='before = true', ng-class='{ "selected": before }') Før innflytting
+    i.fa.fa-angle-double-right(ng-show='before')
+    i.fa.fa-angle-double-left(ng-hide='before')
+    a#after(ng-click='before = false', ng-class='{ "selected": !before }') Etter innflytting
+
+  .main-bubbles(ng-switch='before')
+    div(ng-switch-when='true')
+      a(href='/generelt/finn-et-sted-aa-bo')
+        i.fa.fa-building-o
+        span Finn et sted å bo
+      a(href='/generelt/semester-{{chosenUnion.school}}')
+        i.fa.fa-laptop
+        span Studentweb
+      a(href='/generelt/laan')
+        i.fa.fa-money
+        span Søk lån
+      a(href='/generelt/skoleinfo-{{chosenUnion.school}}')
+        i.fa.fa-book
+        span Info fra NTNU
+    div(ng-switch-default)
+      a(href='/generelt/mail-og-pc-{{chosenUnion.school}}')
+        i.fa.fa-keyboard-o
+        span Mail og PC-tilgang
+      a(href='/generelt/studentkort-{{chosenUnion.school}}')
+        i.fa.fa-credit-card
+        span Studentkort
+      a(href='/generelt/artikkel')
+        i.fa.fa-money
+        span Artikkel 3
+      a(href='/generelt/artikkel')
+        i.fa.fa-users
+        span Artikkel 4
 
   .small-bubbles
     a.first.training(href='/') Trening
@@ -31,7 +51,7 @@
         .dot2
 
   .union-specific-articles
-    a(ng-repeat='article in articles', href='/{{article.slug}}')
+    a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}')
       article
         h3 {{article.title}}
         p {{article.description|limitDescription}}

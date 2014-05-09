@@ -6,6 +6,7 @@ nitControllers.controller('MainController',
   $scope.name = $routeParams.slug;
   $scope.unions = [];
   $scope.chosenUnion = unionService.last();
+  $scope.before = true;
 
   $scope.modalOpen = false;
   $scope.openModal = function() {

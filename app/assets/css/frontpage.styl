@@ -6,8 +6,32 @@ categories = {
   fifth: #580B0E
 }
 
+dark-blue = #222a35
+
 #grid
   text-align center
+
+  #before-after
+    a
+      color #aab8cd
+      display inline-block
+      font-size 25px
+      font-weight 700
+
+      &.selected
+        color lighten(dark-blue, 20%)
+        &:hover
+          color lighten(@color, 20%)
+
+      &:hover
+        color lighten(@color, 30%)
+    i
+      color lighten(dark-blue, 50%)
+      font-size 20px
+      font-weight 700
+      margin 0 20px
+      padding-bottom 5px
+
 
   h2
     border-bottom 2px solid #ddd
@@ -28,8 +52,8 @@ categories = {
       font-size 20px
       font-weight bold
       transition all .4s
-      margin 0 15px 15px 0
-      background #222a35
+      margin 10px 15px 15px 0
+      background dark-blue
       box-shadow 0 5px 0 #ccc
 
       i.fa
