@@ -111,7 +111,7 @@ nitControllers.controller('CalendarController',
 }]);
 
 nitControllers.controller('PageController',
-  ['$rootScope', '$scope', '$routeParams', 'articleService', function($rootScope, $scope, $routeParams, articleService) {
+  ['$rootScope', '$scope', '$location', '$routeParams', 'articleService', function($rootScope, $scope, $location, $routeParams, articleService) {
   $scope.loading = true;
   $scope.article = {};
 
@@ -124,6 +124,10 @@ nitControllers.controller('PageController',
       articleService.findBySlug(union, $routeParams.articleSlug).success(function(article) {
         $scope.article = article;
         $rootScope.title = $scope.article.title;
+        $scope.loading = false;
+      }).error(function() {
+        $scope.article.title = '404';
+        $scope.article.body = 'Fant ikke denne artikkelen.';
         $scope.loading = false;
       });
     }

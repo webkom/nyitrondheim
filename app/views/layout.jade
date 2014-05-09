@@ -2,6 +2,8 @@ doctype html
 html(ng-app='nitApp')
   head
     meta(charset='utf-8')
+    meta(name='fragment' content='!')
+
     title {{title}} &mdash; Ny i Trondheim
     base(href='/')
 
@@ -47,6 +49,8 @@ html(ng-app='nitApp')
           p Ny i Trondheim drives av <a href="">Abakus.</a> Ta kontakt på <a href="">hei@nyitrondheim.no</a>
 
       block footer
+      script.
+        window.prerenderReady = false;
       script(src='/vendor.js')
       script(src='/app.js')
 
