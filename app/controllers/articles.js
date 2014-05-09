@@ -3,6 +3,7 @@ var util        = require('util')
   , multiparty  = require('multiparty')
   , fs          = require('fs')
   , gm          = require('gm')
+  , moment      = require('moment')
   , _           = require('lodash');
 
 var handleError = function(err, req, res) {
@@ -104,6 +105,10 @@ exports.create = function(req, res) {
     _.forOwn(fields, function(value, key) {
       parsedFields[key] = value[0];
     });
+
+    parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
+    parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
+
     var article = new Article(parsedFields);
     article.union = req.params.union;
     article.save(function (err) {
@@ -125,6 +130,10 @@ exports.update = function(req, res) {
     _.forOwn(fields, function(value, key) {
       parsedFields[key] = value[0];
     });
+
+    parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
+    parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
+
     var article = util._extend(req.article, parsedFields);
     article.save(function (err) {
       if (err) return handleError(err, req, res);

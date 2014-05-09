@@ -41,6 +41,7 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
     },
 
     create: function(union, article) {
+      console.log("article", article);
       var image = article.image;
       article.image = null;
       return $upload.upload({

@@ -79,7 +79,7 @@ nitControllers.controller('CalendarController',
   $scope.unionEvents = [];
   $scope.eventSources = [$scope.generalEvents, $scope.unionEvents];
 
-  articleService.findAllEvents(unionService.last()._id).then(function(events) {
+  articleService.findAllEvents(unionService.last()._id).success(function(events) {
     events.forEach(function(e) {
       $scope.unionEvents.push({
         title: e.title,
@@ -91,7 +91,7 @@ nitControllers.controller('CalendarController',
       });
     });
   })
-  .then(articleService.findAllEvents('general').then(function(events) {
+  .then(articleService.findAllEvents('general').success(function(events) {
     events.forEach(function(e) {
       $scope.generalEvents.push({
         title: e.title,
