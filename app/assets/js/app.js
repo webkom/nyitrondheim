@@ -1,6 +1,14 @@
 
+/**
+ * Ny i Trondheim
+ */
+
 var app = angular.module('nitApp',
-  ['ngRoute', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload', 'LocalStorageModule']);
+  ['ngRoute', 'nitControllers', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload', 'LocalStorageModule']);
+
+/**
+ * Route Setup
+ */
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -40,6 +48,10 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
    });
 }]);
 
+/**
+ * textAngular configuration
+ */
+
 app.config(['$provide', function($provide){
   $provide.decorator('taOptions', ['$delegate', function(taOptions){
     taOptions.toolbar = [
@@ -54,19 +66,13 @@ app.config(['$provide', function($provide){
  * Controllers
  */
 
-app.controller('MainController', require('./controllers/main-controller'))
-app.controller('PageController', require('./controllers/page-controller'))
-app.controller('PagesController', require('./controllers/pages-controller'))
-app.controller('CalendarController', require('./controllers/calendar-controller'))
-app.controller('AdminController', require('./controllers/admin-controller'))
-app.controller('UnionAdminController', require('./controllers/union-admin-controller'));
+require('./controllers');
 
 /**
  * Services
  */
 
 require('./services');
-
 
 /**
  * Filters

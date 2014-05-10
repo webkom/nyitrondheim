@@ -1,13 +1,22 @@
+
+/**
+ * Truncate article descriptions
+ */
+
 exports.limitDescription = function() {
-  return function(input) {
+  return function(input, max) {
     input = input || '';
-    var arr = input.split('.');
-    if (arr[0].length > 95) {
-      return arr[0].slice(0, 95) + '…';
-    }
-    return arr[0] + '.';
+    max = max || 95;
+    var description = input.split('.').shift();
+    return description.length > max
+      ? description.slice(0, max) + '…'
+      : description + '.';
   };
 };
+
+/**
+ *
+ */
 
 exports.exists = function() {
   return function(obj) {
