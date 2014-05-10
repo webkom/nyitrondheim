@@ -17,8 +17,8 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='/vendor.css')
     link(rel='stylesheet', href='/app.css')
 
-  - var randomBackground = Math.floor(Math.random() * (5) + 1)
-  - console.log(randomBackground)
+  - var backgroundClasses = ['bybro', 'ntnu-front', 'ntnu', 'samfundet', 'vaattakammen']
+  - var backgroundClass = backgroundClasses[Math.floor(Math.random()*backgroundClasses.length)]
 
   mixin bodyMixin
     .loading-splash(ng-cloak)
@@ -58,9 +58,9 @@ html(ng-app='nitApp')
       script(src='/app.js')
 
   if controller
-    body(ng-controller='#{controller}', ng-class='{modalopen: modalOpen}', style='background: url("/images/bg/'+randomBackground+'.jpg") 50% center fixed')
+    body(class=backgroundClass, ng-controller='#{controller}', ng-class='{modalopen: modalOpen}')
         +bodyMixin()
   else
-    body(ng-class='{modalopen: modalOpen}')
+    body(class=backgroundClass, ng-class='{modalopen: modalOpen}')
       div(ng-cloak)
         +bodyMixin()
