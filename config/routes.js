@@ -20,9 +20,8 @@ module.exports.routes = function(app) {
     res.render('partials/' + req.param('partial').replace('.', '/'));
   });
 
-  app.get('/adminPartials/:adminPartial', function(req, res) {
-    console.log("rendering", req.param('adminPartial'));
-    res.render('adminPartials/' + req.param('adminPartial').replace('.', '/'));
+  app.get('/partials/admin/:partial', function(req, res) {
+    res.render('partials/admin/' + req.param('partial'));
   });
 
   app.get('/panel', ensureAuthenticated, function(req, res) {
@@ -35,7 +34,9 @@ module.exports.routes = function(app) {
     if (!req.isAuthenticated()) {
       return res.render('login', { union: req.user });
     }
-    ensureAdmin(req, res, res.redirect('/admin'));
+    ensureAdmin(req, res, function() {
+      res.redirect('/admin');
+    });
   });
   app.post('/login', unions.login);
 

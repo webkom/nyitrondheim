@@ -17,19 +17,19 @@ app.config(function($routeProvider, $locationProvider) {
      controller: 'CalendarController'
    })
    .when('/admin', {
-    templateUrl: 'adminPartials/overview',
+    templateUrl: 'partials/admin/overview',
     controller: 'AdminController'
    })
    .when('/admin/overview', {
-    templateUrl: 'adminPartials/overview',
+    templateUrl: 'partials/admin/overview',
     controller: 'AdminController'
    })
    .when('/admin/specific', {
-    templateUrl: 'adminPartials/specific',
+    templateUrl: 'partials/admin/specific',
     controller: 'AdminController'
    })
    .when('/admin/unions', {
-    templateUrl: 'adminPartials/unions',
+    templateUrl: 'partials/admin/unions',
     controller: 'UnionAdminController'
    })
    .when('/:unionSlug/:articleSlug*', {
