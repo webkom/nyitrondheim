@@ -3,30 +3,26 @@ var articles  = require('../app/controllers/articles')
   , Union     = require('../app/models/union')
   , passport  = require('passport');
 
-var ensureAuthenticated = module.exports.ensureAuthenticated =  function(req, res, next) {
+var ensureAuthenticated = exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) return next();
   res.redirect('/login');
 };
 
-var ensureAdmin = module.exports.ensureAdmin =  function(req, res, next) {
+var ensureAdmin = exports.ensureAdmin = function(req, res, next) {
   if (req.user.name === 'admin') return next();
   res.redirect('/panel');
 };
 
-module.exports.routes = function(app) {
+exports.routes = function(app) {
   app.param('slug', articles.load);
 
-  app.get('/partials/:partial', function(req, res) {
-    res.render('partials/' + req.param('partial').replace('.', '/'));
-  });
-
-  app.get('/partials/admin/:partial', function(req, res) {
-    res.render('partials/admin/' + req.param('partial'));
+  app.get('/partials/*', function(req, res) {
+    res.render('partials/' + req.params[0]);
   });
 
   app.get('/panel', ensureAuthenticated, function(req, res) {
     res.render('panel', {
-      union: req.user,
+      union: req.user
     });
   });
 
