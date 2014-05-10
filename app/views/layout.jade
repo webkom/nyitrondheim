@@ -17,6 +17,9 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='/vendor.css')
     link(rel='stylesheet', href='/app.css')
 
+  - var backgroundClasses = ['bybro', 'ntnu-front', 'ntnu', 'samfundet', 'vaattakammen']
+  - var backgroundClass = backgroundClasses[Math.floor(Math.random()*backgroundClasses.length)]
+
   mixin bodyMixin
     .loading-splash(ng-cloak)
       span Laster inn Ny i Trondheim
@@ -55,9 +58,9 @@ html(ng-app='nitApp')
       script(src='/app.js')
 
   if controller
-    body(ng-controller='#{controller}', ng-class='{modalopen: modalOpen}')
+    body(class=backgroundClass, ng-controller='#{controller}', ng-class='{modalopen: modalOpen}')
         +bodyMixin()
   else
-    body(ng-class='{modalopen: modalOpen}')
+    body(class=backgroundClass, ng-class='{modalopen: modalOpen}')
       div(ng-cloak)
         +bodyMixin()
