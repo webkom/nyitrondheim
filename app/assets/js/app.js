@@ -71,3 +71,10 @@ app.filter('exists', function() {
     return obj !== null && obj !== undefined && obj !== 'null' && obj !== 'undefined';
   };
 });
+
+app.directive('nitLoadingIndicator', function() {
+  return {
+    restrict: 'E',
+    template: '<div ng-class="{loading:loading}"><div class="loading-indicator spinner"><div class="dot1"></div><div class="dot2"></div></div></div>'
+  };
+});

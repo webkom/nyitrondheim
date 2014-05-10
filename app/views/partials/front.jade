@@ -41,14 +41,7 @@
     a.fourth.info(href='/generelt/trondheim') Trondheim
     a.fifth.samfundet(href='/generelt/samfundet') Samfundet
 
-
-  //h2 Artikler for linjeforeningen {{chosenUnion.name}}
-
-  div(ng-class='{loading: loading}')
-    div.loading-indicator
-      .spinner
-        .dot1
-        .dot2
+  nit-loading-indicator
 
   .union-specific-articles
     a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}')
