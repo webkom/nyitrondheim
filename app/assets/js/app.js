@@ -4,7 +4,7 @@ require('./controllers');
 var app = angular.module('nitApp',
   ['ngRoute', 'nitControllers', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload']);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $locationProvider.hashPrefix('!');
   $routeProvider
@@ -40,7 +40,7 @@ app.config(function($routeProvider, $locationProvider) {
      templateUrl: 'partials/front',
      controller: 'PagesController'
    });
-});
+}]);
 
 app.config(function($provide){
   // this demonstrates how to register a new tool and add it to the default toolbar
