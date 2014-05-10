@@ -3,39 +3,42 @@ var articles  = require('../app/controllers/articles')
   , Union     = require('../app/models/union')
   , passport  = require('passport');
 
-module.exports = function(app) {
+var ensureAuthenticated = module.exports.ensureAuthenticated =  function(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect('/login');
+};
 
+var ensureAdmin = module.exports.ensureAdmin =  function(req, res, next) {
+  if (req.user.name === 'admin') return next();
+  res.redirect('/panel');
+};
+
+module.exports.routes = function(app) {
   app.param('slug', articles.load);
 
-  app.get('/', function(req, res) {
-    res.render('index');
-  });
   app.get('/partials/:partial', function(req, res) {
     res.render('partials/' + req.param('partial').replace('.', '/'));
   });
-  app.get('/admin', ensureAuthenticated, function(req, res) {
-    res.render('admin', {
+
+  app.get('/adminPartials/:adminPartial', function(req, res) {
+    console.log("rendering", req.param('adminPartial'));
+    res.render('adminPartials/' + req.param('adminPartial').replace('.', '/'));
+  });
+
+  app.get('/panel', ensureAuthenticated, function(req, res) {
+    res.render('panel', {
       union: req.user,
-      title: 'Artikler og arrangement'
     });
   });
-  app.get('/superadmin', ensureAuthenticated, ensureAdmin, function(req, res) {
-    res.render('superadmin', {
-      union: req.user,
-      title: 'Artikler og arrangement'
-    });
-  });
-  app.get('/unionadmin', ensureAuthenticated, ensureAdmin, function(req, res) {
-    res.render('unionadmin');
-  });
+
   app.get('/login', function(req, res) {
     if (!req.isAuthenticated()) {
       return res.render('login', { union: req.user });
     }
-    res.redirect('/admin');
+    ensureAdmin(req, res, res.redirect('/admin'));
   });
-
   app.post('/login', unions.login);
+
   app.get('/logout', ensureAuthenticated, unions.logout);
 
   app.get('/api/articles', articles.all);
@@ -54,14 +57,4 @@ module.exports = function(app) {
   app.get('/api/unions/:union/articles/:slug', articles.show);
   app.put('/api/unions/:union/articles/:slug', ensureAuthenticated, articles.update);
   app.del('/api/unions/:union/articles/:slug', ensureAuthenticated, articles.delete);
-
-  function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) return next();
-    res.redirect('/login');
-  }
-
-  function ensureAdmin(req, res, next) {
-    if (req.user.name === 'admin') return next();
-    res.redirect('/admin');
-  }
 };

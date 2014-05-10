@@ -16,6 +16,8 @@ a
   text-decoration none
   color #444
   cursor pointer
+  &:hover
+    text-decoration none
 
 body
   font-family $font-family
@@ -47,14 +49,10 @@ h1
   font-family Lobster, Montserrat, serif
   font-weight 700
 
-  &.title, a
+  &.title, a, a:hover
     margin-top 50px
     color #fff
-
-  &.no-article-chosen
-    margin-top 30px
-    vertical-align middle
-    text-align center
+    text-decoration none
 
 button
   &.wide

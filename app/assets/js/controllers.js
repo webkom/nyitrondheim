@@ -205,7 +205,7 @@ nitControllers.controller('AdminController',
 
   $scope.findAll = function() {
     $scope.loading = true;
-    articleService.findAll($scope.union).success(function (articles) {
+    articleService.findAll($scope.union).then(function (articles) {
       $scope.loading = false;
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
