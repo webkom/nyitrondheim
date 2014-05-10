@@ -5,6 +5,7 @@ var express       = require('express')
   , app           = module.exports = express()
   , mongoose      = require('mongoose')
   , passport      = require('passport')
+  , routes        = require('./config/routes')
   , LocalStrategy = require('passport-local').Strategy;
 
 app.disable('x-powered-by');
@@ -44,7 +45,14 @@ mongoose.connection.on('disconnect', function() {
   connect();
 });
 
-require('./config/routes')(app);
+routes.routes(app);
+
+app.get('/admin*', routes.ensureAuthenticated, routes.ensureAdmin, function(req, res) {
+  res.render('admin', {
+    union: req.user,
+    title: 'Adminpanel'
+  });
+});
 
 app.get('*', function(req, res) {
   res.render('index');

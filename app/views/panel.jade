@@ -6,49 +6,40 @@ block header
 
 block content
   header
-    h1.title Oversikt
+    h1.title Artikler og arrangement
 
-  section(ng-init='findAllNoUnion()')
+  section(ng-init='findAll(); createArticle();')
     .row
       .col-xs-3.admin-article-sidebar
         .row
           ul#admin-article-list
-            li.new-article-li Ikke-godkjente
+            li.new-article-li(ng-click='createArticle()', ng-class='{"selected-article": selectedIndex==0}') Ny artikkel
             div(ng-class='{loading: loading}')
               div.loading-indicator
                 .spinner.small
                   .dot1
                   .dot2
-            li.article-li(ng-repeat='nA in articlesAndEvents',
-              ng-if='!nA.approved'
-              ng-click='chooseArticle(nA, $index)',
-              ng-class='{"selected-article": selectedIndex==($index)}') {{nA.title}}
+            li.article-li(ng-repeat='article in articles',
+              ng-click='chooseArticle(article, $index + 1)',
+              ng-class='{"selected-article": selectedIndex==($index+1)}') {{article.title}}
         .row
           ul#admin-event-list
-            li.new-event-li Godkjente
-            div(ng-class='{loading: loading}')
-              div.loading-indicator
-                .spinner.small
-                  .dot1
-                  .dot2
-            li.event-li(ng-repeat='a in articlesAndEvents',
-              ng-if='a.approved'
-              ng-click='chooseArticle(a, $index)',
-              ng-class='{"selected-event": selectedIndex==($index)}') {{a.title}}
+            li.new-event-li(ng-click='createEvent()', ng-class='{"selected-event": selectedIndex==articles.length+1}') Nytt arrangement
+              div(ng-class='{loading: loading}')
+                div.loading-indicator
+                  .spinner.small
+                    .dot1
+                    .dot2
+            li.event-li(ng-repeat='event in events',
+              ng-click='chooseArticle(event, $index + articles.length + 2)',
+              ng-class='{"selected-event": selectedIndex==($index + articles.length + 2)}') {{event.title}}
 
       .col-xs-9.admin-article-main
-        h1.no-article-chosen(ng-show='!article._id') Ingen artikkel valgt.
-        form(ng-show='!!article._id', name='articleForm', role='form')
-          .form-group
-            .btn-group.btn-group-justified
-              a.btn.btn-success(type='button', ng-class='{"active": article.approved}',
-                ng-click='setApprovedStatus(true)') Godkjent
-              a.btn.btn-danger(type='button', ng-class='{"active": !article.approved}'
-                ng-click='setApprovedStatus(false)') Ikke-godkjent
+        form(name='articleForm', role='form')
           .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
             label(for='title') Tittel
             input.form-control#title(type='text', name='title', placeholder='Tittel',
-              value='{{article.title}}', ng-model='article.title' required)
+              value='{{article.title}}', ng-model='article.title', required)
           .form-group(ng-class='{"has-warning": articleForm.priority.$invalid, "has-success": articleForm.priority.$valid}')
             label(for='priority') Prioritet (bestemmer forsideposisjon, høyere betyr viktigere)
             select.form-control#priority(name='priority', ng-options='option for option in priorities',
@@ -69,7 +60,7 @@ block content
               ng-model='article.description' required)='{{article.description}}'
           .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
             label(for='body') Tekst
-            div(text-angular, name='body', ng-model='article.body', required)='{{article.body}}'
+            div(text-angular, name='body', ng-model='article.body', required)
 
           div(ng-switch='article.event')
             div(ng-switch-when='true')
@@ -122,25 +113,25 @@ block content
                         required)
                       span.input-group-addon Sluttidspunkt&nbsp;&nbsp;
 
-          .form-group(ng-switch='articleForm.$valid')
-            div(ng-switch-when='true')
-              button.btn.btn-primary(ng-click='saveArticle(article)', ng-hide='article._id') Send
-              .btn-group.btn-group-justified(ng-hide='!article._id')
-                a.btn.btn-primary(ng-click='saveArticle(article)') Send
-                a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
-            div(ng-switch-default)
-              button.btn.btn-primary.disabled(ng-click='saveArticle(article)', ng-hide='article._id') Fyll inn all feltene!
-              .btn-group(ng-hide='!article._id')
-                button.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
-                button.btn.btn-danger(ng-click='destroyArticle(article)') Slett
-          .form-group(ng-show='uploading')
-            .row
-              .col-xs-3
-                span Laster opp:
-              .col-xs-9
-                .progress.progress-striped.active
-                  .progress-bar(role='progressbar', aria-valuenow='{{progress}}', aria-valuemin='0',
-                  aria-valuemax='100', style='width: 50%')
+            .form-group(ng-switch='articleForm.$valid')
+              div(ng-switch-when='true')
+                button.btn.btn-primary.wide(ng-click='saveArticle(article)', ng-hide='article._id') Send
+                .btn-group.btn-group-justified(ng-hide='!article._id')
+                  a.btn.btn-primary(ng-click='saveArticle(article)') Send
+                  a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
+              div(ng-switch-default)
+                button.btn.btn-primary.disabled.wide(ng-click='saveArticle(article)', ng-hide='article._id') Fyll inn all feltene!
+                .btn-group.btn-group-justified(ng-hide='!article._id')
+                  a.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
+                  a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
+            .form-group(ng-show='uploading')
+              .row
+                .col-xs-3
+                  span Laster opp:
+                .col-xs-9
+                  .progress.progress-striped.active
+                    .progress-bar(role='progressbar', aria-valuenow='{{progress}}', aria-valuemin='0',
+                    aria-valuemax='100', style='width: 50%')
 
 block footer
   script.

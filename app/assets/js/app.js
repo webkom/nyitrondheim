@@ -16,6 +16,22 @@ app.config(function($routeProvider, $locationProvider) {
      templateUrl: 'partials/calendar',
      controller: 'CalendarController'
    })
+   .when('/admin', {
+    templateUrl: 'partials/admin/overview',
+    controller: 'AdminController'
+   })
+   .when('/admin/overview', {
+    templateUrl: 'partials/admin/overview',
+    controller: 'AdminController'
+   })
+   .when('/admin/specific', {
+    templateUrl: 'partials/admin/specific',
+    controller: 'AdminController'
+   })
+   .when('/admin/unions', {
+    templateUrl: 'partials/admin/unions',
+    controller: 'UnionAdminController'
+   })
    .when('/:unionSlug/:articleSlug*', {
      templateUrl: 'partials/page',
      controller: 'PageController'
