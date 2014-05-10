@@ -1,0 +1,46 @@
+.row(ng-init='findAll(); createUnion();')
+  .col-xs-3.admin-article-sidebar
+    .row
+      ul#admin-event-list
+        li.new-event-li(ng-click='createUnion()', ng-class='{"selected-event": selectedIndex==0}') Ny linjeforening
+        div(ng-class='{loading: loading}')
+          div.loading-indicator
+            .spinner.small
+              .dot1
+              .dot2
+        li.event-li(ng-repeat='union in unions',
+          ng-click='chooseUnion(union, $index + 1)',
+          ng-class='{"selected-event": selectedIndex==($index+1)}') {{union.name}}
+
+  .col-xs-9.admin-article-main
+    form(name='unionForm', role='form')
+      .form-group(ng-class='{"has-warning": unionForm.name.$invalid, "has-success": unionForm.name.$valid}')
+        label(for='title') Navn
+        input.form-control#title(type='text', name='name', placeholder='Navn',
+          value='{{union.name}}', ng-model='union.name', required)
+      .form-group(ng-class='{"has-warning": unionForm.school.$invalid, "has-success": unionForm.school.$valid}')
+        label(for='title') Skole
+        input.form-control#title(type='text', name='school', placeholder='Skole',
+          value='{{union.school}}', ng-model='union.school', required)
+      .form-group(ng-class='{"has-warning": unionForm.password.$invalid, "has-success": unionForm.password.$valid}')
+        label(for='title') Passord
+        div(ng-switch='selectedIndex == 0')
+          input.form-control#password(ng-switch-when='true', type='password', name='password', placeholder='Passord',
+          ng-model='union.password', required)
+          input.form-control#password(ng-switch-default, type='password', name='password', placeholder='Passord',
+          ng-model='union.password')
+      .form-group(ng-class='{"has-warning": unionForm.description.$invalid, "has-success": unionForm.description.$valid}')
+        label(for='title') Beskrivelse
+        textarea.form-control#description(type='text', name='description', placeholder='Beskrivelse',
+          value='{{union.description}}', ng-model='union.description')
+      .form-group(ng-switch='unionForm.$valid')
+        div(ng-switch-when='true')
+          button.btn.btn-primary.wide(ng-click='saveUnion(union)', ng-hide='union._id') Send
+          .btn-group.btn-group-justified(ng-hide='!union._id')
+            a.btn.btn-primary(ng-click='saveUnion(union)') Send
+            a.btn.btn-danger(ng-click='destroyUnion(union)') Slett
+        div(ng-switch-default)
+          button.btn.btn-primary.disabled.wide(ng-click='saveUnion(union)', ng-hide='union._id') Fyll inn all feltene!
+          .btn-group.btn-group-justified(ng-hide='!union._id')
+            a.btn.btn-primary.disabled(ng-click='saveUnion(union)') Fyll inn alle feltene!
+            a.btn.btn-danger(ng-click='destroyUnion(union)') Slett
