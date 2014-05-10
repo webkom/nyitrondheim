@@ -41,9 +41,19 @@ var saveImage = function(updatedArticle, image, req, res) {
     if (!exists) {
       fs.exists(unionImages, function(innerExists) {
         function mkInner() {
-          fs.mkdir(unionImages + req.params.union, function(err) {
-            if (err) return handleError(err, req, res);
-            gmWrite();
+          function mkUnion() {
+            fs.mkdir(unionImages + req.params.union, function(err) {
+              if (err) return handleError(err, req, res);
+              gmWrite();
+            });
+          }
+          fs.exists(unionImages + req.params.union, function(unionExists) {
+            if (unionExists) {
+              gmWrite();
+            }
+            else {
+              mkUnion();
+            }
           });
         }
         if (innerExists) {
@@ -106,8 +116,10 @@ exports.create = function(req, res) {
       parsedFields[key] = value[0];
     });
 
-    parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
-    parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
+    if (parsedFields.event) {
+      parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
+      parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
+    }
 
     var article = new Article(parsedFields);
     article.union = req.params.union;
@@ -131,8 +143,11 @@ exports.update = function(req, res) {
       parsedFields[key] = value[0];
     });
 
-    parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
-    parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
+    if (parsedFields.event === 'true') {
+      console.log("fields", parsedFields);
+      parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
+      parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
+    }
 
     var article = util._extend(req.article, parsedFields);
     article.save(function (err) {

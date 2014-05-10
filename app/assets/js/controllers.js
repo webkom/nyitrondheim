@@ -205,7 +205,7 @@ nitControllers.controller('AdminController',
 
   $scope.findAll = function() {
     $scope.loading = true;
-    articleService.findAll($scope.union).success(function (articles) {
+    articleService.findAll($scope.union).then(function (articles) {
       $scope.loading = false;
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
@@ -317,7 +317,6 @@ nitControllers.controller('UnionAdminController',
   unionService.findAll().success(function(unions) {
     $scope.loading = false;
     $scope.unions = unions;
-    console.log(unions);
   });
 
   $scope.chooseUnion = function(union, selectedIndex) {
