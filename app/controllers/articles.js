@@ -5,7 +5,7 @@ var util        = require('util')
   , gm          = require('gm')
   , moment      = require('moment')
   , mkdirp      = require('mkdirp')
-  , async       = require('async')
+  , path        = require('path')
   , _           = require('lodash');
 
 var handleError = function(err, req, res) {
@@ -13,33 +13,27 @@ var handleError = function(err, req, res) {
   res.send(500, err);
 };
 
-var saveImage = function(updatedArticle, image, req, res) {
-  var arr = image.originalFilename.split('.');
-  var ending = '.' + arr[arr.length-1];
-  var unionImages = __dirname + '/../../public/images/unions/';
-  var newPath = unionImages + req.params.union + '/' + updatedArticle._id + ending;
-  var newPathCropped = unionImages + req.params.union + '/' + updatedArticle._id + '_cropped' + ending;
+var saveImage = function(article, image, fn) {
+  var ending = path.extname(image.originalFilename);
+  var unionPath = __dirname + '/../../public/images/unions/' + article.union;
+  var newPath = unionPath + '/' + article._id + ending;
+  var newPathCropped = unionPath + '/' + article._id + '_cropped' + ending;
 
-  mkdirp(unionImages + req.params.union, function(err) {
-    if (err) console.log('Couldn\'t create folder structure for images:', err);
-    else {
-      gm(image.path)
-        .resize(500) // Resize to a width of 500px
-        .noProfile()
-        .write(newPathCropped, function(err) {
-          if (err) return handleError(err, req, res);
-          updatedArticle.imageCropped = newPathCropped;
-          fs.rename(image.path, newPath, function(err) {
-            if (err) return handleError(err, req, res);
-            updatedArticle.image = newPath;
-            updatedArticle.imageName = image.originalFilename;
-            updatedArticle.save(function (err) {
-              if (err) return handleError(err, req, res);
-              res.send(201, updatedArticle);
-            });
-          });
+  mkdirp(unionPath, function(err) {
+    if (err) return fn(err);
+    gm(image.path)
+      .resize(500) // Resize to a width of 500px
+      .noProfile()
+      .write(newPathCropped, function(err) {
+        if (err) return fn(err);
+        article.imageCropped = newPathCropped;
+        fs.rename(image.path, newPath, function(err) {
+          if (err) return fn(err);
+          article.image = newPath;
+          article.imageName = image.originalFilename;
+          return fn(null,  article);
         });
-    }
+      });
   });
 };
 
@@ -95,15 +89,18 @@ exports.create = function(req, res) {
 
     var article = new Article(parsedFields);
     article.union = req.params.union;
-    article.save(function (err) {
+
+    function saveSend(err, article) {
       if (err) return handleError(err, req, res);
-      if (!_.isEmpty(files)) {
-        saveImage(article, files.file[0], req, res);
-      }
-      else {
+      article.save(function(err) {
+        if (err) return handleError(err, req, res);
         res.send(201, article);
-      }
-    });
+      });
+    }
+    if (!_.isEmpty(files)) {
+      saveImage(article, files.file[0], saveSend);
+    }
+    else saveSend(null, article);
   });
 };
 
@@ -116,21 +113,24 @@ exports.update = function(req, res) {
     });
 
     if (parsedFields.event === 'true') {
-      console.log("fields", parsedFields);
       parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
       parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
     }
 
     var article = util._extend(req.article, parsedFields);
-    article.save(function (err) {
+
+    function saveSend(err, article) {
       if (err) return handleError(err, req, res);
-      if (!_.isEmpty(files)) {
-        saveImage(article, files.file[0], req, res);
-      }
-      else {
+      article.save(function(err) {
+        if (err) return handleError(err, req, res);
         res.send(201, article);
-      }
-    });
+      });
+    }
+
+    if (!_.isEmpty(files)) {
+      saveImage(article, files.file[0], saveSend);
+    }
+    else saveSend(null, article);
   });
 };
 
