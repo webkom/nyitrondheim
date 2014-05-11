@@ -1,6 +1,7 @@
 var util        = require('util')
-  , Union    = require('../models/union')
-  , passport = require('passport');
+  , Union       = require('../models/union')
+  , passport    = require('passport')
+  , slug        = require('slug');
 
 var nameOrId = function(value) {
   if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
@@ -34,14 +35,6 @@ exports.show = function(req, res) {
   });
 };
 
-exports.create = function(req, res) {
-  var union = new Union({name: req.body.name, description: req.body.description});
-  union.save(function(err) {
-    if (err) return handleError(err, req, res);
-    res.send(201, union);
-  });
-};
-
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user) {
     if (err) {
@@ -67,9 +60,9 @@ exports.logout = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  console.log(req.body);
   var password = req.body.password;
   delete req.body.password;
+  req.body.slug = slug(req.body.name).toLowerCase();
   var union = new Union(req.body);
   Union.register(union, password, function (err) {
     if (err) return handleError(err, req, res);

@@ -1,0 +1,270 @@
+[
+  {
+    "name": "admin",
+    "school": "admin"
+  },
+  {
+    "name": "Abakus",
+    "school": "NTNU"
+  },
+  {
+    "name": "A/F Smørekoppen",
+    "school": "NTNU"
+  },
+  {
+    "name": "Arkitektstudentenes Broderskab",
+    "school": "NTNU"
+  },
+  {
+    "name": "Bergstuderendes Forening",
+    "school": "NTNU"
+  },
+  {
+    "name": "Delta",
+    "school": "NTNU"
+  },
+  {
+    "name": "EMIL",
+    "school": "NTNU"
+  },
+  {
+    "name": "Høiskolens Chemikerforening",
+    "school": "NTNU"
+  },
+  {
+    "name": "H.M. Aarhønen",
+    "school": "NTNU"
+  },
+  {
+    "name": "Hybrida",
+    "school": "NTNU"
+  },
+  {
+    "name": "Janus Linjeforening",
+    "school": "NTNU"
+  },
+  {
+    "name": "Leonardo",
+    "school": "NTNU"
+  },
+  {
+    "name": "Mannhullet",
+    "school": "NTNU"
+  },
+  {
+    "name": "Nabla",
+    "school": "NTNU"
+  },
+  {
+    "name": "Omega",
+    "school": "NTNU"
+  },
+  {
+    "name": "Online",
+    "school": "NTNU"
+  },
+  {
+    "name": "Placebo",
+    "school": "NTNU"
+  },
+  {
+    "name": "Spanskrøret",
+    "school": "NTNU"
+  },
+  {
+    "name": "Timini",
+    "school": "NTNU"
+  },
+  {
+    "name": "Volvox & Alkymisten",
+    "school": "NTNU"
+  },
+  {
+    "name": "Akwaaba",
+    "school": "NTNU"
+  },
+  {
+    "name": "Apeiron",
+    "school": "NTNU"
+  },
+  {
+    "name": "CAF",
+    "school": "NTNU"
+  },
+  {
+    "name": "Communitas",
+    "school": "NTNU"
+  },
+  {
+    "name": "De Folkevalgte",
+    "school": "NTNU"
+  },
+  {
+    "name": "De Passe Simple",
+    "school": "NTNU"
+  },
+  {
+    "name": "Det Historiske Selskab",
+    "school": "NTNU"
+  },
+  {
+    "name": "Dionysos",
+    "school": "NTNU"
+  },
+  {
+    "name": "Erudio",
+    "school": "NTNU"
+  },
+  {
+    "name": "Eureka",
+    "school": "NTNU"
+  },
+  {
+    "name": "Geolf",
+    "school": "NTNU"
+  },
+  {
+    "name": "Gengangere",
+    "school": "NTNU"
+  },
+  {
+    "name": "Jump Cut",
+    "school": "NTNU"
+  },
+  {
+    "name": "IVRig",
+    "school": "NTNU"
+  },
+  {
+    "name": "Katharsis",
+    "school": "NTNU"
+  },
+  {
+    "name": "Kultura",
+    "school": "NTNU"
+  },
+  {
+    "name": "LiMP",
+    "school": "NTNU"
+  },
+  {
+    "name": "Lipton",
+    "school": "NTNU"
+  },
+  {
+    "name": "Los Elegidos",
+    "school": "NTNU"
+  },
+  {
+    "name": "Ludimus",
+    "school": "NTNU"
+  },
+  {
+    "name": "Lydmurerlosjen",
+    "school": "NTNU"
+  },
+  {
+    "name": "Notelinjeforeningen",
+    "school": "NTNU"
+  },
+  {
+    "name": "Paideia",
+    "school": "NTNU"
+  },
+  {
+    "name": "Panoptikon",
+    "school": "NTNU"
+  },
+  {
+    "name": "Pareto",
+    "school": "NTNU"
+  },
+  {
+    "name": "Primetime",
+    "school": "NTNU"
+  },
+  {
+    "name": "Psi",
+    "school": "NTNU"
+  },
+  {
+    "name": "Psykolosjen",
+    "school": "NTNU"
+  },
+  {
+    "name": "Socius Extremus",
+    "school": "NTNU"
+  },
+  {
+    "name": "Sturm und Drang",
+    "school": "NTNU"
+  },
+  {
+    "name": "Syrinx",
+    "school": "NTNU"
+  },
+  {
+    "name": "Teaterlosjen",
+    "school": "NTNU"
+  },
+  {
+    "name": "Theodor",
+    "school": "NTNU"
+  },
+  {
+    "name": "Trondheim Klassisk Studentforening",
+    "school": "NTNU"
+  },
+  {
+    "name": "Elektra",
+    "school": "HiST"
+  },
+  {
+    "name": "Fraktur",
+    "school": "HiST"
+  },
+  {
+    "name": "KOM",
+    "school": "HiST"
+  },
+  {
+    "name": "Logistikkstudentene",
+    "school": "HiST"
+  },
+  {
+    "name": "MiT",
+    "school": "HiST"
+  },
+  {
+    "name": "Vivas",
+    "school": "HiST"
+  },
+  {
+    "name": "Nucleus",
+    "school": "HiST"
+  },
+  {
+    "name": "Nutrix",
+    "school": "HiST"
+  },
+  {
+    "name": "STØH",
+    "school": "HiST"
+  },
+  {
+    "name": "Tekno-Tunga",
+    "school": "HiST"
+  },
+  {
+    "name": "TIHLDE",
+    "school": "HiST"
+  },
+  {
+    "name": "Tim & Shænko",
+    "school": "HiST"
+  },
+  {
+    "name": "BI Studentsamfunn",
+    "school": "BI"
+  }
+]

@@ -1,10 +1,14 @@
 var mongoose              = require('mongoose')
-  , slug                  = require('mongoose-slug')
   , Schema                = mongoose.Schema
   , passportLocalMongoose = require('passport-local-mongoose');
 
 var unionSchema = new Schema({
   name: {
+    type: String,
+    required: true
+  },
+
+  slug: {
     type: String,
     required: true
   },
@@ -39,8 +43,7 @@ unionSchema.statics = {
 };
 
 unionSchema.plugin(passportLocalMongoose, {
-  usernameField: 'name'
+  usernameField: 'slug'
 });
-unionSchema.plugin(slug('name'));
 
 module.exports = mongoose.model('Union', unionSchema);

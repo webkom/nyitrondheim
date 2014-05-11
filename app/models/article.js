@@ -21,11 +21,6 @@ var articleSchema = new Schema({
     required: true,
     ref: 'Union'
   },
-  priority: {
-    type: Number,
-    default: 1,
-    required: true
-  },
   event: {
     type: Boolean,
     default: false
@@ -39,7 +34,10 @@ var articleSchema = new Schema({
   startTime: String,
   endTime: String,
   location: String,
-  color: String,
+  color: {
+    type: String,
+    default: '#d9534f'
+  },
   imageName: String,
   image: String,
   imageCropped: String,
