@@ -291,6 +291,7 @@ nitControllers.controller('AdminController',
       .progress(function(evt) {
         $scope.uploading = true;
         $scope.progress = parseInt(100.0 * evt.loaded/evt.total);
+        if ($scope.progress === 100) $scope.uploading = false;
       });
   };
 
