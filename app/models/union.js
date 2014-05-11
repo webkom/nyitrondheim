@@ -9,6 +9,11 @@ var unionSchema = new Schema({
     required: true
   },
 
+  slug: {
+    type: String,
+    required: true
+  },
+
   description: {
     type: String,
     default: ''
@@ -38,7 +43,7 @@ unionSchema.statics = {
   }
 };
 
-unionSchema.plugin(slug('name'));
+//unionSchema.plugin(slug('name'));
 
 unionSchema.plugin(passportLocalMongoose, {
   usernameField: 'slug'

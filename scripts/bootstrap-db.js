@@ -2,6 +2,7 @@
 
 var mongoose        = require('mongoose')
   , _               = require('lodash')
+  , slug            = require('slug')
   , async           = require('async')
   , program         = require('commander')
   , Union           = require('../app/models/union')
@@ -16,15 +17,15 @@ function done() {
 
 function createUnions(addArticlesToUnions) {
   async.each(unionJSON, function(uJSON, callback) {
+    uJSON.slug = slug(uJSON.name).toLowerCase();
     var union = new Union(uJSON);
-    union.save(function(err, union) {
-      union.setPassword('temp', function(err, union) {
-        union.save(function(err, union) {
-          if (err) console.log('Couldn\'t save union after setting password.', err);
-          console.log('Created union', union.name, ' with the password "temp"');
-          if (addArticlesToUnions) addArticles(union, callback);
-          else callback();
-        });
+    Union.register(union, 'temp', function(err, union) {
+      union.save(function(err, union) {
+        if (err) console.log('Couldn\'t save union after setting password.', err);
+        console.log('Created union', union.name, ', with the username', union.slug,
+          'and the password "temp"');
+        if (addArticlesToUnions) addArticles(union, callback);
+        else callback();
       });
     });
   }, done);
@@ -48,7 +49,7 @@ function addArticles(union, callback) {
 }
 
 program
-  .command('bootstrap [database]')
+  .command('unions [database]')
   .description('Bootstraps the database with a set of unions from various schools in Trondheim.')
   .option('-a, --articles', 'Include example articles.')
   .option('-c, --clear', 'Clears the database before bootstrapping.')
