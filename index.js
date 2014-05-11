@@ -1,4 +1,3 @@
-
 var express       = require('express')
   , bodyParser    = require('body-parser')
   , cookieParser  = require('cookie-parser')
@@ -13,7 +12,7 @@ app.disable('x-powered-by');
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/views');
-// Export MONGO_URL or change the database here:
+// Change this according to the database you use (or export the var MONGO_URL).
 app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017');
 
 app.use(bodyParser());
