@@ -1,7 +1,7 @@
-var mongoose   = require('mongoose')
-  , slug       = require('mongoose-slug')
-  , Union      = require('./union')
-  , Schema     = mongoose.Schema;
+var mongoose    = require('mongoose')
+  , slug        = require('mongoose-slug')
+  , Union       = require('./union')
+  , Schema      = mongoose.Schema;
 
 var articleSchema = new Schema({
   title: {
@@ -20,11 +20,6 @@ var articleSchema = new Schema({
     type: Schema.ObjectId,
     required: true,
     ref: 'Union'
-  },
-  priority: {
-    type: Number,
-    default: 1,
-    required: true
   },
   event: {
     type: Boolean,

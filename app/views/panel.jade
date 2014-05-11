@@ -40,12 +40,8 @@ block content
             label(for='title') Tittel
             input.form-control#title(type='text', name='title', placeholder='Tittel',
               value='{{article.title}}', ng-model='article.title', required)
-          .form-group(ng-class='{"has-warning": articleForm.priority.$invalid, "has-success": articleForm.priority.$valid}')
-            label(for='priority') Prioritet (bestemmer forsideposisjon, høyere betyr viktigere)
-            select.form-control#priority(name='priority', ng-options='option for option in priorities',
-              ng-model='article.priority', required)
           .form-group(ng-class='{"has-warning": articleForm.image.$invalid, "has-success": articleForm.image.$valid}')
-            label(for='image') Artikkelbilde {{article.image.name}}
+            label(for='image') Artikkelbilde
             .drop-area(ng-file-drop='setImage($files[0], false)') Dra bilder hit!
             input#file-input(type='file', accepted='image/*', ng-file-select='setImage($files[0], true)',
               ng-value='article.image')
