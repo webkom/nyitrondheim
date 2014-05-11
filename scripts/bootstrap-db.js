@@ -22,7 +22,7 @@ function createUnions(addArticlesToUnions) {
     Union.register(union, 'temp', function(err, union) {
       union.save(function(err, union) {
         if (err) console.log('Couldn\'t save union after setting password.', err);
-        console.log('Created union', union.name, ', with the username', union.slug,
+        console.log('Created union', union.name + ', with the username', union.slug,
           'and the password "temp"');
         if (addArticlesToUnions) addArticles(union, callback);
         else callback();
