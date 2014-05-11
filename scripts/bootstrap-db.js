@@ -2,6 +2,7 @@
 
 var mongoose        = require('mongoose')
   , _               = require('lodash')
+  , async           = require('async')
   , program         = require('commander')
   , Union           = require('../app/models/union')
   , Article         = require('../app/models/article')
@@ -14,43 +15,36 @@ function done() {
 }
 
 function createUnions(addArticlesToUnions) {
-  _.forEach(unionJSON, function(uJSON, index) {
+  async.each(unionJSON, function(uJSON, callback) {
     var union = new Union(uJSON);
     union.save(function(err, union) {
       union.setPassword('temp', function(err, union) {
         union.save(function(err, union) {
           if (err) console.log('Couldn\'t save union after setting password.', err);
           console.log('Created union', union.name, ' with the password "temp"');
-          console.log('ind, len', index === unionJSON.length-1);
-          if (addArticlesToUnions) {
-            addArticles(union, (index === unionJSON.length-1));
-          }
-          else if (index === unionJSON.length-1) {
-            done();
-          }
+          if (addArticlesToUnions) addArticles(union, callback);
+          else callback();
         });
       });
     });
-  });
+  }, done);
 }
 
-function addArticles(union, last) {
+function addArticles(union, callback) {
   console.log('Creating example articles..');
   var numberOfArticles = 4;
-  (function next() {
+  function next() {
     var exampleArticle = _.clone(articleJSON);
     exampleArticle.title = exampleArticle.title + ' ' + numberOfArticles;
     var article = new Article(exampleArticle);
     article.union = union._id;
     article.save(function() {
-      console.log('Saving article.');
       numberOfArticles--;
       if (numberOfArticles > 0) next();
-      else if (last) {
-        done();
-      }
+      else callback();
     });
-  })();
+  }
+  next();
 }
 
 program
