@@ -1,5 +1,4 @@
 var mongoose              = require('mongoose')
-  , slug                  = require('mongoose-slug')
   , Schema                = mongoose.Schema
   , passportLocalMongoose = require('passport-local-mongoose');
 
@@ -42,8 +41,6 @@ unionSchema.statics = {
     return this.findOne({slug: slug}).exec(cb);
   }
 };
-
-//unionSchema.plugin(slug('name'));
 
 unionSchema.plugin(passportLocalMongoose, {
   usernameField: 'slug'
