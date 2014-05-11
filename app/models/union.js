@@ -38,9 +38,10 @@ unionSchema.statics = {
   }
 };
 
-unionSchema.plugin(passportLocalMongoose, {
-  usernameField: 'name'
-});
 unionSchema.plugin(slug('name'));
+
+unionSchema.plugin(passportLocalMongoose, {
+  usernameField: 'slug'
+});
 
 module.exports = mongoose.model('Union', unionSchema);

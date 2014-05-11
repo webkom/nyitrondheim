@@ -1,3 +1,4 @@
+
 var express       = require('express')
   , bodyParser    = require('body-parser')
   , cookieParser  = require('cookie-parser')
@@ -12,7 +13,8 @@ app.disable('x-powered-by');
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/views');
-app.set('mongourl', process.env.MONGO_URL || 'mongodb://webkom:aidspenis@oceanic.mongohq.com:10072/nyitrondheim');
+// Export MONGO_URL or change the database here:
+app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017');
 
 app.use(bodyParser());
 app.use(cookieParser('cookiesecret'));
@@ -34,15 +36,17 @@ passport.use(Union.createStrategy());
 passport.serializeUser(Union.serializeUser());
 passport.deserializeUser(Union.deserializeUser());
 
-mongoose.connect(app.get('mongourl'));
+mongoose.connect(app.get('mongourl'), function(err) {
+  if (err) console.log('Couldn\'t connect to database.');
+  console.log('Connected to database.');
+});
 
 mongoose.connection.on('error', function(err) {
   console.log('Mongoose error:', err);
 });
 
-mongoose.connection.on('disconnect', function() {
-  console.log('Mongoose disconnected, reconnecting..');
-  connect();
+mongoose.connection.on('disconnected', function(err) {
+  console.log('Mongoose disconnected, reconnecting..'); // Should auto reconnect
 });
 
 routes.routes(app);

@@ -34,14 +34,6 @@ exports.show = function(req, res) {
   });
 };
 
-exports.create = function(req, res) {
-  var union = new Union({name: req.body.name, description: req.body.description});
-  union.save(function(err) {
-    if (err) return handleError(err, req, res);
-    res.send(201, union);
-  });
-};
-
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user) {
     if (err) {
