@@ -10,6 +10,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "~1.0.1",
+    "commander": "^2.2.0",
     "cookie-parser": "~1.0.1",
     "express": "~4.0.0",
     "express-session": "~1.0.2",
@@ -24,10 +25,10 @@
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
     "passport-local-mongoose": "~0.3.0",
+    "prerender-node": "~1.0.1",
     "stylus": "*",
     "superagent": "~0.17.0",
-    "uglify-js": "~2.4.13",
-    "prerender-node": "~1.0.1"
+    "uglify-js": "~2.4.13"
   },
   "devDependencies": {
     "supervisor": "^0.5.7",
