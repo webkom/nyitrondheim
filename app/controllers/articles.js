@@ -4,6 +4,8 @@ var util        = require('util')
   , fs          = require('fs')
   , gm          = require('gm')
   , moment      = require('moment')
+  , mkdirp      = require('mkdirp')
+  , async       = require('async')
   , _           = require('lodash');
 
 var handleError = function(err, req, res) {
@@ -18,8 +20,9 @@ var saveImage = function(updatedArticle, image, req, res) {
   var newPath = unionImages + req.params.union + '/' + updatedArticle._id + ending;
   var newPathCropped = unionImages + req.params.union + '/' + updatedArticle._id + '_cropped' + ending;
 
-  fs.exists(__dirname + unionImages + req.params.union, function(exists) {
-    function gmWrite() {
+  mkdirp(unionImages + req.params.union, function(err) {
+    if (err) console.log('Couldn\'t create folder structure for images:', err);
+    else {
       gm(image.path)
         .resize(500) // Resize to a width of 500px
         .noProfile()
@@ -31,43 +34,12 @@ var saveImage = function(updatedArticle, image, req, res) {
             updatedArticle.image = newPath;
             updatedArticle.imageName = image.originalFilename;
             updatedArticle.save(function (err) {
-              // maybe do it sync instead and only save the article once
               if (err) return handleError(err, req, res);
               res.send(201, updatedArticle);
             });
           });
         });
     }
-    if (!exists) {
-      fs.exists(unionImages, function(innerExists) {
-        function mkInner() {
-          function mkUnion() {
-            fs.mkdir(unionImages + req.params.union, function(err) {
-              if (err) return handleError(err, req, res);
-              gmWrite();
-            });
-          }
-          fs.exists(unionImages + req.params.union, function(unionExists) {
-            if (unionExists) {
-              gmWrite();
-            }
-            else {
-              mkUnion();
-            }
-          });
-        }
-        if (innerExists) {
-          mkInner();
-        }
-        else {
-          fs.mkdir(unionImages, function(err) {
-            if (err) return handleError(err, req, res);
-            mkInner();
-          });
-        }
-      });
-    }
-    else gmWrite();
   });
 };
 
