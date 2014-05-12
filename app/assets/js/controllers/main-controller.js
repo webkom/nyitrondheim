@@ -26,8 +26,6 @@ module.exports = ['$scope', '$routeParams', 'unionService', function($scope, $ro
     });
   });
 
-  if (!!$scope.chosenUnion) $scope.openModal();
-
   $scope.chooseUnion = function(union) {
     $scope.chosenUnion = union;
     unionService.pick(union);

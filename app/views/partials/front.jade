@@ -43,6 +43,8 @@
 
   nit-loading-indicator
 
+  p.no-fraternity-chosen(ng-show='!chosenUnion._id') Du må velge linjeforening.
+
   .union-specific-articles
     a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}')
       article
