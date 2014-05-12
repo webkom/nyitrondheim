@@ -36,7 +36,7 @@ passport.serializeUser(Union.serializeUser());
 passport.deserializeUser(Union.deserializeUser());
 
 mongoose.connect(app.get('mongourl'), function(err) {
-  if (err) console.log('Couldn\'t connect to database.');
+  if (err) return console.log('Couldn\'t connect to database.');
   console.log('Connected to database.');
 });
 

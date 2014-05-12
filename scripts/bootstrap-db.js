@@ -21,7 +21,7 @@ function createUnions(addArticlesToUnions) {
     var union = new Union(uJSON);
     Union.register(union, 'temp', function(err, union) {
       union.save(function(err, union) {
-        if (err) console.log('Couldn\'t save union after setting password.', err);
+        if (err) return console.log('Couldn\'t save union after setting password.', err);
         console.log('Created union', union.name + ', with the username', union.slug,
           'and the password "temp"');
         if (addArticlesToUnions) addArticles(union, callback);
@@ -61,10 +61,10 @@ program
     }
     if (options.force || _.contains(database, 'localhost')) {
       mongoose.connect(database, function(err) {
-        if (err) console.log('Couldn\'t connct to database, database');
+        if (err) return console.log('Couldn\'t connct to database,', database);
         if (options.clear) {
           mongoose.connection.db.dropDatabase(function(err) {
-            if (err) console.log('Couldn\'t drop database.', err);
+            if (err) return console.log('Couldn\'t drop database.', err);
             createUnions(options.articles);
           });
         }
@@ -87,12 +87,12 @@ program
     }
     if (options.force || _.contains(database, 'localhost')) {
       mongoose.connect(database, function(err) {
-        if (err) console.log('Couldn\'t connct to database, database');
+        if (err) return console.log('Couldn\'t connct to database,', database);
         Article.find({}, function(err, articles) {
-          if (err) console.log('Couldn\'t find articles.', err);
+          if (err) return console.log('Couldn\'t find articles.', err);
           if (!articles.length || options.force) {
             Union.find({}, function(err, unions) {
-              if (err) console.log('Couldn\'t find any unions.', err);
+              if (err) return console.log('Couldn\'t find any unions.', err);
               async.each(unions, addArticles, done);
             });
           }
