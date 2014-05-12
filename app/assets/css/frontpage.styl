@@ -47,32 +47,36 @@ dark-blue = #222a35
       height 200px
       width @height
       border-radius (@height/2) - 10px
-      line-height @height
+      line-height 0
       text-align center
       font-size 20px
       font-weight bold
-      transition all .4s
+      transition all .3s
       margin 10px 15px 15px 0
       background dark-blue
       box-shadow 0 5px 0 #ccc
 
       i.fa
+        transition all .3s
         font-size 45px
-        display inline
+        line-height 120px
+        display block
 
       span
-        display none
+        transition all .5s
+        display block
 
       &:hover
-        line-height @height
         border-radius (@height/3)
         box-shadow 0 -5px 0 #ccc
 
         i.fa
-          display none
+          transform translateY(40px)
+          transition all .3s
 
         span
-          display block
+          transition all .2s
+          opacity 0
 
   .small-bubbles
     margin-top 20px
