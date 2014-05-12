@@ -6,3 +6,4 @@ public/images/unions
 node_modules/
 logs/
 app/assets/vendor
+.environment
