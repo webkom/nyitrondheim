@@ -9,6 +9,7 @@ module.exports = ['$scope', '$routeParams', 'unionService', function($scope, $ro
   $scope.chosenUnion = unionService.last();
   $scope.before = true;
 
+
   $scope.modalOpen = false;
   $scope.openModal = function() {
     $scope.modalOpen = true;
@@ -24,6 +25,8 @@ module.exports = ['$scope', '$routeParams', 'unionService', function($scope, $ro
       return union;
     });
   });
+
+  if (!!$scope.chosenUnion) $scope.openModal();
 
   $scope.chooseUnion = function(union) {
     $scope.chosenUnion = union;
