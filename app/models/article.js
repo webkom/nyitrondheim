@@ -53,32 +53,32 @@ articleSchema.statics = {
 
   findBySlug: function (slug, unionId, cb){
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
-      return this.find({slug: slug, union: unionId}).sort('-priority').exec(cb);
+      return this.find({slug: slug, union: unionId}).sort('-createdAt').exec(cb);
 
     Union.findBySlug(unionId, function(err, union) {
-      return this.find({slug: slug, union: union}).sort('-priority').exec(cb);
+      return this.find({slug: slug, union: union}).sort('-createdAt').exec(cb);
     }.bind(this));
   },
 
   listAll: function(limit, cb) {
-    return this.find().sort('-priority').limit(limit).exec(cb);
+    return this.find().sort('-createdAt').limit(limit).exec(cb);
   },
 
   listUnionArticles: function(limit, unionId, cb) {
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
-      return this.find({union: unionId}).sort('-priority').limit(limit).exec(cb);
+      return this.find({union: unionId}).sort('-createdAt').limit(limit).exec(cb);
 
     Union.findBySlug(unionId, function(err, union) {
-      return this.find({union: union}).sort('-priority').limit(limit).exec(cb);
+      return this.find({union: union}).sort('-createdAt').limit(limit).exec(cb);
     }.bind(this));
   },
 
   listUnionEvents: function(limit, unionId, cb) {
     if (unionId.match(/^[0-9a-fA-F]{24}$/))
-      return this.find({union: unionId, event: true}).sort('-priority').limit(limit).exec(cb);
+      return this.find({union: unionId, event: true}).sort('-createdAt').limit(limit).exec(cb);
 
     Union.findBySlug(unionId, function(err, union) {
-      return this.find({union: union, event: true}).sort('-priority').limit(limit).exec(cb);
+      return this.find({union: union, event: true}).sort('-createdAt').limit(limit).exec(cb);
     }.bind(this));
   }
 };

@@ -171,7 +171,7 @@ nitControllers.controller('AdminController',
   $scope.articles = [];
   $scope.events = [];
   $scope.articlesAndEvents = [];
-  $scope.article = {priority: 1};
+  $scope.article = {};
   $scope.priorities = _.range(1, 6);
   $scope.today = new Date();
 
@@ -232,7 +232,6 @@ nitControllers.controller('AdminController',
   $scope.createArticle = function() {
     $scope.selectedIndex = 0;
     $scope.article = {
-      priority: 1,
       approved: false
     };
   };
@@ -240,7 +239,6 @@ nitControllers.controller('AdminController',
   $scope.createEvent = function() {
     $scope.selectedIndex = $scope.articles.length + 1;
     $scope.article = {
-      priority: 1,
       event: true,
       approved: false,
       color: '#5bc0de'
