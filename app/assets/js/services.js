@@ -2,6 +2,11 @@ var nitServices = angular.module('nitServices', ['LocalStorageModule']);
 
 var urlBase = '/api/unions/';
 
+
+/**
+ * Article Service
+ */
+
 nitServices.factory('articleService', ['$http', '$q', '$upload', function($http, $q, $upload) {
   var error = function() {
     console.log(arguments);
@@ -74,11 +79,12 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
   };
 }]);
 
-
 nitServices.factory('unionService', ['$http', 'localStorageService', function($http, localStorageService) {
   var error = function() {
     console.log(arguments);
   };
+
+  var urlBase = '/api/unions';
 
   return {
     last: function() {
