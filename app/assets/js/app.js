@@ -56,7 +56,7 @@ app.config(['$provide', function($provide){
   $provide.decorator('taOptions', ['$delegate', function(taOptions){
     taOptions.toolbar = [
         ['bold', 'italics', 'underline', 'redo', 'undo', 'clear'],
-        ['insertImage', 'insertLink', 'unlink']
+        ['insertImage', 'insertLink', 'unlink', 'html']
     ];
     return taOptions;
   }]);
