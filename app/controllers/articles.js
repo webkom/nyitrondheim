@@ -96,8 +96,9 @@ exports.create = function(req, res) {
 
     var article = new Article(parsedFields);
     article.union = req.params.union;
-    if (!article.slug) {
-      article.slug = slug(article.name);
+
+    if (article.slug === undefined) {
+      article.slug = slug(article.title);
     }
 
     function saveSend(err, article) {
@@ -127,8 +128,8 @@ exports.update = function(req, res) {
       parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
     }
 
-    if (!req.article.slug) {
-      req.article.slug = slug(req.article.name);
+    if (req.article.slug === undefined) {
+      req.article.slug = slug(req.article.title);
     }
     var article = util._extend(req.article, parsedFields);
 
