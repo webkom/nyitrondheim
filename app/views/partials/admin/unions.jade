@@ -18,6 +18,10 @@
         label(for='title') Navn
         input.form-control#title(type='text', name='name', placeholder='Navn',
           value='{{union.name}}', ng-model='union.name', required)
+      .form-group(ng-class='{"has-warning": unionForm.name.$invalid, "has-success": unionForm.name.$valid}')
+        label(for='title') Brukernavn (standard: navneslug)
+        input.form-control#title(type='text', name='slug', placeholder='Brukernavn',
+          value='{{union.slug}}', ng-model='union.slug')
       .form-group(ng-class='{"has-warning": unionForm.school.$invalid, "has-success": unionForm.school.$valid}')
         label(for='title') Skole
         input.form-control#title(type='text', name='school', placeholder='Skole',

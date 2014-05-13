@@ -76,6 +76,9 @@ exports.update = function(req, res) {
     if (err) return handleError(err, req, res);
     if (!union) return res.send(404, {message: 'Union Not Found'});
     function save(union) {
+      if (!req.body.slug) {
+        req.body.slug = slug(req.body.name);
+      }
       union = util._extend(union, req.body);
       union.save(function (err) {
         if (err) return handleError(err, req, res);
@@ -87,10 +90,7 @@ exports.update = function(req, res) {
         delete req.body.password;
         delete req.body.hash;
         delete req.body.salt;
-        user.save(function(err, union) {
-          if (err) return handleError(err, req, res);
-          save(union);
-        });
+        save(user);
       });
     }
     else {
