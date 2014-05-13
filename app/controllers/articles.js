@@ -98,7 +98,7 @@ exports.create = function(req, res) {
     article.union = req.params.union;
 
     if (article.slug === undefined) {
-      article.slug = slug(article.title);
+      article.slug = slug(article.title).toLowerCase();
     }
 
     function saveSend(err, article) {
@@ -129,7 +129,7 @@ exports.update = function(req, res) {
     }
 
     if (req.article.slug === undefined) {
-      req.article.slug = slug(req.article.title);
+      req.article.slug = slug(req.article.title).toLowerCase();
     }
     var article = util._extend(req.article, parsedFields);
 
