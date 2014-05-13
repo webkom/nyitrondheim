@@ -61,7 +61,7 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
       var image = article.image;
       article.image = null;
       return $upload.upload({
-        url: urlBase + union + '/articles/' + article.slug,
+        url: urlBase + union + '/articles/' + article._id,
         method: 'PUT',
         data: article,
         file: image
@@ -69,7 +69,7 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
     },
 
     destroy: function(union, article) {
-      return $http.delete(urlBase + union + '/articles/' + article.slug).error(error);
+      return $http.delete(urlBase + union + '/articles/' + article._id).error(error);
     },
 
     save: function(union, article) {
@@ -84,7 +84,7 @@ nitServices.factory('unionService', ['$http', 'localStorageService', function($h
     console.log(arguments);
   };
 
-  var urlBase = '/api/unions';
+  var urlBase = '/api/unions/';
 
   return {
     last: function() {
@@ -101,6 +101,10 @@ nitServices.factory('unionService', ['$http', 'localStorageService', function($h
 
     update: function(union) {
       return $http.put(urlBase + union._id, union).error(error);
+    },
+
+    destroy: function(union) {
+      return $http.del(urlBase + union._id).error(error);
     },
 
     save: function(union) {

@@ -4,6 +4,7 @@
 
 module.exports = ['$scope', 'unionService', function($scope, unionService) {
 
+  $scope.union = {};
   $scope.unions = [];
   $scope.loading = true;
 
@@ -34,5 +35,13 @@ module.exports = ['$scope', 'unionService', function($scope, unionService) {
           $scope.union = data;
         }
       });
-    };
+  };
+
+  $scope.destroyUnion = function(union) {
+    unionService.destroy(union).success(function(data) {
+      $scope.unions.splice($scope.unions.indexOf(union), 1);
+      $scope.union = {};
+    });
+  };
+
 }];
