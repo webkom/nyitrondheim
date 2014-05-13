@@ -35,7 +35,7 @@ html(ng-app='nitApp')
             a(ng-click='search.schoolSlug="other"', ng-class='{selected: search.schoolSlug=="other"}') Andre
           input(ng-model='search.name', placeholder='Søk')
           ul(ng-click='closeModal()').fraternities
-            li(ng-repeat='union in unions|filter:search')
+            li(ng-repeat='union in unions|filter:search', ng-if='union.school != "admin"')
               a(href='', ng-click='chooseUnion(union)')
                 i.fa.fa-check(ng-show='chosenUnion == union')
                 i.fa.fa-circle(ng-show='chosenUnion != union')
