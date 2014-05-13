@@ -30,7 +30,7 @@ div(ng-init='findAll(); createArticle();')
           label(for='title') Tittel
           input.form-control#title(type='text', name='title', placeholder='Tittel',
             value='{{article.title}}', ng-model='article.title', required)
-        .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
+        .form-group(ng-class='{"has-warning": articleForm.slug.$invalid, "has-success": articleForm.slug.$valid}')
           label(for='title') Slug
           input.form-control#title(type='text', name='slug', placeholder='Slug',
             value='{{article.slug}}', ng-model='article.slug')
