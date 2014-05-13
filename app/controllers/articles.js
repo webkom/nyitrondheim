@@ -6,6 +6,7 @@ var util        = require('util')
   , moment      = require('moment')
   , mkdirp      = require('mkdirp')
   , path        = require('path')
+  , slug        = require('slug')
   , _           = require('lodash');
 
 var handleError = function(err, req, res) {
@@ -38,12 +39,18 @@ var saveImage = function(article, image, fn) {
 };
 
 exports.load = function(req, res, next) {
-  Article.findBySlug(req.params.slug, req.params.union, function(err, article) {
+  function cb(err, article) {
     if (err) return handleError(err, req, res);
     req.article = article[0];
     if (!req.article) return res.send(404, {message: 'Article Not Found'});
     next();
-  });
+  }
+  if (req.params.article.match(/^[0-9a-fA-F]{24}$/)) {
+    Article.findById(req.params.article, req.params.union, cb);
+  }
+  else {
+    Article.findBySlug(req.params.article, req.params.union, cb);
+  }
 };
 
 exports.show = function(req, res) {
@@ -89,6 +96,9 @@ exports.create = function(req, res) {
 
     var article = new Article(parsedFields);
     article.union = req.params.union;
+    if (!article.slug) {
+      article.slug = slug(article.name);
+    }
 
     function saveSend(err, article) {
       if (err) return handleError(err, req, res);
@@ -117,6 +127,9 @@ exports.update = function(req, res) {
       parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
     }
 
+    if (!req.article.slug) {
+      req.article.slug = slug(req.article.name);
+    }
     var article = util._extend(req.article, parsedFields);
 
     function saveSend(err, article) {

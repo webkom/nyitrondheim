@@ -30,6 +30,10 @@ div(ng-init='findAll(); createArticle();')
           label(for='title') Tittel
           input.form-control#title(type='text', name='title', placeholder='Tittel',
             value='{{article.title}}', ng-model='article.title', required)
+        .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
+          label(for='title') Slug
+          input.form-control#title(type='text', name='slug', placeholder='Slug',
+            value='{{article.slug}}', ng-model='article.slug')
         .form-group(ng-class='{"has-warning": articleForm.image.$invalid, "has-success": articleForm.image.$valid}')
           label(for='image') Artikkelbilde {{article.image.name}}
           .drop-area(ng-file-drop='setImage($files[0], false)') Dra bilder hit!

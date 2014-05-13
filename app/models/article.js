@@ -8,6 +8,10 @@ var articleSchema = new Schema({
     type: String,
     required: true
   },
+  slug: {
+    type: String,
+    required: true
+  },
   body:  {
     type: String,
     required: true
@@ -47,13 +51,24 @@ var articleSchema = new Schema({
   }
 });
 
-articleSchema.plugin(slug('title'));
-
 articleSchema.statics = {
 
+  findById: function(articleId, unionId, cb) {
+    if (unionId.match(/^[0-9a-fA-F]{24}$/)) {
+      return this.find({_id: articleId, union: unionId}).sort('-createdAt').exec(cb);
+    }
+
+
+    Union.findBySlug(unionId, function(err, union) {
+      return this.find({_id: articleId, union: union}).sort('-createdAt').exec(cb);
+    }.bind(this));
+  },
+
   findBySlug: function (slug, unionId, cb){
-    if (unionId.match(/^[0-9a-fA-F]{24}$/))
+    console.log('finding with,', slug, unionId);
+    if (unionId.match(/^[0-9a-fA-F]{24}$/)) {
       return this.find({slug: slug, union: unionId}).sort('-createdAt').exec(cb);
+    }
 
     Union.findBySlug(unionId, function(err, union) {
       return this.find({slug: slug, union: union}).sort('-createdAt').exec(cb);
@@ -65,8 +80,9 @@ articleSchema.statics = {
   },
 
   listUnionArticles: function(limit, unionId, cb) {
-    if (unionId.match(/^[0-9a-fA-F]{24}$/))
+    if (unionId.match(/^[0-9a-fA-F]{24}$/)) {
       return this.find({union: unionId}).sort('-createdAt').limit(limit).exec(cb);
+    }
 
     Union.findBySlug(unionId, function(err, union) {
       return this.find({union: union}).sort('-createdAt').limit(limit).exec(cb);
@@ -74,8 +90,9 @@ articleSchema.statics = {
   },
 
   listUnionEvents: function(limit, unionId, cb) {
-    if (unionId.match(/^[0-9a-fA-F]{24}$/))
+    if (unionId.match(/^[0-9a-fA-F]{24}$/)) {
       return this.find({union: unionId, event: true}).sort('-createdAt').limit(limit).exec(cb);
+    }
 
     Union.findBySlug(unionId, function(err, union) {
       return this.find({union: union, event: true}).sort('-createdAt').limit(limit).exec(cb);

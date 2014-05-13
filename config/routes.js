@@ -9,12 +9,12 @@ var ensureAuthenticated = exports.ensureAuthenticated = function(req, res, next)
 };
 
 var ensureAdmin = exports.ensureAdmin = function(req, res, next) {
-  if (req.user.name === 'admin') return next();
+  if (req.user.school === 'admin') return next();
   res.redirect('/panel');
 };
 
 exports.routes = function(app) {
-  app.param('slug', articles.load);
+  app.param('article', articles.load);
 
   app.get('/partials/*', function(req, res) {
     res.render('partials/' + req.params[0]);
@@ -51,7 +51,7 @@ exports.routes = function(app) {
 
   app.get('/api/unions/:union/events', articles.getUnionEvents);
 
-  app.get('/api/unions/:union/articles/:slug', articles.show);
-  app.put('/api/unions/:union/articles/:slug', ensureAuthenticated, articles.update);
-  app.del('/api/unions/:union/articles/:slug', ensureAuthenticated, articles.delete);
+  app.get('/api/unions/:union/articles/:article', articles.show);
+  app.put('/api/unions/:union/articles/:article', ensureAuthenticated, articles.update);
+  app.del('/api/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
 };
