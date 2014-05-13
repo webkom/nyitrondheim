@@ -2,7 +2,7 @@
  * AdminController
  */
 
-module.exports = ['$scope', 'articleService', function($scope, articleService) {
+module.exports = ['$scope', '$timeout', 'articleService', function($scope, $timeout, articleService) {
   $scope.selectedDate = new Date();
   $scope.union = union._id;
   $scope.articles = [];
@@ -10,6 +10,12 @@ module.exports = ['$scope', 'articleService', function($scope, articleService) {
   $scope.articlesAndEvents = [];
   $scope.today = new Date();
 
+  $scope.alerts = {
+    danger: { type: 'danger', msg: 'Oops, noe gikk galt :(. Prøv igjen!' },
+    success: { type: 'success', msg: 'Ferdig!' }
+  };
+
+  console.log($scope.alerts);
   $scope.setImage = function(image, inputField) {
     if (image.size < 10000000 && image.type.slice(0, 5) === 'image') {
       if (!inputField) angular.element('#file-input').val(null);
@@ -90,7 +96,12 @@ module.exports = ['$scope', 'articleService', function($scope, articleService) {
     }
   };
 
-  $scope.saveArticle = function(article) {
+  $scope.saveArticle = function(article, useArticleUnion) {
+    var union = $scope.union;
+    if (useArticleUnion) {
+      union = article.union;
+    }
+
     if (article.event) {
       // Merge times and dates into one:
       var start = moment(article.start);
@@ -102,9 +113,10 @@ module.exports = ['$scope', 'articleService', function($scope, articleService) {
       article.start = start.toDate();
       article.end = end.toDate();
     }
-    articleService.save($scope.union, article)
+    articleService.save(union, article)
       .success(function(data) {
         $scope.uploading = false;
+        $scope.addAlert($scope.alerts.success);
         if (!article._id) {
           $scope.articlesAndEvents.push(data.data);
           if (article.event) {
@@ -125,19 +137,47 @@ module.exports = ['$scope', 'articleService', function($scope, articleService) {
         $scope.uploading = true;
         $scope.progress = parseInt(100.0 * evt.loaded/evt.total);
         if ($scope.progress === 100) $scope.uploading = false;
+      })
+      .error(function(err) {
+        console.log('Error:', err);
+        $scope.addAlert($scope.alerts.danger);
       });
 
   };
 
-  $scope.destroyArticle = function(article) {
-    articleService.destroy($scope.union, article).success(function(data) {
+  $scope.destroyArticle = function(article, useArticleUnion) {
+    var union = $scope.union;
+    if (useArticleUnion) {
+      union = article.union;
+    }
+
+    articleService.destroy(union, article).success(function(data) {
+      $scope.addAlert($scope.alerts.success);
       if (article.event) {
         $scope.events.splice($scope.events.indexOf(article), 1);
       }
       else {
         $scope.articles.splice($scope.articles.indexOf(article), 1);
       }
+      $scope.articlesAndEvents.splice($scope.articlesAndEvents.indexOf(article), 1);
       $scope.article = {};
+    })
+    .error(function(err) {
+      console.log('Error:', err);
+      $scope.addAlert($scope.alerts.danger);
     });
   };
+
+  $scope.addAlert = function(alert) {
+    $scope.alert = alert;
+    // Fade the alert out after a second, remove it after 0,7 seconds.
+    $timeout(function() {
+      $scope.fade = true;
+      $timeout(function() {
+        $scope.alert = null;
+        $scope.fade = false;
+      }, 700);
+    }, 1000);
+  };
+
 }];

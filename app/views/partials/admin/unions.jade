@@ -48,3 +48,5 @@
           .btn-group.btn-group-justified(ng-hide='!union._id')
             a.btn.btn-primary.disabled(ng-click='saveUnion(union)') Fyll inn alle feltene!
             a.btn.btn-danger(ng-click='destroyUnion(union)') Slett
+      .alert(ng-show='alert != null', ng-class='{"fade": fade}')
+        alert(type='alert.type') {{alert.msg}}
