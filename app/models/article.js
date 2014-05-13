@@ -58,14 +58,12 @@ articleSchema.statics = {
       return this.find({_id: articleId, union: unionId}).sort('-createdAt').exec(cb);
     }
 
-
     Union.findBySlug(unionId, function(err, union) {
       return this.find({_id: articleId, union: union}).sort('-createdAt').exec(cb);
     }.bind(this));
   },
 
   findBySlug: function (slug, unionId, cb){
-    console.log('finding with,', slug, unionId);
     if (unionId.match(/^[0-9a-fA-F]{24}$/)) {
       return this.find({slug: slug, union: unionId}).sort('-createdAt').exec(cb);
     }

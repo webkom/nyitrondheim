@@ -4,7 +4,12 @@ nit-loading-indicator
 #article-content
   h2 {{article.title}}
 
-  p.description(ng-bind-html='article.description')
-  p.body(ng-bind-html='article.body')
+  p.description
+    a(ng-href='/images/{{article.image}}', ng-show='!!article.imageCropped', target='_blank')
+      img.article-image(ng-src='/images/{{article.imageCropped}}',
+        alt='{{article.imageName}}')
+    p(ng-bind-html='article.description')
+    p.body(ng-bind-html='article.body')
+  br.clear
 
   a.back(href='/') &larr; Tilbake til forsiden

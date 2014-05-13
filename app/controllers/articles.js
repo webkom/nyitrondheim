@@ -17,20 +17,20 @@ var handleError = function(err, req, res) {
 var saveImage = function(article, image, fn) {
   var ending = path.extname(image.originalFilename);
   var unionPath = __dirname + '/../../public/images/unions/' + article.union;
-  var newPath = unionPath + '/' + article._id + ending;
-  var newPathCropped = unionPath + '/' + article._id + '_cropped' + ending;
+  var newPath = '/' + article._id + ending;
+  var newPathCropped = '/' + article._id + '_cropped' + ending;
 
   mkdirp(unionPath, function(err) {
     if (err) return fn(err);
     gm(image.path)
-      .resize(500) // Resize to a width of 500px
+      .resize(350, null, '>') // Resize to a width of 500px
       .noProfile()
-      .write(newPathCropped, function(err) {
+      .write(unionPath + newPathCropped, function(err) {
         if (err) return fn(err);
-        article.imageCropped = newPathCropped;
-        fs.rename(image.path, newPath, function(err) {
+        article.imageCropped = 'unions/' + article.union + newPathCropped;
+        fs.rename(image.path, unionPath + newPath, function(err) {
           if (err) return fn(err);
-          article.image = newPath;
+          article.image = 'unions/' + article.union + newPath;
           article.imageName = image.originalFilename;
           return fn(null,  article);
         });

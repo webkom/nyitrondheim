@@ -6,6 +6,7 @@
 
 global-reset()
 
+dark-red = #570a05
 *
   box-sizing border-box
   font-smoothing antialiased
@@ -119,7 +120,7 @@ h2#fraternity
   h2
     font-size 24px
     font-weight 700
-    color #570A05
+    color dark-red
   p
     margin-top 10px
 
@@ -130,8 +131,18 @@ h2#fraternity
     margin-bottom 30px
 
   img
+    height auto
     max-width 100%
     border-radius 5px
+    border 5px solid dark-red
+
+    &.article-image
+      max-width 60%
+      float right
+      margin 0 0 20px 30px
+
+  ul
+    list-style disc
 
 a.back
   color #999
@@ -155,6 +166,9 @@ thead
 
 .login
   float right
+
+.clear
+  clear both
 
 @import 'app/assets/css/frontpage'
 @import 'app/assets/css/modal'
