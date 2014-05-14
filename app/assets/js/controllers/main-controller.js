@@ -12,6 +12,7 @@ module.exports = ['$scope', '$routeParams', 'unionService', function($scope, $ro
 
   $scope.modalOpen = false;
   $scope.openModal = function() {
+    $scope.$broadcast('broadcastModal');
     $scope.modalOpen = true;
   };
 
