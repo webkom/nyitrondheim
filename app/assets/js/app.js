@@ -55,7 +55,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 app.config(['$provide', function($provide){
   $provide.decorator('taOptions', ['$delegate', function(taOptions){
     taOptions.toolbar = [
-        ['bold', 'italics', 'underline', 'redo', 'undo', 'clear'],
+        ['bold', 'italics', 'underline', 'h1', 'h2', 'ul', 'quote'],
+        ['undo', 'redo', 'clear'],
         ['insertImage', 'insertLink', 'unlink', 'html']
     ];
     return taOptions;

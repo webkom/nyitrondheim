@@ -59,7 +59,7 @@ div(ng-init='findAllNoUnion()')
             ng-model='article.description' required)='{{article.description}}'
         .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
           label(for='body') Tekst
-          div(text-angular, name='body', ng-model='article.body', required)='{{article.body}}'
+          div.article-content(text-angular, name='body', ng-model='article.body', required)='{{article.body}}'
 
         div(ng-switch='article.event')
           div(ng-switch-when='true')

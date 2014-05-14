@@ -50,7 +50,7 @@ div(ng-init='findAll(); createArticle();')
             ng-model='article.description' required)='{{article.description}}'
         .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
           label(for='body') Tekst
-          div(text-angular, name='body', ng-model='article.body', required)
+          div.article-content(text-angular, name='body', ng-model='article.body', required)
 
         div(ng-switch='article.event')
           div(ng-switch-when='true')
