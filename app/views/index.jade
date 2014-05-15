@@ -10,7 +10,7 @@ block content
     #choose-fraternity
       a(href='', ng-click='openModal()')
         span(ng-show='!chosenUnion._id') Velg linjeforening
-        span(ng-show='!!chosenUnion.name') {{chosenUnion.name}} ({{chosenUnion.program}})
+        span(ng-show='!!chosenUnion.name') {{chosenUnion.name}}
         i.fa.fa-bars
 
   section(ng-view)

@@ -15,7 +15,7 @@ exports.limitDescription = function() {
 };
 
 /**
- *
+ * Check if an object exists
  */
 
 exports.exists = function() {
