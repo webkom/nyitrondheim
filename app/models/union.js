@@ -8,6 +8,11 @@ var unionSchema = new Schema({
     required: true
   },
 
+  program: {
+    type: String,
+    required: true
+  },
+
   slug: {
     type: String,
     required: true

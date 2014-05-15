@@ -2,7 +2,7 @@
  * UnionAdminController
  */
 
-module.exports = ['$scope', 'unionService', function($scope, unionService) {
+module.exports = ['$scope', '$timeout', 'unionService', function($scope, $timeout, unionService) {
 
   $scope.union = {};
   $scope.unions = [];

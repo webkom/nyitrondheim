@@ -20,7 +20,7 @@ var handleError = function(err, req, res) {
 };
 
 exports.list = function(req, res) {
-  Union.find({}, 'name slug _id school description', function(err, unions) {
+  Union.find({}, 'name slug program _id school description', function(err, unions) {
     if (err) return handleError(err, req, res);
     res.send(unions);
   });
@@ -29,7 +29,7 @@ exports.list = function(req, res) {
 exports.show = function(req, res) {
   var union = req.params.union;
 
-  Union.findOne(slugOrId(union), 'name slug _id school description', function(err, union) {
+  Union.findOne(slugOrId(union), 'name slug program _id school description', function(err, union) {
     if (err) return res.send(500, err);
     if (null === union) return res.send(404, {message: 'Union not found.'});
     res.send(union);
