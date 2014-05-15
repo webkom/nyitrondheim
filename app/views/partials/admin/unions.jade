@@ -18,27 +18,27 @@
         label(for='title') Navn
         input.form-control#title(type='text', name='name', placeholder='Navn',
           value='{{union.name}}', ng-model='union.name', required)
-      .form-group(ng-class='{"has-warning": unionForm.name.$invalid, "has-success": unionForm.name.$valid}')
-        label(for='title') Brukernavn (standard: navneslug)
-        input.form-control#title(type='text', name='slug', placeholder='Brukernavn',
+      .form-group(ng-class='{"has-warning": unionForm.slug.$invalid, "has-success": unionForm.slug.$valid}')
+        label(for='slug') Brukernavn (standard: navneslug)
+        input.form-control#slug(type='text', name='slug', placeholder='Brukernavn',
           value='{{union.slug}}', ng-model='union.slug')
       .form-group(ng-class='{"has-warning": unionForm.program.$invalid, "has-success": unionForm.program.$valid}')
-        label(for='title') Linje
-        input.form-control#title(type='text', name='program', placeholder='Linje',
+        label(for='program') Linje
+        input.form-control#program(type='text', name='program', placeholder='Linje',
           value='{{union.program}}', ng-model='union.program', required)
       .form-group(ng-class='{"has-warning": unionForm.school.$invalid, "has-success": unionForm.school.$valid}')
-        label(for='title') Skole
-        input.form-control#title(type='text', name='school', placeholder='Skole',
+        label(for='school') Skole
+        input.form-control#school(type='text', name='school', placeholder='Skole',
           value='{{union.school}}', ng-model='union.school', required)
       .form-group(ng-class='{"has-warning": unionForm.password.$invalid, "has-success": unionForm.password.$valid}')
-        label(for='title') Passord
+        label(for='password') Passord
         div(ng-switch='selectedIndex == 0')
           input.form-control#password(ng-switch-when='true', type='password', name='password', placeholder='Passord',
           ng-model='union.password', required)
           input.form-control#password(ng-switch-default, type='password', name='password', placeholder='Passord',
           ng-model='union.password')
       .form-group(ng-class='{"has-warning": unionForm.description.$invalid, "has-success": unionForm.description.$valid}')
-        label(for='title') Beskrivelse
+        label(for='description') Beskrivelse
         textarea.form-control#description(type='text', name='description', placeholder='Beskrivelse',
           value='{{union.description}}', ng-model='union.description')
       .form-group(ng-switch='unionForm.$valid')

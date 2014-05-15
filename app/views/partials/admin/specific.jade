@@ -31,8 +31,8 @@ div(ng-init='findAll(); createArticle();')
           input.form-control#title(type='text', name='title', placeholder='Tittel',
             value='{{article.title}}', ng-model='article.title', required)
         .form-group(ng-class='{"has-warning": articleForm.slug.$invalid, "has-success": articleForm.slug.$valid}')
-          label(for='title') Slug
-          input.form-control#title(type='text', name='slug', placeholder='Slug',
+          label(for='slug') Slug
+          input.form-control#slug(type='text', name='slug', placeholder='Slug',
             value='{{article.slug}}', ng-model='article.slug')
         .form-group(ng-class='{"has-warning": articleForm.image.$invalid, "has-success": articleForm.image.$valid}')
           label(for='image') Artikkelbilde {{article.image.name}}

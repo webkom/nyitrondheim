@@ -40,7 +40,7 @@ div(ng-init='findAllNoUnion()')
           input.form-control#title(type='text', name='title', placeholder='Tittel',
             value='{{article.title}}', ng-model='article.title' required)
         .form-group(ng-class='{"has-warning": articleForm.slug.$invalid, "has-success": articleForm.slug.$valid}')
-          label(for='title') Slug
+          label(for='slug') Slug
           input.form-control#title(type='text', name='slug', placeholder='Slug',
             value='{{article.slug}}', ng-model='article.slug')
         .form-group(ng-class='{"has-warning": articleForm.image.$invalid, "has-success": articleForm.image.$valid}')
@@ -57,14 +57,14 @@ div(ng-init='findAllNoUnion()')
           label(for='description') Beskrivelse
           textarea.form-control#description(rows='2', name='description', placeholder='Beskrivelse',
             ng-model='article.description' required)='{{article.description}}'
-        .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
+        .form-group(ng-class='{"has-warning": articleForm.body.$invalid, "has-success": articleForm.body.$valid}')
           label(for='body') Tekst
           div.article-content(text-angular, name='body', ng-model='article.body', required)='{{article.body}}'
 
         div(ng-switch='article.event')
           div(ng-switch-when='true')
             .form-group(ng-class='{"has-warning": articleForm.location.$invalid, "has-success": articleForm.location.$valid}')
-              label(for='body') Sted
+              label(for='location') Sted
               input.form-control(type='text', name='location', placeholder='Sted',
                 ng-model='article.location', value='{{article.location}}', required)
             .form-group
