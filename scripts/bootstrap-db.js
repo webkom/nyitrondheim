@@ -20,7 +20,9 @@ function createUnions(addArticlesToUnions) {
   async.each(unionJSON, function(uJSON, callback) {
     uJSON.slug = slug(uJSON.name).toLowerCase();
     var union = new Union(uJSON);
+    union.program = 'temp';
     Union.register(union, 'temp', function(err, union) {
+      if (err) done(err);
       union.save(function(err, union) {
         if (err) done('Couldn\'t save union after setting password. ' + err);
         console.log('Created union', union.name + ', with the username', union.slug,
@@ -58,7 +60,7 @@ program
   .option('-f, --force', 'Needed to bootstrap a non-localhost database, or to bootstrap a non-empty database.')
   .action(function(database, options) {
     if (!database) {
-      database = 'mongodb://localhost:27017';
+      database = 'mongodb://localhost:27017/nit';
       console.log('No database specified, setting database to localhost.');
     }
 
@@ -92,7 +94,7 @@ program
   .option('-f, --force', 'Needed to bootstrap a non-localhost database, or to bootstrap a non-empty database.')
   .action(function(database, options) {
     if (!database) {
-      database = 'mongodb://localhost:27017';
+      database = 'mongodb://localhost:27017/nit';
       console.log('No database specified, setting database to localhost.');
     }
     if (options.force || _.contains(database, 'localhost')) {
