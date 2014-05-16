@@ -12,16 +12,20 @@ dark-blue = #222a35
   text-align center
 
   #before-after
+    margin-bottom 20px
     a
-      color #aab8cd
+      color lighten(dark-blue, 20%)
       display inline-block
       font-size 25px
       font-weight 700
+      border-bottom 3px dashed
+      line-height 30px
 
       &.selected
-        color lighten(dark-blue, 20%)
+        color #aab8cd
+        border-bottom 0px
         &:hover
-          color lighten(@color, 20%)
+          color @color
 
       &:hover
         color lighten(@color, 30%)
@@ -30,7 +34,6 @@ dark-blue = #222a35
       font-size 20px
       font-weight 700
       margin 0 20px
-      padding-bottom 5px
 
 
   h2
