@@ -15,7 +15,6 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
     success: { type: 'success', msg: 'Ferdig!' }
   };
 
-  console.log($scope.alerts);
   $scope.setImage = function(image, inputField) {
     if (image.size < 10000000 && image.type.slice(0, 5) === 'image') {
       if (!inputField) angular.element('#file-input').val(null);
@@ -47,6 +46,10 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.findAll = function() {
     $scope.loading = true;
     articleService.findAll($scope.union).then(function(articles) {
+      if (Object.prototype.toString.call(articles) !== '[object Array]') {
+        return console.log('Error finding articles.');
+      }
+      // Success callback
       $scope.loading = false;
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
@@ -55,6 +58,9 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       $scope.events = articles.filter(function(article) {
         return article.event;
       });
+    }, function(err) {
+      // Error callback
+      if (err) return console.log('Error finding articles:', err);
     });
   };
 
@@ -179,5 +185,4 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       }, 700);
     }, 1000);
   };
-
 }];
