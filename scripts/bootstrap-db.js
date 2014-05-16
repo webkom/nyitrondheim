@@ -40,6 +40,7 @@ function addArticles(union, callback) {
   function next() {
     var exampleArticle = _.clone(articleJSON);
     exampleArticle.title = exampleArticle.title + ' ' + numberOfArticles;
+    exampleArticle.slug = slug(exampleArticle.title).toLowerCase();
     var article = new Article(exampleArticle);
     article.union = union._id;
     article.save(function() {
