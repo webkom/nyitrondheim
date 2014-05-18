@@ -18,7 +18,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
      templateUrl: 'partials/front',
      controller: 'PagesController'
    })
-   .when('/calendar', {
+   .when('/kalender', {
      templateUrl: 'partials/calendar',
      controller: 'CalendarController'
    })

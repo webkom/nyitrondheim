@@ -11,28 +11,28 @@
       a(href='/generelt/bolig')
         i.fa.fa-building-o
         span Finn et sted å bo
-      a(href='/generelt/semester-{{chosenUnion.school}}')
+      a(href='/generelt/semester-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-laptop
         span Studentweb
-      a(href='/generelt/laan')
+      a(href='/generelt/studielaan')
         i.fa.fa-money
         span Søk lån
-      a(href='/generelt/skoleinfo-{{chosenUnion.school}}')
+      a(href='/generelt/skoleinfo-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-book
-        span Info fra NTNU
+        span Info fra {{chosenUnion.school || 'NTNU'}}
     div(ng-switch-default)
-      a(href='/generelt/mail-og-pc-{{chosenUnion.school}}')
+      a(href='/generelt/tilgang-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-keyboard-o
-        span Mail og PC-tilgang
-      a(href='/generelt/studentkort-{{chosenUnion.school}}')
+        span {{chosenUnion.school || 'NTNU'}}-tilgang
+      a(href='/generelt/mattekurs')
         i.fa.fa-credit-card
-        span Studentkort
-      a(href='/generelt/artikkel')
+        span Mattekurs
+      a(href='/generelt/faq')
         i.fa.fa-money
-        span Artikkel 3
-      a(href='/generelt/artikkel')
+        span Spørsmål og svar
+      a(href='/kalender')
         i.fa.fa-users
-        span Artikkel 4
+        span Kalender
 
   .small-bubbles
     a.first.training(href='/generelt/trening') Trening
