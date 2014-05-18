@@ -23,7 +23,7 @@ app.use(bodyParser());
 app.use(cookieParser());
 
 app.use(session({
-  cookie: { maxAge : 1000*60*60},
+  cookie: { maxAge : 1000*60*60*24*30*3}, // Three months
   secret: process.env.COOKIE_SECRET || 'localsecret',
   store: new MongoStore({
     mongoose_connection: mongoose.connection,
