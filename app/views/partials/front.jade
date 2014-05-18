@@ -11,27 +11,27 @@
       a(href='/generelt/bolig')
         i.fa.fa-building-o
         span Finn et sted å bo
-      a(href='/generelt/semester-{{chosenUnion.school || "NTNU"}}')
-        i.fa.fa-laptop
-        span Studentweb
-      a(href='/generelt/studielaan')
+      a(href='/generelt/studielaan-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-money
         span Søk lån
-      a(href='/generelt/skoleinfo-{{chosenUnion.school || "NTNU"}}')
-        i.fa.fa-book
-        span Info fra {{chosenUnion.school || 'NTNU'}}
+      a(href='/generelt/skolestart-{{chosenUnion.school || "NTNU"}}')
+        i.fa.fa-university
+        span Skolestart
+      a(href='/generelt/mattekurs', ng-show='chosenUnion.school == "NTNU" || !chosenUnion.school')
+        i.fa.fa-superscript
+        span Mattekurs
     div(ng-switch-default)
       a(href='/generelt/tilgang-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-keyboard-o
         span {{chosenUnion.school || 'NTNU'}}-tilgang
-      a(href='/generelt/mattekurs')
-        i.fa.fa-credit-card
-        span Mattekurs
+      a(href='/generelt/semester-{{chosenUnion.school || "NTNU"}}')
+        i.fa.fa-book
+        span Nyttig {{chosenUnion.school || 'NTNU'}}-info
       a(href='/generelt/faq')
-        i.fa.fa-money
+        i.fa.fa-question
         span Spørsmål og svar
       a(href='/kalender')
-        i.fa.fa-users
+        i.fa.fa-calendar
         span Kalender
 
   .small-bubbles
