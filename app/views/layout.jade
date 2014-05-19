@@ -4,7 +4,7 @@ html(ng-app='nitApp')
     meta(charset='utf-8')
     meta(name='fragment' content='!')
 
-    title {{title}} &mdash; Ny i Trondheim
+    title(ng-bind='title + " - Ny i Trondheim"')
     base(href='/')
 
     meta(name='apple-mobile-web-app-capable', content='yes')
