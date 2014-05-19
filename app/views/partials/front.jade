@@ -46,7 +46,8 @@
   p.no-fraternity-chosen(ng-show='!chosenUnion._id') Du må velge linjeforening.
 
   .union-specific-articles
-    a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}')
+    a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}',
+      ng-if='article.approved')
       article
         h3 {{article.title}}
         p {{article.description|limitDescription}}
