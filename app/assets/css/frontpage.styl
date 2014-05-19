@@ -7,6 +7,7 @@ categories = {
 }
 
 dark-blue = #222a35
+dark-red = #570a05
 
 #grid
   text-align center
@@ -135,3 +136,11 @@ dark-blue = #222a35
         text-transform uppercase
         color #440507
         text-shadow 2px 1px 0 #ccc
+
+  p.no-fraternity-chosen
+    a
+      color lighten(dark-red, 10%)
+
+      &:hover
+        color lighten(@color, 5%)
+
