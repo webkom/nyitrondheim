@@ -16,6 +16,8 @@ html(ng-app='nitApp')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css')
     link(rel='stylesheet', href='/vendor.css')
     link(rel='stylesheet', href='/app.css')
+    script(src='/vendor.js')
+    script(src='/app.js')
 
   - var backgroundClasses = ['bybro', 'ntnu-front', 'ntnu', 'samfundet', 'vaattakammen']
   - var backgroundClass = backgroundClasses[Math.floor(Math.random()*backgroundClasses.length)]
@@ -62,9 +64,6 @@ html(ng-app='nitApp')
 
         ga('create', 'UA-17746625-1', 'nyitrondheim.no');
         ga('send', 'pageview');
-
-      script(src='/vendor.js')
-      script(src='/app.js')
 
   if controller
     body(class=backgroundClass, ng-controller='#{controller}', ng-class='{modalopen: modalOpen}')
