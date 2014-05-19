@@ -5,7 +5,7 @@ nit-loading-indicator
   h1 {{article.title}}
 
   p.description
-    a(ng-href='/images/{{article.image}}', ng-show='!!article.imageCropped', target='_blank')
+    a(ng-href='/images/{{article.image}}', ng-show='article.imageCropped | exists', target='_blank')
       img.article-image(ng-src='/images/{{article.imageCropped}}',
         alt='{{article.imageName}}')
     p(ng-bind-html='article.description')

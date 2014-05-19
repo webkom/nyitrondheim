@@ -30,6 +30,8 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   $scope.removeImage = function(image) {
     $scope.article.image = null;
+    $scope.article.imageCropped = null;
+    $scope.article.imageName = null;
   };
 
   $scope.chooseArticle = function(article, selectedIndex) {
@@ -46,10 +48,10 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.findAll = function() {
     $scope.loading = true;
     articleService.findAll($scope.union).then(function(articles) {
+      // Success callback
       if (Object.prototype.toString.call(articles) !== '[object Array]') {
         return console.log('Error finding articles.');
       }
-      // Success callback
       $scope.loading = false;
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
@@ -66,6 +68,9 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   $scope.findAllNoUnion = function() {
     articleService.findAllNoUnion().success(function(articles) {
+      if (Object.prototype.toString.call(articles) !== '[object Array]') {
+        return console.log('Error finding articles.');
+      }
       $scope.articlesAndEvents = articles;
       $scope.articles = articles.filter(function(article) {
         return !article.event;
@@ -73,6 +78,9 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       $scope.events = articles.filter(function(article) {
         return article.event;
       });
+    }, function(err) {
+      // Error callback
+      if (err) return console.log('Error finding articles:', err);
     });
   };
 
