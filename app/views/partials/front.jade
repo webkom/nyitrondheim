@@ -1,10 +1,10 @@
 
 #grid
   #before-after
-    a#before(ng-click='before = true', ng-class='{ "selected": before }') Før innflytting
+    a#before(ng-click='setBefore(true)', ng-class='{ "selected": before }') Før innflytting
     i.fa.fa-angle-double-right(ng-show='before')
     i.fa.fa-angle-double-left(ng-hide='before')
-    a#after(ng-click='before = false', ng-class='{ "selected": !before }') Etter innflytting
+    a#after(ng-click='setBefore(false)', ng-class='{ "selected": !before }') Etter innflytting
 
   .main-bubbles(ng-switch='before')
     div(ng-switch-when='true')

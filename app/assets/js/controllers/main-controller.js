@@ -9,8 +9,12 @@ module.exports = ['$scope', '$routeParams', 'unionService', function($scope, $ro
   $scope.chosenUnion = unionService.last();
   $scope.before = true;
 
-
   $scope.modalOpen = false;
+
+  $scope.setBefore = function(before) {
+    $scope.before = before;
+  };
+
   $scope.openModal = function() {
     $scope.$broadcast('broadcastModal');
     $scope.modalOpen = true;
