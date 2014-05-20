@@ -193,4 +193,11 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       }, 700);
     }, 1000);
   };
+
+  $scope.getUnionName = function(unionId) {
+    if (unionId) {
+      var union = _.where($scope.unions, {_id: unionId});
+      return union[0].name;
+    }
+  };
 }];
