@@ -20,6 +20,8 @@ a
   &:hover
     text-decoration none
 
+@import 'app/assets/css/palettes'
+
 body
   font-family $font-family
   color #555
@@ -30,20 +32,53 @@ body
 
   &.bybro
     background url('/images/bg/bybro.jpg') no-repeat center center fixed
+    .small-bubbles a
+      for category, bg in bybropalette
+        &.{category}
+          background bg
+          &:hover
+            font-weight 700
+            background lighten(@background, 20%)
 
   &.ntnu
     background url('/images/bg/ntnu.jpg') no-repeat center center fixed
+    .small-bubbles a
+      for category, bg in ntnupalette
+        &.{category}
+          background bg
+          &:hover
+            font-weight 700
+            background lighten(@background, 20%)
 
   &.ntnu-front
     background url('/images/bg/ntnu-front.jpg') no-repeat center center fixed
+    .small-bubbles a
+      for category, bg in ntnufpalette
+        &.{category}
+          background bg
+          &:hover
+            font-weight 700
+            background lighten(@background, 20%)
 
   &.samfundet
     background url('/images/bg/samfundet.jpg') no-repeat center center fixed
+    .small-bubbles a
+      for category, bg in samfundetpalette
+        &.{category}
+          background bg
+          &:hover
+            font-weight 700
+            background lighten(@background, 20%)
 
   &.vaattakammen
     background url('/images/bg/utsikten.jpg') no-repeat center center fixed
-
-
+    .small-bubbles a
+      for category, bg in vaattakammenplaette
+        &.{category}
+          background bg
+          &:hover
+            font-weight 700
+            background lighten(@background, 20%)
 
 #top-bar
   background rgba(0, 0, 0, .4)
