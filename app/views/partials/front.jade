@@ -8,6 +8,9 @@
 
   .main-bubbles(ng-switch='before')
     div(ng-switch-when='true')
+      a(href='/generelt/velkommen-til-trondheim')
+        i.fa.fa-child
+        span Velkommen!
       a(href='/generelt/bolig')
         i.fa.fa-building-o
         span Finn et sted å bo
@@ -17,9 +20,6 @@
       a(href='/generelt/skolestart-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-university
         span Skolestart
-      a(href='/generelt/mattekurs', ng-show='chosenUnion.school == "NTNU" || !chosenUnion.school')
-        i.fa.fa-superscript
-        span Mattekurs
     div(ng-switch-default)
       a(href='/generelt/tilgang-{{chosenUnion.school || "NTNU"}}')
         i.fa.fa-keyboard-o
