@@ -48,7 +48,7 @@ div(ng-init='findAll(); createArticle();')
           label(for='description') Beskrivelse
           textarea.form-control#description(rows='2', name='description', placeholder='Beskrivelse',
             ng-model='article.description' required)='{{article.description}}'
-        .form-group(ng-class='{"has-warning": articleForm.description.$invalid, "has-success": articleForm.description.$valid}')
+        .form-group(ng-class='{"has-warning": articleForm.body.$invalid, "has-success": articleForm.body.$valid}')
           label(for='body') Tekst
           div.article-content(text-angular, name='body', ng-model='article.body', required)
 

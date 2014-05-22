@@ -18,7 +18,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.setImage = function(image, inputField) {
     if (image.size < 10000000 && image.type.slice(0, 5) === 'image') {
       if (!inputField) angular.element('#file-input').val(null);
-      $scope.article.image = image;
+      $scope.article.uploadFile = image;
       $scope.article.imageName = image.name;
       $scope.invalidImage = false;
     }
@@ -29,6 +29,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   };
 
   $scope.removeImage = function(image) {
+    //$scope.article = _.omit($scope.article, ['image', 'imageCropped', 'imageName']);
     $scope.article.image = null;
     $scope.article.imageCropped = null;
     $scope.article.imageName = null;

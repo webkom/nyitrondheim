@@ -1,6 +1,6 @@
-var nitServices = angular.module('nitServices', ['LocalStorageModule']);
-
-var urlBase = '/api/unions/';
+var nitServices = angular.module('nitServices', ['LocalStorageModule'])
+  , urlBase     = '/api/unions/'
+  , exists      = require('./filters').exists();
 
 
 /**
@@ -46,25 +46,41 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
     },
 
     create: function(union, article) {
-      console.log("article", article);
-      var image = article.image;
-      article.image = null;
+      if (article.uploadFile) {
+        var file = article.uploadFile;
+        article = _.omit(article, ['uploadFile', 'imageName']);
+        console.log('sending', article);
+        return $upload.upload({
+          url: urlBase + union + '/articles',
+          method: 'POST',
+          data: article,
+          file: file
+        }).error(error);
+      }
+
       return $upload.upload({
         url: urlBase + union + '/articles',
         method: 'POST',
-        data: article,
-        file: image
+        data: article
       }).error(error);
     },
 
     update: function(union, article) {
-      var image = article.image;
-      article.image = null;
+      if (article.uploadFile) {
+        var file = article.uploadFile;
+        article = _.omit(article, ['uploadFile', 'imageName']);
+        return $upload.upload({
+          url: urlBase + union + '/articles/' + article._id,
+          method: 'PUT',
+          data: article,
+          file: file
+        }).error(error);
+      }
+
       return $upload.upload({
         url: urlBase + union + '/articles/' + article._id,
         method: 'PUT',
-        data: article,
-        file: image
+        data: article
       }).error(error);
     },
 

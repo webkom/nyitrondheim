@@ -14,6 +14,10 @@ var handleError = function(err, req, res) {
   res.send(500, err);
 };
 
+var isNull = function(obj) {
+    return obj === null || obj === 'null' || obj === 'undefined';
+};
+
 var saveImage = function(article, image, fn) {
   var ending = path.extname(image.originalFilename);
   var unionPath = __dirname + '/../../public/images/unions/' + article.union;
@@ -128,11 +132,17 @@ exports.update = function(req, res) {
       parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
     }
 
-    if (req.article.slug === undefined || !req.article.slug.length) {
-      req.article.slug = slug(req.article.title).toLowerCase();
+    if (parsedFields.slug === undefined || !parsedFields.slug.length) {
+      req.article.slug = slug(parsedFields.title).toLowerCase();
     }
 
     var article = util._extend(req.article, parsedFields);
+    // Kind of hacky, but if you remove an image it needs to go from the document somehow.
+    _.each(article._doc, function(value, key) {
+      if (value === 'null') {
+        article._doc[key] = undefined;
+      }
+    });
 
     function saveSend(err, article) {
       if (err) return handleError(err, req, res);
