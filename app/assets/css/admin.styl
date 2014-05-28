@@ -33,9 +33,45 @@ h1
     vertical-align middle
     text-align center
 
+#unionlabel
+  text-align center
+  font-weight 600
+  margin-bottom 20px
+
+  select
+    width 90%
+    margin 0 auto
+
+#admin-union-list
+  max-height 541px
+  overflow-y scroll
+
+  .union-li
+  .new-union-li
+    border-bottom 1px solid #ddd
+
+  .union-li:hover
+  .new-union-li:hover
+    cursor pointer
+
+  .union-li.selected-union
+  .new-union-li.selected-union
+    transition background .25s ease-in
+    background rgba(95, 255, 29, 0.1)
+
+  .new-union-li
+    font-size 1.1em
+    color #007412
+
+  .new-union-li:hover
+    color #008715
+
+  .union-li:hover
+    color #666
+
 #admin-article-list
   overflow-y scroll
-  max-height 200px
+  max-height 350px
   .article-li
   .new-article-li
     word-break break-all
@@ -61,6 +97,8 @@ h1
     color #666
 
 #admin-event-list
+  max-height 350px
+  overflow-y scroll
   margin-top 10px
   .event-li
   .new-event-li

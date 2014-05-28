@@ -1,7 +1,10 @@
-div(ng-init='findAll(); createArticle();')
+div(ng-init='findAllNoUnion(); createArticle();')
   .row
     .col-xs-3.admin-article-sidebar
       .row
+        p#unionlabel Linjeforening:
+          select.form-control#unionselect(ng-model='selectedUnion', ng-options='union._id as union.name for union in unions')
+
         ul#admin-article-list
           li.new-article-li(ng-click='createArticle()', ng-class='{"selected-article": selectedIndex==0}') Ny artikkel
           div(ng-class='{loading: loading}')
@@ -11,7 +14,8 @@ div(ng-init='findAll(); createArticle();')
                 .dot2
           li.article-li(ng-repeat='article in articles',
             ng-click='chooseArticle(article, $index + 1)',
-            ng-class='{"selected-article": selectedIndex==($index+1)}') {{article.title}}
+            ng-class='{"selected-article": selectedIndex==($index+1)}',
+            ng-if='article.union == selectedUnion') {{article.title}}
       .row
         ul#admin-event-list
           li.new-event-li(ng-click='createEvent()', ng-class='{"selected-event": selectedIndex==articles.length+1}') Nytt arrangement
@@ -26,6 +30,8 @@ div(ng-init='findAll(); createArticle();')
 
     .col-xs-9.admin-article-main
       form(name='articleForm', role='form')
+        .form-group
+          label Linjeforening: {{getUnionName(article.union)}}
         .form-group(ng-class='{"has-warning": articleForm.title.$invalid, "has-success": articleForm.title.$valid}')
           label(for='title') Tittel
           input.form-control#title(type='text', name='title', placeholder='Tittel',
@@ -105,15 +111,15 @@ div(ng-init='findAll(); createArticle();')
 
           .form-group(ng-switch='articleForm.$valid')
             div(ng-switch-when='true')
-              button.btn.btn-primary.wide(ng-click='saveArticle(article, false)', ng-hide='article._id') Send
+              button.btn.btn-primary.wide(ng-click='saveArticle(article)', ng-hide='article._id') Send
               .btn-group.btn-group-justified(ng-hide='!article._id')
-                a.btn.btn-primary(ng-click='saveArticle(article, false)') Send
-                a.btn.btn-danger(ng-click='destroyArticle(article, false)') Slett
+                a.btn.btn-primary(ng-click='saveArticle(article)') Send
+                a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
             div(ng-switch-default)
-              button.btn.btn-primary.disabled.wide(ng-click='saveArticle(article, false)', ng-hide='article._id') Fyll inn all feltene!
+              button.btn.btn-primary.disabled.wide(ng-click='saveArticle(article)', ng-hide='article._id') Fyll inn all feltene!
               .btn-group.btn-group-justified(ng-hide='!article._id')
-                a.btn.btn-primary.disabled(ng-click='saveArticle(article, false)') Fyll inn alle feltene!
-                a.btn.btn-danger(ng-click='destroyArticle(article, false)') Slett
+                a.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
+                a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
           .form-group(ng-show='uploading')
             .row
               .col-xs-3

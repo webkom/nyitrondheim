@@ -111,15 +111,15 @@ block content
 
           .form-group(ng-switch='articleForm.$valid')
             div(ng-switch-when='true')
-              button.btn.btn-primary.wide(ng-click='saveArticle(article, false)', ng-hide='article._id') Send
+              button.btn.btn-primary.wide(ng-click='saveArticle(article)', ng-hide='article._id') Send
               .btn-group.btn-group-justified(ng-hide='!article._id')
-                a.btn.btn-primary(ng-click='saveArticle(article, false)') Send
-                a.btn.btn-danger(ng-click='destroyArticle(article, false)') Slett
+                a.btn.btn-primary(ng-click='saveArticle(article)') Send
+                a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
             div(ng-switch-default)
-              button.btn.btn-primary.disabled.wide(ng-click='saveArticle(article, false)', ng-hide='article._id') Fyll inn all feltene!
+              button.btn.btn-primary.disabled.wide(ng-click='saveArticle(article)', ng-hide='article._id') Fyll inn all feltene!
               .btn-group.btn-group-justified(ng-hide='!article._id')
-                a.btn.btn-primary.disabled(ng-click='saveArticle(article, false)') Fyll inn alle feltene!
-                a.btn.btn-danger(ng-click='destroyArticle(article, false)') Slett
+                a.btn.btn-primary.disabled(ng-click='saveArticle(article)') Fyll inn alle feltene!
+                a.btn.btn-danger(ng-click='destroyArticle(article)') Slett
           .form-group(ng-show='uploading')
             .row
               .col-xs-3

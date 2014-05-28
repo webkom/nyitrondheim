@@ -5,6 +5,7 @@
 module.exports = ['$scope', '$timeout', 'articleService', function($scope, $timeout, articleService) {
   $scope.selectedDate = new Date();
   $scope.union = union._id;
+  $scope.selectedUnion = union._id;
   $scope.articles = [];
   $scope.events = [];
   $scope.articlesAndEvents = [];
@@ -88,6 +89,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.createArticle = function() {
     $scope.selectedIndex = 0;
     $scope.article = {
+      union: $scope.selectedUnion,
       approved: false
     };
   };
@@ -96,6 +98,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
     $scope.selectedIndex = $scope.articles.length + 1;
     $scope.article = {
       event: true,
+      union: $scope.selectedUnion,
       approved: false,
       color: '#5bc0de'
     };
@@ -111,12 +114,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
     }
   };
 
-  $scope.saveArticle = function(article, useArticleUnion) {
-    var union = $scope.union;
-    if (useArticleUnion) {
-      union = article.union;
-    }
-
+  $scope.saveArticle = function(article) {
     if (article.event) {
       // Merge times and dates into one:
       var start = moment(article.start);
@@ -128,7 +126,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       article.start = start.toDate();
       article.end = end.toDate();
     }
-    articleService.save(union, article)
+    articleService.save(article.union, article)
       .success(function(data) {
         $scope.uploading = false;
         $scope.addAlert($scope.alerts.success);
@@ -160,13 +158,8 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   };
 
-  $scope.destroyArticle = function(article, useArticleUnion) {
-    var union = $scope.union;
-    if (useArticleUnion) {
-      union = article.union;
-    }
-
-    articleService.destroy(union, article).success(function(data) {
+  $scope.destroyArticle = function(article) {
+    articleService.destroy(article.union, article).success(function(data) {
       $scope.addAlert($scope.alerts.success);
       if (article.event) {
         $scope.events.splice($scope.events.indexOf(article), 1);
