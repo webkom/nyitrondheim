@@ -6,6 +6,7 @@ module.exports = ['$scope', '$routeParams', 'unionService', function($scope, $ro
 
   $scope.name = $routeParams.slug;
   $scope.unions = [];
+  $scope.generalUnionSlug = 'generelt';
   $scope.chosenUnion = unionService.last();
   $scope.before = true;
 

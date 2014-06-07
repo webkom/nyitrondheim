@@ -44,36 +44,50 @@ module.exports = ['$scope', 'articleService', 'unionService', function($scope, a
 
   $scope.generalEvents = [];
   $scope.unionEvents = [];
+  $scope.events = [];
   $scope.eventSources = [$scope.generalEvents, $scope.unionEvents];
 
-  articleService.findAllEvents(unionService.last()._id)
-    .success(function(events) {
-      events.forEach(function(e) {
-        $scope.unionEvents.push({
-          title: e.title,
-          start: new Date(e.start),
-          end: new Date(e.end),
-          url: '/' + e.slug,
-          allDay: false,
-          color: e.color
-        });
-      });
-    })
-    .then(
-      articleService.findAllEvents('general').success(function(events) {
+  var findEvents = function() {
+    if ($scope.unionEvents.length > 0) {
+      $scope.unionEvents.splice(0, $scope.unionEvents.length);
+      console.log($scope.unionEvents,'afte');
+    }
+    var lsUnion = unionService.last();
+    articleService.findAllEvents(lsUnion._id)
+      .success(function(events) {
         events.forEach(function(e) {
-          $scope.generalEvents.push({
+          $scope.unionEvents.push({
             title: e.title,
             start: new Date(e.start),
             end: new Date(e.end),
-            url: '/' + e.slug,
+            url: '/' + lsUnion.slug + '/' + e.slug,
             allDay: false,
             color: e.color
           });
         });
       })
-      .finally(function() {
-        $scope.eventSources = [$scope.unionEvents, $scope.generalEvents];
-      })
-    );
+      .then(function() {
+        if (_.isEmpty($scope.generalEvents)) {
+          console.log('looking for general events', $scope.generalEvents, typeof $scope.generalEvents);
+          articleService.findAllEvents($scope.generalUnionSlug).success(function(events) {
+            events.forEach(function(e) {
+              $scope.generalEvents.push({
+                title: e.title,
+                start: new Date(e.start),
+                end: new Date(e.end),
+                url: '/' + $scope.generalUnionSlug + '/' + e.slug,
+                allDay: false,
+                color: e.color
+              });
+            });
+          })
+        }
+      });
+  };
+  findEvents();
+
+  $scope.$on('union:changed', function(e) {
+    console.log('changed, but no');
+    findEvents();
+  });
 }];

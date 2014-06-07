@@ -9,6 +9,7 @@ body.modalopen
   opacity 0
   width 0
   transition opacity .5s
+  z-index 999999999
 
   .overlay
     height 0
@@ -16,7 +17,6 @@ body.modalopen
     width 0
     background transparent
     fixed left right bottom top
-    z-index 1
 
   &.active
     height 100%
