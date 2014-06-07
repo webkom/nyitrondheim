@@ -1,5 +1,4 @@
 var mongoose    = require('mongoose')
-  , slug        = require('mongoose-slug')
   , Union       = require('./union')
   , Schema      = mongoose.Schema;
 
