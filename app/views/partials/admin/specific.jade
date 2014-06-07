@@ -26,7 +26,8 @@ div(ng-init='findAllNoUnion(); createArticle();')
                   .dot2
           li.event-li(ng-repeat='event in events',
             ng-click='chooseArticle(event, $index + articles.length + 2)',
-            ng-class='{"selected-event": selectedIndex==($index + articles.length + 2)}') {{event.title}}
+            ng-class='{"selected-event": selectedIndex==($index + articles.length + 2)}'
+            ng-if='event.union == selectedUnion') {{event.title}}
 
     .col-xs-9.admin-article-main
       form(name='articleForm', role='form')
