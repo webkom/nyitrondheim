@@ -8,9 +8,18 @@ exports.limitDescription = function() {
     input = input || '';
     max = max || 95;
     var description = input.split('.').shift();
+    var words = description.split(' ');
+    var newDescription = '';
+    words.some(function(word) {
+      if ((newDescription + word).length > max) {
+        return true;
+      }
+      newDescription += word + ' ';
+    });
+    newDescription = newDescription.slice(0, newDescription.length-1);
     return description.length > max
-      ? description.slice(0, max) + '…'
-      : description + '.';
+      ? newDescription + '…'
+      : newDescription + '.';
   };
 };
 
