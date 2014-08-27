@@ -44,7 +44,7 @@ exports.routes = function(app) {
   app.get('/api/unions'       , unions.list);
   app.post('/api/unions'      , ensureAuthenticated, unions.create);
   app.put('/api/unions/:union', ensureAuthenticated, unions.update);
-  app.del('/api/unions/:union', ensureAuthenticated, unions.delete);
+  app.delete('/api/unions/:union', ensureAuthenticated, unions.delete);
 
   app.get('/api/unions/:union/articles' , articles.getUnionArticles);
   app.post('/api/unions/:union/articles', ensureAuthenticated, articles.create);
@@ -53,5 +53,5 @@ exports.routes = function(app) {
 
   app.get('/api/unions/:union/articles/:article', articles.show);
   app.put('/api/unions/:union/articles/:article', ensureAuthenticated, articles.update);
-  app.del('/api/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
+  app.delete('/api/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
 };

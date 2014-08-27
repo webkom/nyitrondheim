@@ -11,7 +11,7 @@ var util        = require('util')
 
 var handleError = function(err, req, res) {
   console.log(err);
-  res.send(500, err);
+  res.status(500).send(err);
 };
 
 var isNull = function(obj) {
@@ -46,7 +46,7 @@ exports.load = function(req, res, next) {
   function cb(err, article) {
     if (err) return handleError(err, req, res);
     req.article = article[0];
-    if (!req.article) return res.send(404, {message: 'Article Not Found'});
+    if (!req.article) return res.status(404).send({message: 'Article Not Found'});
     next();
   }
   if (req.params.article.match(/^[0-9a-fA-F]{24}$/)) {
@@ -148,7 +148,7 @@ exports.update = function(req, res) {
       if (err) return handleError(err, req, res);
       article.save(function(err) {
         if (err) return handleError(err, req, res);
-        res.send(201, article);
+        res.status(201).send(article);
       });
     }
 
@@ -163,6 +163,6 @@ exports.delete = function(req, res) {
   var article = req.article;
   article.remove(function(err) {
     if (err) return handleError(err, req, res);
-    res.send(204);
+    res.status(204).send();
   });
 };
