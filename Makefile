@@ -4,6 +4,7 @@ BROWSERIFY = $(BIN)/browserify
 UGLIFY = $(BIN)/uglifyjs
 SUPERVISOR = $(BIN)/supervisor
 STYLUS = $(BIN)/stylus
+UGLIFY = $(BIN)/uglifyjs
 
 STYL = $(shell find app/assets/css -name '*.styl')
 JS = $(shell find app/assets/js -name '*.js')
@@ -32,6 +33,22 @@ DIST = public
 
 all: $(DIST)/vendor.js $(DIST)/app.js $(DIST)/vendor.css $(DIST)/app.css
 
+ifneq ($(NODE_ENV), development)
+
+$(DIST)/vendor.js: $(VENDORJS)
+	cat $(VENDORJS) | $(UGLIFY) > $(DIST)/vendor.js
+
+$(DIST)/app.js: $(JS)
+	$(BROWSERIFY) app/assets/js/app.js | $(UGLIFY) > $(DIST)/app.js
+
+$(DIST)/vendor.css: $(VENDORCSS)
+	cat $(VENDORCSS) > $(DIST)/vendor.css
+
+$(DIST)/app.css: $(STYL)
+	$(STYLUS) --compress --include node_modules/nib/lib < app/assets/css/style.styl > $(DIST)/app.css
+
+else
+
 $(DIST)/vendor.js: $(VENDORJS)
 	cat $(VENDORJS) > $(DIST)/vendor.js
 
@@ -42,7 +59,9 @@ $(DIST)/vendor.css: $(VENDORCSS)
 	cat $(VENDORCSS) > $(DIST)/vendor.css
 
 $(DIST)/app.css: $(STYL)
-	$(STYLUS) < app/assets/css/style.styl --include node_modules/nib/lib > $(DIST)/app.css
+	$(STYLUS) --include node_modules/nib/lib < app/assets/css/style.styl > $(DIST)/app.css
+
+endif
 
 install:
 	npm install
