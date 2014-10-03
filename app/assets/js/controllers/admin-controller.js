@@ -8,12 +8,15 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.selectedUnion = union._id;
   $scope.articles = [];
   $scope.events = [];
-  $scope.articlesAndEvents = [];
   $scope.today = new Date();
 
   $scope.alerts = {
     danger: { type: 'danger', msg: 'Oops, noe gikk galt :(. Prøv igjen!' },
     success: { type: 'success', msg: 'Ferdig!' }
+  };
+
+  $scope.getArticlesAndEvents = function() {
+    return $scope.articles.concat($scope.events);
   };
 
   $scope.setImage = function(image, inputField) {
@@ -49,13 +52,13 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   $scope.findAll = function() {
     $scope.loading = true;
-    articleService.findAll($scope.union).then(function(articles) {
+    articleService.findAll($scope.union).then(function(result) {
       // Success callback
-      if (Object.prototype.toString.call(articles) !== '[object Array]') {
-        return console.log('Error finding articles.');
-      }
+
+      var articles = result.data;
+
       $scope.loading = false;
-      $scope.articlesAndEvents = articles;
+
       $scope.articles = articles.filter(function(article) {
         return !article.event;
       });
@@ -69,11 +72,9 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   };
 
   $scope.findAllNoUnion = function() {
-    articleService.findAllNoUnion().success(function(articles) {
-      if (Object.prototype.toString.call(articles) !== '[object Array]') {
-        return console.log('Error finding articles.');
-      }
-      $scope.articlesAndEvents = articles;
+    articleService.findAllNoUnion().then(function(result) {
+      var articles = result.data;
+
       $scope.articles = articles.filter(function(article) {
         return !article.event;
       });
@@ -115,6 +116,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   };
 
   $scope.saveArticle = function(article) {
+
     if (article.event) {
       // Merge times and dates into one:
       var start = moment(article.start);
@@ -126,12 +128,13 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       article.start = start.toDate();
       article.end = end.toDate();
     }
+
     articleService.save(article.union, article)
       .success(function(data) {
         $scope.uploading = false;
         $scope.addAlert($scope.alerts.success);
         if (!article._id) {
-          $scope.articlesAndEvents.push(data.data);
+
           if (article.event) {
             $scope.events.push(data);
             $scope.createEvent();
@@ -142,7 +145,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
           }
         }
         else {
-          $scope.articles[$scope.articles.indexOf($scope.article)] = data;
+          $scope.articles[$scope.articles.indexOf(article)] = data;
           $scope.article = data;
         }
       })
@@ -167,7 +170,6 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       else {
         $scope.articles.splice($scope.articles.indexOf(article), 1);
       }
-      $scope.articlesAndEvents.splice($scope.articlesAndEvents.indexOf(article), 1);
       $scope.article = {};
     })
     .error(function(err) {

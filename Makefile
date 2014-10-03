@@ -53,7 +53,7 @@ $(DIST)/vendor.js: $(VENDORJS)
 	cat $(VENDORJS) > $(DIST)/vendor.js
 
 $(DIST)/app.js: $(JS)
-	$(BROWSERIFY) app/assets/js/app.js -o $(DIST)/app.js
+	$(BROWSERIFY) -d app/assets/js/app.js -o $(DIST)/app.js
 
 $(DIST)/vendor.css: $(VENDORCSS)
 	cat $(VENDORCSS) > $(DIST)/vendor.css

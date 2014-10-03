@@ -68,7 +68,6 @@ module.exports = ['$scope', 'articleService', 'unionService', function($scope, a
       })
       .then(function() {
         if (_.isEmpty($scope.generalEvents)) {
-          console.log('looking for general events', $scope.generalEvents, typeof $scope.generalEvents);
           articleService.findAllEvents($scope.generalUnionSlug).success(function(events) {
             events.forEach(function(e) {
               $scope.generalEvents.push({
@@ -87,7 +86,6 @@ module.exports = ['$scope', 'articleService', 'unionService', function($scope, a
   findEvents();
 
   $scope.$on('union:changed', function(e) {
-    console.log('changed, but no');
     findEvents();
   });
 }];

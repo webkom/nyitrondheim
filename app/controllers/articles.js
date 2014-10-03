@@ -43,6 +43,7 @@ var saveImage = function(article, image, fn) {
 };
 
 exports.load = function(req, res, next) {
+  console.log("var her først");
   function cb(err, article) {
     if (err) return handleError(err, req, res);
     req.article = article[0];
@@ -58,6 +59,7 @@ exports.load = function(req, res, next) {
 };
 
 exports.show = function(req, res) {
+  console.log('her', req.article);
   res.send(req.article);
 };
 
