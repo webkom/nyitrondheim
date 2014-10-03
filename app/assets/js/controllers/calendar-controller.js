@@ -50,39 +50,37 @@ module.exports = ['$scope', 'articleService', 'unionService', function($scope, a
   var findEvents = function() {
     if ($scope.unionEvents.length > 0) {
       $scope.unionEvents.splice(0, $scope.unionEvents.length);
-      console.log($scope.unionEvents,'afte');
     }
+
+    function getEvent(e, slug) {
+      return {
+        title: e.title,
+        start: new Date(e.start),
+        end: new Date(e.end),
+        url: '/' + slug + '/' + e.slug,
+        allDay: false,
+        color: e.color
+      };
+    }
+
     var lsUnion = unionService.last();
+
     articleService.findAllEvents(lsUnion._id)
-      .success(function(events) {
-        events.forEach(function(e) {
-          $scope.unionEvents.push({
-            title: e.title,
-            start: new Date(e.start),
-            end: new Date(e.end),
-            url: '/' + lsUnion.slug + '/' + e.slug,
-            allDay: false,
-            color: e.color
-          });
-        });
-      })
-      .then(function() {
-        if (_.isEmpty($scope.generalEvents)) {
-          articleService.findAllEvents($scope.generalUnionSlug).success(function(events) {
-            events.forEach(function(e) {
-              $scope.generalEvents.push({
-                title: e.title,
-                start: new Date(e.start),
-                end: new Date(e.end),
-                url: '/' + $scope.generalUnionSlug + '/' + e.slug,
-                allDay: false,
-                color: e.color
-              });
-            });
-          })
-        }
+    .success(function(events) {
+      events.forEach(function(e) {
+        $scope.unionEvents.push(getEvent(e, lsUnion.slug));
       });
+    });
+
+    articleService.findAllEvents($scope.generalUnionSlug)
+    .success(function(events) {
+      events.forEach(function(e) {
+        $scope.generalEvents.push(getEvent, e, $scope.generalUnionSlug);
+      });
+    });
+
   };
+
   findEvents();
 
   $scope.$on('union:changed', function(e) {

@@ -27,7 +27,6 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
       if (!_.isEmpty(articleCache[union])) {
         var d = $q.defer();
         d.resolve(articleCache[union]);
-        console.log('Saved one HTTP request.');
         return d.promise;
       }
       return $http.get(urlBase + union + '/articles').then(saveCache(union), error);
@@ -49,7 +48,7 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
       if (article.uploadFile) {
         var file = article.uploadFile;
         article = _.omit(article, ['uploadFile', 'imageName']);
-        console.log('sending', article);
+
         return $upload.upload({
           url: urlBase + union + '/articles',
           method: 'POST',
