@@ -7,7 +7,7 @@
     "url": "git@github.com:webkom/nyitrondheimv2.git"
   },
   "scripts": {
-    "test": "MONGO_URL=mongodb://localhost:27017/nit-test node_modules/.bin/mocha"
+    "test": "make test"
   },
   "author": "webkom",
   "main": "index.js",
