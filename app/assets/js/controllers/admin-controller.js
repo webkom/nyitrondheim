@@ -52,10 +52,8 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   $scope.findAll = function() {
     $scope.loading = true;
-    articleService.findAll($scope.union).then(function(result) {
+    articleService.findAll($scope.union).then(function(articles) {
       // Success callback
-
-      var articles = result.data;
 
       $scope.loading = false;
 
@@ -73,6 +71,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   $scope.findAllNoUnion = function() {
     articleService.findAllNoUnion().then(function(result) {
+      console.log('res', result);
       var articles = result.data;
 
       $scope.articles = articles.filter(function(article) {
@@ -193,7 +192,10 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.getUnionName = function(unionId) {
     if (unionId) {
       var union = _.where($scope.unions, {_id: unionId});
-      return union[0].name;
+      if (union[0]) {
+        return union[0].name;
+      }
+      return 'N/A';
     }
   };
 }];
