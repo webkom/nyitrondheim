@@ -1,18 +1,22 @@
 [
   {
     "name": "Abakus",
-    "description": "Linjeforeningen for data- og kommunikasjonsteknologi."
+    "school": "NTNU",
+    "program": "Data- og Kommunikasjonsteknologi"
   },
   {
-    "name": "Janus",
-    "description": "Linjeforeningen for industriell økonomi og teknologiledelse."
+    "name": "A/F Smørekoppen",
+    "school": "NTNU",
+    "program": "Produktutvikling og produksjon"
   },
   {
-    "name": "Mannhullet",
-    "description": "Marin teknikk"
+    "name": "Arkitektstudentenes Broderskab",
+    "school": "NTNU",
+    "program": "Arkitekt"
   },
   {
-    "name": "AF Smørekoppen",
-    "description": "Maskin"
+    "name": "Bergstuderendes Forening",
+    "school": "NTNU",
+    "program": "Geologi, Petroleum- og Materialteknologi"
   }
 ]

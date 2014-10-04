@@ -6,11 +6,15 @@
     "type": "git",
     "url": "git@github.com:webkom/nyitrondheimv2.git"
   },
+  "scripts": {
+    "test": "MONGO_URL=mongodb://localhost:27017/nit-test node_modules/.bin/mocha --timeout 10000"
+  },
   "author": "webkom",
   "main": "index.js",
   "dependencies": {
     "async": "^0.8.0",
     "body-parser": "^1.0.2",
+    "chai": "^1.9.2",
     "commander": "^2.2.0",
     "connect-mongo": "^0.4.1",
     "cookie-parser": "^1.0.1",
@@ -31,6 +35,7 @@
     "slug": "^0.5.0",
     "stylus": "*",
     "superagent": "^0.17.0",
+    "supertest": "^0.14.0",
     "uglify-js": "~2.4.13"
   },
   "devDependencies": {
