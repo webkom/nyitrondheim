@@ -1,7 +1,6 @@
 var util        = require('util')
   , passport    = require('passport')
   , slug        = require('slug')
-  , _           = require('lodash')
   , Union       = require('../models/union')
   , handleError = require('./errors').handleError;
 
