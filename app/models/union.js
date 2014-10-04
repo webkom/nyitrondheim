@@ -1,7 +1,7 @@
 var mongoose              = require('mongoose')
-  , Schema                = mongoose.Schema
   , passportLocalMongoose = require('passport-local-mongoose')
-  , slug                  = require('slug');
+  , slug                  = require('slug')
+  , Schema                = mongoose.Schema;
 
 var unionSchema = new Schema({
   name: {

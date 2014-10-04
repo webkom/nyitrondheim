@@ -1,8 +1,9 @@
 var util        = require('util')
-  , Union       = require('../models/union')
   , passport    = require('passport')
   , slug        = require('slug')
-  , _           = require('lodash');
+  , _           = require('lodash')
+  , Union       = require('../models/union')
+  , handleError = require('./errors').handleError;
 
 var nameOrId = function(value) {
   if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
@@ -14,14 +15,9 @@ var slugOrId = function(value) {
   return {slug: value};
 };
 
-var handleError = function(err, req, res) {
-  console.log(err);
-  res.send(500, err);
-};
-
 exports.list = function(req, res) {
   Union.find({}, 'name slug program _id school description', function(err, unions) {
-    if (err) return handleError(err, req, res);
+    if (err) return handleError(err, res);
     res.send(unions);
   });
 };
@@ -30,8 +26,8 @@ exports.show = function(req, res) {
   var union = req.params.union;
 
   Union.findOne(slugOrId(union), 'name slug program _id school description', function(err, union) {
-    if (err) return res.send(500, err);
-    if (null === union) return res.send(404, {message: 'Union not found.'});
+    if (err) return handleError(err, res);
+    if (null === union) return res.status(404).send({ message: 'Union not found.' });
     res.send(union);
   });
 };
@@ -66,23 +62,23 @@ exports.create = function(req, res) {
   req.body.slug = slug(req.body.name).toLowerCase();
   var union = new Union(req.body);
   Union.register(union, password, function (err) {
-    if (err) return handleError(err, req, res);
-    res.send(201, union);
+    if (err) return handleError(err, res);
+    res.status(201).send(union);
   });
 };
 
 exports.update = function(req, res) {
-  Union.findById(req.params.union, function(err, union) {
-    if (err) return handleError(err, req, res);
-    if (!union) return res.send(404, {message: 'Union Not Found'});
+  Union.findOne(slugOrId(req.params.union), function(err, union) {
+    if (err) return handleError(err, res);
+    if (!union) return res.status(404).send({ message: 'Union Not Found' });
     function save(union) {
       if (!req.body.slug) {
         req.body.slug = slug(req.body.name);
       }
       union = util._extend(union, req.body);
       union.save(function (err) {
-        if (err) return handleError(err, req, res);
-        res.send(200, union);
+        if (err) return handleError(err, res);
+        res.status(200).send(union);
       });
     }
     if (req.body.password) {
@@ -100,12 +96,12 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  Union.findById(req.params.union, function(err, union) {
-    if (err) return handleError(err, req, res);
-    if (!union) return res.send(404, {message: 'Union Not Found'});
+  Union.findOne(slugOrId(req.params.union), function(err, union) {
+    if (err) return handleError(err, res);
+    if (!union) return res.send(404, { message: 'Union Not Found' });
     union.remove(function(err) {
-      if (err) return handleError(err, req, res);
-      res.send(204);
+      if (err) return handleError(err, res);
+      res.status(204).send();
     });
   });
 };
