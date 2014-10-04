@@ -6,6 +6,7 @@ var express       = require('express')
   , mongoose      = require('mongoose')
   , passport      = require('passport')
   , routes        = require('./config/routes')
+  , routeHelpers  = require('./config/routes/helpers')
   , MongoStore    = require('connect-mongo')(session)
   , LocalStrategy = require('passport-local').Strategy;
 
@@ -19,7 +20,9 @@ mongoose.connect(app.get('mongourl'), function(err) {
   if (err) throw err;
 });
 
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(cookieParser());
 
 app.use(session({
@@ -28,7 +31,9 @@ app.use(session({
   store: new MongoStore({
     mongoose_connection: mongoose.connection,
     collection: 'sessions'
-  })
+  }),
+  saveUninitialized: true,
+  resave: true
 }));
 
 app.use(passport.initialize());
@@ -45,9 +50,9 @@ passport.use(Union.createStrategy());
 passport.serializeUser(Union.serializeUser());
 passport.deserializeUser(Union.deserializeUser());
 
-routes.routes(app);
+routes(app);
 
-app.get('/admin*', routes.ensureAuthenticated, routes.ensureAdmin, function(req, res) {
+app.get('/admin*', routeHelpers.ensureAuthenticated, routeHelpers.ensureAdmin, function(req, res) {
   res.render('admin', {
     union: req.user,
     title: 'Adminpanel'

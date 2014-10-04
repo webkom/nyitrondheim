@@ -12,7 +12,6 @@ module.exports = ['$rootScope', '$scope', '$routeParams', 'articleService', func
   $scope.update = function() {
     $scope.loading = true;
     articleService.findAll($scope.chosenUnion._id).then(function(articles) {
-      console.log('found articles', articles);
       $scope.articles = articles;
       $scope.loading = false;
     });

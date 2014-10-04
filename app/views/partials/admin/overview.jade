@@ -9,7 +9,7 @@ div(ng-init='findAllNoUnion()')
               .spinner.small
                 .dot1
                 .dot2
-          li.article-li(ng-repeat='nA in articlesAndEvents',
+          li.article-li(ng-repeat='nA in getArticlesAndEvents()',
             ng-if='!nA.approved'
             ng-click='chooseArticle(nA, $index)',
             ng-class='{"selected-article": selectedIndex==($index)}') {{nA.title}} ({{getUnionName(nA.union)}})
@@ -21,7 +21,7 @@ div(ng-init='findAllNoUnion()')
               .spinner.small
                 .dot1
                 .dot2
-          li.event-li(ng-repeat='a in articlesAndEvents',
+          li.event-li(ng-repeat='a in getArticlesAndEvents()',
             ng-if='a.approved'
             ng-click='chooseArticle(a, $index)',
             ng-class='{"selected-event": selectedIndex==($index)}') {{a.title}} ({{getUnionName(a.union)}})
