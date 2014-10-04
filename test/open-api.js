@@ -1,22 +1,16 @@
 var slug                 = require('slug')
-  , mongoose             = require('mongoose')
   , chai                 = require('chai')
-  , async                = require('async')
   , request              = require('supertest')
   , app                  = require('../app')
   , helpers              = require('./helpers')
-  , Union                = require('../app/models/union')
   , clearDatabase        = helpers.clearDatabase
   , createUnions         = helpers.createUnions
   , createArticles       = helpers.createArticles
-  , should               = chai.should()
-  , expect               = chai.expect
-  , assert               = chai.assert;
+  , should               = chai.should();
 
-describe('#Open-API', function() {
+describe('#Open API', function() {
 
   var unionFixtures = require('./fixtures/unions.json');
-  var articleFixture = require('../scripts/data/example-article.json');
 
   before(function(done) {
     createUnions(function() {
@@ -66,6 +60,32 @@ describe('#Open-API', function() {
         union.program.should.eql('Data- og Kommunikasjonsteknologi');
         done();
       });
-  })
+  });
+
+  it('should get the articles for a specific union', function(done) {
+    request(app)
+      .get('/api/unions/abakus/articles')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) throw err;
+        var articles = res.body;
+        articles.should.have.length(1);
+        done();
+      });
+  });
+
+  it('should get a specific article for a specific union', function(done) {
+    request(app)
+      .get('/api/unions/abakus/articles/testartikkel')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) throw err;
+        var article = res.body;
+        article.slug.should.eql(slug(article.title).toLowerCase());
+        done();
+      });
+  });
 
 });

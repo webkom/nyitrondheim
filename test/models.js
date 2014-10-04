@@ -1,5 +1,5 @@
-var mongoose          = require('mongoose')
-  , should            = require('should')
+var chai              = require('chai')
+  , should            = chai.should()
   , Article           = require('../app/models/article')
   , Union             = require('../app/models/union')
   , helpers           = require('./helpers')
