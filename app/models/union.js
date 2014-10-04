@@ -1,6 +1,7 @@
 var mongoose              = require('mongoose')
   , Schema                = mongoose.Schema
-  , passportLocalMongoose = require('passport-local-mongoose');
+  , passportLocalMongoose = require('passport-local-mongoose')
+  , slug                  = require('slug');
 
 var unionSchema = new Schema({
   name: {
@@ -14,8 +15,7 @@ var unionSchema = new Schema({
   },
 
   slug: {
-    type: String,
-    required: true
+    type: String
   },
 
   description: {
@@ -30,6 +30,11 @@ var unionSchema = new Schema({
 
   smallImage: String,
   largeImage: String
+});
+
+unionSchema.pre('save', function(next) {
+  if (!this.slug) this.slug = slug(this.name).toLowerCase();
+  next();
 });
 
 unionSchema.statics = {

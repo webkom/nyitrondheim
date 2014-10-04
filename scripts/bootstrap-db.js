@@ -7,7 +7,7 @@ var mongoose        = require('mongoose')
   , program         = require('commander')
   , Union           = require('../app/models/union')
   , Article         = require('../app/models/article')
-  , articleJSON     = require('./data/example-article')
+  , articleJSON     = require('../test/fixtures/article')
   , unionJSON       = require('./data/unions');
 
 function done(err) {
@@ -18,7 +18,6 @@ function done(err) {
 
 function createUnions(addArticlesToUnions) {
   async.each(unionJSON, function(uJSON, callback) {
-    uJSON.slug = slug(uJSON.name).toLowerCase();
     var union = new Union(uJSON);
     union.program = 'temp';
     Union.register(union, 'temp', function(err, union) {
@@ -40,7 +39,6 @@ function addArticles(union, callback) {
   function next() {
     var exampleArticle = _.clone(articleJSON);
     exampleArticle.title = exampleArticle.title + ' ' + numberOfArticles;
-    exampleArticle.slug = slug(exampleArticle.title).toLowerCase();
     var article = new Article(exampleArticle);
     article.union = union._id;
     article.save(function() {
