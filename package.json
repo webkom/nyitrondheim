@@ -4,7 +4,7 @@
   "description": "http://nyitrondheim.no",
   "repository": {
     "type": "git",
-    "url": "git@github.com:webkom/nyitrondheimv2.git"
+    "url": "git@github.com:webkom/nyitrondheim.git"
   },
   "scripts": {
     "test": "make test"
