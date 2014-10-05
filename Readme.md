@@ -1,7 +1,7 @@
-## Ny i Trondheim
+## [Ny i Trondheim](http://nyitrondheim.no)
 [![Build Status](https://travis-ci.org/webkom/nyitrondheimv2.svg)](https://travis-ci.org/webkom/nyitrondheimv2)
 
-Ny I Trondheim is built using [Node.js](http://nodejs.org/), [express](http://expressjs.com/) and [AngularJS](http://angularjs.org/).
+Ny i Trondheim is built using [Node.js](http://nodejs.org/), [express](http://expressjs.com/) and [AngularJS](http://angularjs.org/).
 
 To install a fresh clone, you must have node, npm and bower installed then run
 ```bash
@@ -9,9 +9,11 @@ $ make install
 $ make
 ```
 
+Bower can be installed via `npm install -g bower`. 
+
 The project also relies on [gm](https://github.com/aheckmann/gm), which means you'll have to have either GraphicsMagick or ImageMagick installed for everything to work correctly.
 
-Bower can be installed via `npm install -g bower`.
+In addition you'll need to have MongoDB running. You can set the database information through `export MONGO_URL="mongodb://localhost:PORT/DATABASENAME"`.
 
 When the installation has finished, you can run
 ```bash
