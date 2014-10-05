@@ -1,30 +1,24 @@
-var mongoose  = require('mongoose')
-  , should    = require('should')
-  , Article   = require('../app/models/article')
-  , Union     = require('../app/models/union')
+var chai              = require('chai')
+  , should            = chai.should()
+  , Article           = require('../app/models/article')
+  , Union             = require('../app/models/union')
+  , helpers           = require('./helpers')
+  , clearDatabase     = helpers.clearDatabase
+  , createUnions      = helpers.createUnions;
 
 describe('#Models', function() {
 
   before(function(done){
-    mongoose.connect('mongodb://localhost/test');
-    Union.create(require('./fixtures/unions.json'), function() {
-      done();
-    });
+    createUnions(done);
   });
 
   after(function(done) {
-    Union.remove({}, function(){
-    });
-    Article.remove({}, function(){
-      mongoose.connection.close();
-    });
-
-    done();
+    clearDatabase(done);
   });
 
   it('get created articles', function(done){
     Union.findByName('Abakus', function(err, union) {
-      Article.listUnionArticles(5, union, function(err, articles) {
+      Article.listUnionArticles(5, union._id, function(err, articles) {
         articles.length.should.equal(0);
         done();
       });
@@ -35,7 +29,7 @@ describe('#Models', function() {
     Union.findByName('Abakus', function(err, union) {
       if (err) throw err;
       union.name.should.eql('Abakus');
-      union.description.should.eql('Linjeforeningen for data- og kommunikasjonsteknologi.');
+      union.program.should.eql('Data- og Kommunikasjonsteknologi');
       done();
     });
   });

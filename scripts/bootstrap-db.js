@@ -7,7 +7,7 @@ var mongoose        = require('mongoose')
   , program         = require('commander')
   , Union           = require('../app/models/union')
   , Article         = require('../app/models/article')
-  , articleJSON     = require('./data/example-article')
+  , articleJSON     = require('../test/fixtures/article')
   , unionJSON       = require('./data/unions');
 
 function done(err) {
@@ -16,31 +16,12 @@ function done(err) {
   mongoose.disconnect();
 }
 
-function createUnions(addArticlesToUnions) {
-  async.each(unionJSON, function(uJSON, callback) {
-    uJSON.slug = slug(uJSON.name).toLowerCase();
-    var union = new Union(uJSON);
-    union.program = 'temp';
-    Union.register(union, 'temp', function(err, union) {
-      if (err) done(err);
-      union.save(function(err, union) {
-        if (err) done('Couldn\'t save union after setting password. ' + err);
-        console.log('Created union', union.name + ', with the username', union.slug,
-          'and the password "temp"');
-        if (addArticlesToUnions) addArticles(union, callback);
-        else callback();
-      });
-    });
-  }, done);
-}
-
 function addArticles(union, callback) {
   console.log('Creating example articles..');
   var numberOfArticles = 4;
   function next() {
     var exampleArticle = _.clone(articleJSON);
     exampleArticle.title = exampleArticle.title + ' ' + numberOfArticles;
-    exampleArticle.slug = slug(exampleArticle.title).toLowerCase();
     var article = new Article(exampleArticle);
     article.union = union._id;
     article.save(function() {
@@ -50,6 +31,21 @@ function addArticles(union, callback) {
     });
   }
   next();
+}
+
+function createUnions(addArticlesToUnions) {
+  async.each(unionJSON, function(uJSON, callback) {
+    var union = new Union(uJSON);
+    union.program = 'temp';
+    union.slug = slug(union.name).toLowerCase();
+    Union.register(union, 'temp', function(err, union) {
+      if (err) return done(err);
+      console.log('Created union', union.name + ', with the username', union.slug,
+        'and the password "temp"');
+      if (addArticlesToUnions) addArticles(union, callback);
+      else callback();
+    });
+  }, done);
 }
 
 program
@@ -67,13 +63,13 @@ program
 
     if (options.force || _.contains(database, 'localhost')) {
       mongoose.connect(database, function(err) {
-        if (err) done('Couldn\'t connect to database, ' + database);
+        if (err) return done('Couldn\'t connect to database, ' + database);
         if ((options.clear || options.drop) && mongoose.connection.collections.unions) {
           mongoose.connection.collections.unions.remove(function(err) {
-            if (err) done('Couldn\'t clear unions. ' + err);
+            if (err) return done('Couldn\'t clear unions. ' + err);
             if (options.drop && mongoose.connection.collections.articles) {
               mongoose.connection.collections.articles.remove(function(err) {
-                if (err) done('Couldnt\'t clear articles. ' + err);
+                if (err) return done('Couldnt\'t clear articles. ' + err);
                 createUnions(options.articles);
               });
             }
@@ -100,22 +96,22 @@ program
     }
     if (options.force || _.contains(database, 'localhost')) {
       mongoose.connect(database, function(err) {
-        if (err) done('Couldn\'t connect to database, ' + database);
+        if (err) return done('Couldn\'t connect to database, ' + database);
         if (options.clear) {
           mongoose.connection.collections.articles.remove(function(err) {
-            if (err) done('Coudln\'t delete collection articles. ' + err);
+            if (err) return done('Coudln\'t delete collection articles. ' + err);
             Union.find({}, function(err, unions) {
-              if (err) done('Couldn\'t find any unions. ' + err);
+              if (err) return done('Couldn\'t find any unions. ' + err);
               async.each(unions, addArticles, done);
             });
           });
         }
         else {
           Article.find({}, function(err, articles) {
-            if (err) done('Couldn\'t find articles. ' + err);
+            if (err) return done('Couldn\'t find articles. ' + err);
             if (!articles.length || options.force) {
               Union.find({}, function(err, unions) {
-                if (err) done('Couldn\'t find any unions. ' + err);
+                if (err) return done('Couldn\'t find any unions. ' + err);
                 async.each(unions, addArticles, done);
               });
             }

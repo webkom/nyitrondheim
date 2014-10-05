@@ -26,7 +26,10 @@ router.put('/unions/:union/articles/:article', ensureAuthenticated, articles.upd
 router.delete('/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
 
 router.use(function(req, res) {
-  res.status(404).send('Bad API call.');
+  res.status(404).send({
+    error: 'Bad API call.',
+    status: 404
+  });
 });
 
 module.exports = router;

@@ -1,10 +1,12 @@
-
 BIN = node_modules/.bin
 BROWSERIFY = $(BIN)/browserify
 UGLIFY = $(BIN)/uglifyjs
 SUPERVISOR = $(BIN)/supervisor
 STYLUS = $(BIN)/stylus
 UGLIFY = $(BIN)/uglifyjs
+MOCHA = $(BIN)/mocha
+
+MONGO_URL = mongodb://localhost:27017/nit-test
 
 STYL = $(shell find app/assets/css -name '*.styl')
 JS = $(shell find app/assets/js -name '*.js')
@@ -74,6 +76,6 @@ clean:
 	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css
 
 test:
-	$(BIN)/mocha --colors --reporter nyan
+	MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
 
 .PHONY: all clean test server install

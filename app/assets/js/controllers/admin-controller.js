@@ -71,6 +71,7 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
 
   $scope.findAllNoUnion = function() {
     articleService.findAllNoUnion().then(function(result) {
+      console.log('res', result);
       var articles = result.data;
 
       $scope.articles = articles.filter(function(article) {
