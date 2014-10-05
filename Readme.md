@@ -1,4 +1,5 @@
 ## Ny i Trondheim
+[![Build Status](https://travis-ci.org/webkom/nyitrondheimv2.svg)](https://travis-ci.org/webkom/nyitrondheimv2)
 
 Ny I Trondheim is built using [Node.js](http://nodejs.org/), [express](http://expressjs.com/) and [AngularJS](http://angularjs.org/).
 
