@@ -8,6 +8,8 @@ $ make install
 $ make
 ```
 
+The project also relies on [gm](https://github.com/aheckmann/gm), which means you'll have to have either GraphicsMagick or ImageMagick installed for everything to work correctly.
+
 Bower can be installed via `npm install -g bower`.
 
 When the installation has finished, you can run
@@ -23,3 +25,10 @@ To build JavaScript and CSS files you must run
 $ make
 ```
 every time you change something. If you hate doing this, you can use something like [watch](https://github.com/visionmedia/watch) to periodically run it (won't do anything useful unless files actually have changed).
+
+
+## Tests
+Run the tests with
+```bash
+$ make test
+```
