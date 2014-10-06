@@ -43,12 +43,8 @@ exports.load = function(req, res, next) {
     if (!req.article) return res.status(404).send({message: 'Article Not Found'});
     next();
   }
-  if (req.params.article.match(/^[0-9a-fA-F]{24}$/)) {
-    Article.findById(req.params.article, req.params.union, cb);
-  }
-  else {
-    Article.findBySlug(req.params.article, req.params.union, cb);
-  }
+
+  Article.findBySlugOrId(req.params.article, req.params.union, cb);
 };
 
 exports.show = function(req, res) {
