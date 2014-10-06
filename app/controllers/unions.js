@@ -4,10 +4,12 @@ var util        = require('util')
   , Union       = require('../models/union')
   , handleError = require('./errors').handleError;
 
+/*
 var nameOrId = function(value) {
   if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
   return {name: value};
 };
+*/
 
 var slugOrId = function(value) {
   if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
@@ -33,14 +35,8 @@ exports.show = function(req, res) {
 
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user) {
-    if (err) {
-      console.log("Login error, handle it!");
-      return res.render('login', { union: req.user });
-    }
-    if (!user) {
-      console.log("User doesn't exist?", user);
-      return res.render('login');
-    }
+    if (err) return handleError(err, res);
+    if (!user) return res.render('login');
     req.logIn(user, function(err) {
       if (err) {
         return next(err);

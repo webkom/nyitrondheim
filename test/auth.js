@@ -1,14 +1,8 @@
-var slug                 = require('slug')
-  , mongoose             = require('mongoose')
-  , chai                 = require('chai')
-  , async                = require('async')
+var chai                 = require('chai')
   , request              = require('supertest')
   , app                  = require('../app')
   , helpers              = require('./helpers')
-  , Union                = require('../app/models/union')
   , clearDatabase        = helpers.clearDatabase
-  , createUnions         = helpers.createUnions
-  , createArticles       = helpers.createArticles
   , createAdminUser      = helpers.createAdminUser
   , should               = chai.should()
   , expect               = chai.expect

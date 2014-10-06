@@ -7,8 +7,7 @@ var express       = require('express')
   , passport      = require('passport')
   , routes        = require('./config/routes')
   , routeHelpers  = require('./config/routes/helpers')
-  , MongoStore    = require('connect-mongo')(session)
-  , LocalStrategy = require('passport-local').Strategy;
+  , MongoStore    = require('connect-mongo')(session);
 
 app.disable('x-powered-by');
 app.set('view engine', 'jade');

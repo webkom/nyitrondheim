@@ -10,10 +10,6 @@ var util        = require('util')
   , Article     = require('../models/article')
   , handleError = require('./errors').handleError;
 
-var isNull = function(obj) {
-    return obj === null || obj === 'null' || obj === 'undefined';
-};
-
 var saveImage = function(article, image, done) {
   var ending = path.extname(image.originalFilename);
   var unionPath = __dirname + '/../../public/images/unions/' + article.union;
