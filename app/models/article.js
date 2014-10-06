@@ -1,6 +1,8 @@
 var mongoose    = require('mongoose')
   , slug        = require('slug')
   , Union       = require('./union')
+  , helpers     = require('./helpers')
+  , checkIfId   = helpers.checkIfId
   , Schema      = mongoose.Schema;
 
 var articleSchema = new Schema({
@@ -50,10 +52,6 @@ var articleSchema = new Schema({
   }
 });
 
-var checkIdMatch = function(id) {
-  return String(id).match(/^[0-9a-fA-F]{24}$/);
-};
-
 articleSchema.pre('save', function(next) {
   if (!this.slug) this.slug = slug(this.title).toLowerCase();
   next();
@@ -61,46 +59,54 @@ articleSchema.pre('save', function(next) {
 
 articleSchema.statics = {
 
-  findById: function(articleId, unionId, cb) {
-    if (checkIdMatch(unionId)) {
-      return this.find({_id: articleId, union: unionId}).sort('-createdAt').exec(cb);
+  findById: function(articleId, unionIdOrSlug, cb) {
+    if (checkIfId(unionIdOrSlug)) {
+      return this.find({_id: articleId, union: unionIdOrSlug}).sort('-createdAt').exec(cb);
     }
 
-    Union.findBySlug(unionId, function(err, union) {
+    Union.findBySlug(unionIdOrSlug, function(err, union) {
       return this.find({_id: articleId, union: union}).sort('-createdAt').exec(cb);
     }.bind(this));
   },
 
-  findBySlug: function (slug, unionId, cb){
-    if (checkIdMatch(unionId)) {
-      return this.find({slug: slug, union: unionId}).sort('-createdAt').exec(cb);
+  findBySlug: function (slug, unionIdOrSlug, cb){
+    if (checkIfId(unionIdOrSlug)) {
+      return this.find({slug: slug, union: unionIdOrSlug}).sort('-createdAt').exec(cb);
     }
 
-    Union.findBySlug(unionId, function(err, union) {
+    Union.findBySlug(unionIdOrSlug, function(err, union) {
       return this.find({slug: slug, union: union}).sort('-createdAt').exec(cb);
     }.bind(this));
+  },
+
+  findBySlugOrId: function(slugOrId, unionIdOrSlug, cb) {
+    if (checkIfId(slugOrId)) {
+      return this.findById(slugOrId, unionIdOrSlug, cb);
+    }
+
+    return this.findBySlug(slugOrId, unionIdOrSlug, cb);
   },
 
   listAll: function(limit, cb) {
     return this.find().sort('-createdAt').limit(limit).exec(cb);
   },
 
-  listUnionArticles: function(limit, unionId, cb) {
-    if (checkIdMatch(unionId)) {
-      return this.find({union: unionId}).sort('-createdAt').limit(limit).exec(cb);
+  listUnionArticles: function(limit, unionIdOrSlug, cb) {
+    if (checkIfId(unionIdOrSlug)) {
+      return this.find({union: unionIdOrSlug}).sort('-createdAt').limit(limit).exec(cb);
     }
 
-    Union.findBySlug(unionId, function(err, union) {
+    Union.findBySlug(unionIdOrSlug, function(err, union) {
       return this.find({union: union}).sort('-createdAt').limit(limit).exec(cb);
     }.bind(this));
   },
 
-  listUnionEvents: function(limit, unionId, cb) {
-    if (checkIdMatch(unionId)) {
-      return this.find({union: unionId, event: true}).sort('-createdAt').limit(limit).exec(cb);
+  listUnionEvents: function(limit, unionIdOrSlug, cb) {
+    if (checkIfId(unionIdOrSlug)) {
+      return this.find({union: unionIdOrSlug, event: true}).sort('-createdAt').limit(limit).exec(cb);
     }
 
-    Union.findBySlug(unionId, function(err, union) {
+    Union.findBySlug(unionIdOrSlug, function(err, union) {
       return this.find({union: union, event: true}).sort('-createdAt').limit(limit).exec(cb);
     }.bind(this));
   }

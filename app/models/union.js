@@ -1,6 +1,8 @@
 var mongoose              = require('mongoose')
   , passportLocalMongoose = require('passport-local-mongoose')
   , slug                  = require('slug')
+  , helpers               = require('./helpers')
+  , checkIfId             = helpers.checkIfId
   , Schema                = mongoose.Schema;
 
 var unionSchema = new Schema({
@@ -39,16 +41,41 @@ unionSchema.pre('save', function(next) {
 
 unionSchema.statics = {
 
-  findById: function(id, cb) {
-    this.findOne({_id: id}).exec(cb);
+  findById: function(id, fields, cb) {
+    if (typeof fields === 'function') {
+      cb = fields;
+      fields = null;
+    }
+    this.findOne({_id: id}).select(fields).exec(cb);
   },
 
-  findByName: function(name, cb) {
-    return this.findOne({name: name}).exec(cb);
+  findByName: function(name, fields, cb) {
+    if (typeof fields === 'function') {
+      cb = fields;
+      fields = null;
+    }
+    return this.findOne({name: name}).select(fields).exec(cb);
   },
 
-  findBySlug: function(slug, cb) {
-    return this.findOne({slug: slug}).exec(cb);
+  findBySlug: function(slug, fields, cb) {
+    if (typeof fields === 'function') {
+      cb = fields;
+      fields = null;
+    }
+    return this.findOne({slug: slug}).select(fields).exec(cb);
+  },
+
+  findBySlugOrId: function(slugOrId, fields, cb)  {
+    if (typeof fields === 'function') {
+      cb = fields;
+      fields = null;
+    }
+
+    if (checkIfId(slugOrId)) {
+      return this.findOne({ _id: slugOrId }).select(fields).exec(cb);
+    }
+
+    return this.findOne({ slug: slugOrId }).select(fields).exec(cb);
   }
 };
 

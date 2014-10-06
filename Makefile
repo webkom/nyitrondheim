@@ -5,6 +5,7 @@ SUPERVISOR = $(BIN)/supervisor
 STYLUS = $(BIN)/stylus
 UGLIFY = $(BIN)/uglifyjs
 MOCHA = $(BIN)/mocha
+JSHINT = $(BIN)/jshint
 
 MONGO_URL = mongodb://localhost:27017/nit-test
 
@@ -65,6 +66,9 @@ $(DIST)/app.css: $(STYL)
 
 endif
 
+jshint:
+	$(JSHINT) .
+
 install:
 	npm install
 	bower install
@@ -76,6 +80,6 @@ clean:
 	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css
 
 test:
-	MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
+	make jshint && MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
 
-.PHONY: all clean test server install
+.PHONY: all clean test server install jshint

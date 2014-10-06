@@ -1,6 +1,5 @@
 var nitServices = angular.module('nitServices', ['LocalStorageModule'])
-  , urlBase     = '/api/unions/'
-  , exists      = require('./filters').exists();
+  , urlBase     = '/api/unions/';
 
 
 /**

@@ -4,16 +4,6 @@ var util        = require('util')
   , Union       = require('../models/union')
   , handleError = require('./errors').handleError;
 
-var nameOrId = function(value) {
-  if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
-  return {name: value};
-};
-
-var slugOrId = function(value) {
-  if (value.match(/^[0-9a-fA-F]{24}$/)) return {_id: value};
-  return {slug: value};
-};
-
 exports.list = function(req, res) {
   Union.find({}, 'name slug program _id school description', function(err, unions) {
     if (err) return handleError(err, res);
@@ -22,9 +12,7 @@ exports.list = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  var union = req.params.union;
-
-  Union.findOne(slugOrId(union), 'name slug program _id school description', function(err, union) {
+  Union.findBySlugOrId(req.params.union, 'name slug program _id school description', function(err, union) {
     if (err) return handleError(err, res);
     if (null === union) return res.status(404).send({ message: 'Union not found.' });
     res.send(union);
@@ -33,14 +21,8 @@ exports.show = function(req, res) {
 
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user) {
-    if (err) {
-      console.log("Login error, handle it!");
-      return res.render('login', { union: req.user });
-    }
-    if (!user) {
-      console.log("User doesn't exist?", user);
-      return res.render('login');
-    }
+    if (err) return handleError(err, res);
+    if (!user) return res.render('login');
     req.logIn(user, function(err) {
       if (err) {
         return next(err);
@@ -67,7 +49,7 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  Union.findOne(slugOrId(req.params.union), function(err, union) {
+  Union.findBySlugOrId(req.params.union, function(err, union) {
     if (err) return handleError(err, res);
     if (!union) return res.status(404).send({ message: 'Union Not Found' });
     function save(union) {
@@ -95,7 +77,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  Union.findOne(slugOrId(req.params.union), function(err, union) {
+  Union.findBySlugOrId(req.params.union, function(err, union) {
     if (err) return handleError(err, res);
     if (!union) return res.send(404, { message: 'Union Not Found' });
     union.remove(function(err) {
