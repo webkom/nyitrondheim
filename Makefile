@@ -73,6 +73,12 @@ install:
 	npm install
 	bower install
 
+reset:
+	git fetch && git reset --hard origin/master
+
+production: reset install all
+	forever restart $(PWD)/index.js
+
 server:
 	$(SUPERVISOR) index.js
 
@@ -82,4 +88,4 @@ clean:
 test:
 	make jshint && MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
 
-.PHONY: all clean test server install jshint
+.PHONY: all clean test server install reset production jshint
