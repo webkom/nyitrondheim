@@ -60,3 +60,9 @@ app.get('/admin*', routeHelpers.ensureAuthenticated, routeHelpers.ensureAdmin, f
 app.get('*', function(req, res) {
   res.render('index');
 });
+
+if (process.env.NODE_ENV == 'production') {
+  var raven = require('raven');
+  app.use(raven.middleware.express(process.env.RAVEN_DSN));
+}
+

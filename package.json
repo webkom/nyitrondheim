@@ -33,6 +33,7 @@
     "passport-local-mongoose": "~1.0.0",
     "passport-stub": "~1.0.1",
     "prerender-node": "~1.1.0",
+    "raven": "^0.7.2",
     "slug": "~0.7.1",
     "stylus": "~0.49.1",
     "superagent": "~0.20.0",
