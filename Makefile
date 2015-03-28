@@ -85,7 +85,13 @@ server:
 clean:
 	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css
 
-test:
-	make jshint && MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
+mocha:
+	MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
 
-.PHONY: all clean test server install reset production jshint
+lint:
+	@make jshint
+
+test:
+	@make lint && make mocha
+
+.PHONY: all clean test server install reset production jshint lint mocha
