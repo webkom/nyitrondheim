@@ -1,4 +1,5 @@
 BIN = node_modules/.bin
+BOWER = $(BIN)/bower
 BROWSERIFY = $(BIN)/browserify
 UGLIFY = $(BIN)/uglifyjs
 SUPERVISOR = $(BIN)/supervisor
@@ -71,7 +72,7 @@ jshint:
 
 install:
 	npm install
-	bower install
+	$(BOWER) install
 
 reset:
 	git fetch && git reset --hard origin/master
