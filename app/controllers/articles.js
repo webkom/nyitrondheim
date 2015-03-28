@@ -1,9 +1,4 @@
-var util        = require('util')
-  , multiparty  = require('multiparty')
-  , fs          = require('fs')
-  , gm          = require('gm')
-  , moment      = require('moment')
-  , mkdirp      = require('mkdirp')
+var gm          = require('gm')
   , path        = require('path')
   , slug        = require('slug')
   , _           = require('lodash')
@@ -11,29 +6,21 @@ var util        = require('util')
   , handleError = require('./errors').handleError;
 
 var saveImage = function(article, image, done) {
-  var ending = path.extname(image.originalFilename);
-  var unionPath = __dirname + '/../../public/images/unions/' + article.union;
-  var newPath = '/' + article._id + ending;
-  var newPathCropped = '/' + article._id + '_cropped' + ending;
+  var unionFolder = path.dirname(image.path);
+  var croppedFile = image.name.split('.')[0] + '_cropped.' + image.extension;
+  var newPath = path.resolve(unionFolder, croppedFile);
 
-  mkdirp(unionPath, function(err) {
-    if (err) return done(err);
-    gm(image.path)
-      .resize(350, null, '>') // Resize to a width of 500px
+  gm(image.path)
+      .resize(350, null, '>')
       .noProfile()
-      .write(unionPath + newPathCropped, function(err) {
-        if (err) {
-          return done(err);
-        }
-        article.imageCropped = 'unions/' + article.union + newPathCropped;
-        fs.rename(image.path, unionPath + newPath, function(err) {
-          if (err) return done(err);
-          article.image = 'unions/' + article.union + newPath;
-          article.imageName = image.originalFilename;
-          return done(null, article);
-        });
+      .write(newPath, function(err) {
+        if (err) return done(err);
+        var base = 'unions/';
+        article.image = base + image.name;
+        article.imageCropped = base + croppedFile;
+        article.imageName = image.originalname;
+        return done(null, article);
       });
-  });
 };
 
 exports.load = function(req, res, next) {
@@ -75,60 +62,49 @@ exports.getUnionEvents = function(req, res) {
   });
 };
 
-var saveForm = function(req, res, create) {
-  var form = new multiparty.Form();
-  form.parse(req, function(err, fields, files) {
-    var parsedFields = {};
-    _.forOwn(fields, function(value, key) {
-      parsedFields[key] = value[0];
-    });
+var saveArticle = function(req, res) {
+  var update = req.method === 'PUT';
 
-    // Bool is turned into a string so need to strict compare it to true..
-    if (parsedFields.event && parsedFields.event === 'true') {
-      parsedFields.start = moment(parsedFields.start.slice(1, parsedFields.start.length-1)).toDate();
-      parsedFields.end = moment(parsedFields.end.slice(1, parsedFields.end.length-1)).toDate();
-    }
+  if (req.body.event && req.body.event !== 'false') {
+    req.body.start = JSON.parse(req.body.start);
+    req.body.end = JSON.parse(req.body.end);
+  }
 
-    var article;
-    if (create) {
-      article = new Article(parsedFields);
-      article.union = req.params.union;
+  var article;
+  if (update) {
+    article = _.assign(req.article, req.body);
+  } else {
+    article = new Article(req.body);
+    article.union = req.params.union;
+  }
 
-      if (article.slug === undefined || !article.slug.length) {
-        article.slug = slug(article.title).toLowerCase();
-      }
-    }
-    else {
-      article = util._extend(req.article, parsedFields);
-      // Kind of hacky, but if you remove an image it needs to go from the document somehow.
-      _.each(article._doc, function(value, key) {
-        if (value === 'null') {
-          article._doc[key] = undefined;
-        }
-      });
-    }
+  article.slug = article.slug || slug(article.title).toLowerCase();
 
-    function saveSend(err, article) {
+  function save(err, saveArticle) {
+    if (err) return handleError(err, res);
+
+    saveArticle.save(function(err, createdArticle) {
       if (err) return handleError(err, res);
-      article.save(function(err) {
-        if (err) return handleError(err, res);
-        var status = create ? 201 : 200;
-        res.status(status).send(article);
-      });
-    }
-    if (!_.isEmpty(files)) {
-      saveImage(article, files.file[0], saveSend);
-    }
-    else saveSend(null, article);
-  });
+
+      // Send 201 if it's a new article
+      res.status(update ? 200 : 201);
+      res.json(createdArticle);
+    });
+  }
+
+  if (req.files.file) {
+    saveImage(article, req.files.file, save);
+  } else {
+    save(null, article);
+  }
 };
 
 exports.create = function(req, res) {
-  saveForm(req, res, true);
+  saveArticle(req, res);
 };
 
 exports.update = function(req, res) {
-  saveForm(req, res, false);
+  saveArticle(req, res);
 };
 
 exports.delete = function(req, res) {

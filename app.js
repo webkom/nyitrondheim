@@ -1,4 +1,6 @@
 var express       = require('express')
+  , multer        = require('multer')
+  , path          = require('path')
   , bodyParser    = require('body-parser')
   , cookieParser  = require('cookie-parser')
   , session       = require('express-session')
@@ -13,6 +15,7 @@ app.disable('x-powered-by');
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/views');
 app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017/nit');
+app.set('image path', path.resolve('public', 'images', 'unions'));
 
 mongoose.connect(app.get('mongourl'), function(err) {
   if (err) throw err;
@@ -20,7 +23,10 @@ mongoose.connect(app.get('mongourl'), function(err) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(multer({
+  limits: { fieldSize: 5 * 1024 * 1024 }, // 5 MB
+  dest: app.get('image path')
+}));
 app.use(cookieParser());
 
 app.use(session({
