@@ -1,5 +1,5 @@
 ## [Ny i Trondheim](http://nyitrondheim.no)
-[![Build Status](https://travis-ci.org/webkom/nyitrondheim.svg)](https://travis-ci.org/webkom/nyitrondheim) [![Dependency Status](https://david-dm.org/webkom/nyitrondheim.svg)](https://david-dm.org/webkom/nyitrondheim)
+[![Build Status](https://travis-ci.org/webkom/nyitrondheim.svg)](https://travis-ci.org/webkom/nyitrondheim) [![Build Status](https://ci.frigg.io/badges/webkom/nyitrondheim/)](https://ci.frigg.io/webkom/nyitrondheim/last/) [![Dependency Status](https://david-dm.org/webkom/nyitrondheim.svg)](https://david-dm.org/webkom/nyitrondheim)
 
 Ny i Trondheim is built using [Node.js](http://nodejs.org/), [express](http://expressjs.com/) and [AngularJS](http://angularjs.org/).
 

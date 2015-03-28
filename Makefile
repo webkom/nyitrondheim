@@ -1,4 +1,5 @@
 BIN = node_modules/.bin
+BOWER = $(BIN)/bower
 BROWSERIFY = $(BIN)/browserify
 UGLIFY = $(BIN)/uglifyjs
 SUPERVISOR = $(BIN)/supervisor
@@ -71,7 +72,7 @@ jshint:
 
 install:
 	npm install
-	bower install
+	$(BOWER) install
 
 reset:
 	git fetch && git reset --hard origin/master
@@ -85,7 +86,13 @@ server:
 clean:
 	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css
 
-test:
-	make jshint && MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
+mocha:
+	MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
 
-.PHONY: all clean test server install reset production jshint
+lint:
+	@make jshint
+
+test:
+	@make lint && make mocha
+
+.PHONY: all clean test server install reset production jshint lint mocha
