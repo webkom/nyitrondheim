@@ -4,6 +4,8 @@ var slug                 = require('slug')
   , async                = require('async')
   , request              = require('supertest')
   , passportStub         = require('passport-stub')
+  , fs                   = require('fs')
+  , path                 = require('path')
   , app                  = require('../app')
   , helpers              = require('./helpers')
   , Union                = require('../app/models/union')
@@ -20,19 +22,49 @@ describe('#Closed API', function() {
 
   passportStub.install(app);
 
+  before(function(done) {
+    var that = this;
+    async.parallel([
+      function(cb) {
+        fs.readFile(path.resolve('test', 'fixtures', 'test-image.jpg'),
+        function(err, file) {
+          if (err) return cb(err);
+          that.testImage = file;
+          cb();
+        });
+      },
+      function(cb) {
+        fs.readFile(path.resolve('test', 'fixtures', 'test-image_cropped.jpg'),
+        function(err, file) {
+          if (err) return cb(err);
+          that.testImageCropped = file;
+          cb();
+        });
+      }
+    ], done);
+  });
+
   beforeEach(function(done) {
+    var that = this;
     clearDatabase(function() {
       async.parallel([
         function(callback) {
           createAdminUser(function(err, admin) {
             if (err) return done(err);
             passportStub.login({ slug: 'generelt' });
+            that.admin = admin;
             callback();
           });
         },
         function(callback) {
           createUnions(function() {
-            createArticles(callback);
+            createArticles(function() {
+              Union.findOne({ slug: 'abakus' }, function(err, union) {
+                if (err) return callback(err);
+                that.abakus = union;
+                callback();
+              });
+            });
           });
         }
       ], done);
@@ -67,24 +99,21 @@ describe('#Closed API', function() {
   });
 
   it('should update an union', function(done) {
-    Union.findOne({ slug: 'generelt' }, function(err, union) {
-      if (err) return done(err);
-      union.program = 'updated';
+    this.admin.program = 'updated';
 
-      request(app)
-        .put('/api/unions/generelt')
-        .send(union)
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .end(function(err, res) {
+    request(app)
+      .put('/api/unions/generelt')
+      .send(this.admin)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err) return done(err);
+        Union.findOne({ slug: 'generelt' }, function(err, union) {
           if (err) return done(err);
-          Union.findOne({ slug: 'generelt' }, function(err, union) {
-            if (err) return done(err);
-            union.program.should.eql('updated');
-            done();
-          });
+          union.program.should.eql('updated');
+          done();
         });
-    });
+      });
   });
 
   it('should delete an union', function(done) {
@@ -105,47 +134,64 @@ describe('#Closed API', function() {
     var article = _.clone(articleFixture);
     article.title = 'new_test';
 
-    Union.findOne({ slug: 'abakus' }, function(err, union) {
-      if (err) return done(err);
-      request(app)
-        .post('/api/unions/' + union._id + '/articles')
-        .attach('file', 'test/fixtures/test-image.jpeg')
-        .field('title', article.title)
-        .field('description', article.description)
-        .field('body', article.body)
-        .field('approved', String(article.approved))
-        .expect('Content-Type', /json/)
-        .expect(201)
-        .end(function(err, res) {
-          if (err) return done(err);
-          var createdArticle = res.body;
-          createdArticle.title.should.eql(article.title);
-          done();
+    var that = this;
+
+    request(app)
+      .post('/api/unions/' + this.abakus._id + '/articles')
+      .attach('file', 'test/fixtures/test-image.jpg')
+      .field('title', article.title)
+      .field('description', article.description)
+      .field('body', article.body)
+      .field('approved', String(article.approved))
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .end(function(err, res) {
+        if (err) return done(err);
+        var createdArticle = res.body;
+        _.each(article, function(value, key) {
+          createdArticle[key].should.equal(value);
         });
-    });
+
+        var uploadPath = path.resolve('public', 'images');
+        async.series([
+          function(cb) {
+            fs.readFile(path.resolve(uploadPath, createdArticle.image),
+            function(err, file) {
+              if (err) return cb(err);
+              // TODO: Compare to that.testImage
+              cb();
+            });
+          },
+          function(cb) {
+            fs.readFile(path.resolve(uploadPath, createdArticle.imageCropped),
+            function(err, file) {
+              if (err) return cb(err);
+              // TODO: Compare to that.testImageCropped
+              cb();
+            });
+          }
+        ], done);
+      });
   });
 
   it('should update an article', function(done) {
     var article = _.clone(articleFixture);
     article.title = 'updated';
 
-    Union.findOne({ slug: 'abakus' }, function(err, union) {
-      if (err) return done(err);
-      request(app)
-        .put('/api/unions/' + union._id + '/articles/testartikkel')
-        .field('title', article.title)
-        .field('description', article.description)
-        .field('body', article.body)
-        .field('approved', String(article.approved))
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          var createdArticle = res.body;
-          createdArticle.title.should.eql(article.title);
-          done();
-        });
-    });
+    request(app)
+      .put('/api/unions/' + this.abakus._id + '/articles/testartikkel')
+      .field('title', article.title)
+      .field('description', article.description)
+      .field('body', article.body)
+      .field('approved', String(article.approved))
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        var createdArticle = res.body;
+        createdArticle.title.should.eql(article.title);
+        done();
+      });
   });
 
   it('should delete an article', function(done) {
@@ -154,15 +200,12 @@ describe('#Closed API', function() {
       .expect(204)
       .end(function(err, res) {
         if (err) return done(err);
-        Union.findOne({ name: 'Abakus' }, function(err, union) {
+        Article.findOne({ union: this.abakus._id }, function(err, article) {
           if (err) return done(err);
-          Article.findOne({ union: union._id }, function(err, article) {
-            if (err) return done(err);
-            should.not.exist(article);
-            done();
-          });
+          should.not.exist(article);
+          done();
         });
-      });
+      }.bind(this));
   });
 
 });
