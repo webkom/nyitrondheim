@@ -65,11 +65,6 @@ exports.getUnionEvents = function(req, res) {
 var saveArticle = function(req, res) {
   var update = req.method === 'PUT';
 
-  if (req.body.event && req.body.event !== 'false') {
-    req.body.start = JSON.parse(req.body.start);
-    req.body.end = JSON.parse(req.body.end);
-  }
-
   var article;
   if (update) {
     article = _.assign(req.article, req.body);
