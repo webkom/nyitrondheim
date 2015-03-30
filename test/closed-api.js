@@ -24,29 +24,27 @@ describe('#Closed API', function() {
 
   beforeEach(function(done) {
     var that = this;
-    clearDatabase(function() {
-      async.parallel([
-        function(callback) {
-          createAdminUser(function(err, admin) {
-            if (err) return done(err);
-            passportStub.login({ slug: 'generelt' });
-            that.admin = admin;
-            callback();
-          });
-        },
-        function(callback) {
-          createUnions(function() {
-            createArticles(function() {
-              Union.findOne({ slug: 'abakus' }, function(err, union) {
-                if (err) return callback(err);
-                that.abakus = union;
-                callback();
-              });
+    async.parallel([
+      function(callback) {
+        createAdminUser(function(err, admin) {
+          if (err) return done(err);
+          passportStub.login({ slug: 'generelt' });
+          that.admin = admin;
+          callback();
+        });
+      },
+      function(callback) {
+        createUnions(function() {
+          createArticles(function() {
+            Union.findOne({ slug: 'abakus' }, function(err, union) {
+              if (err) return callback(err);
+              that.abakus = union;
+              callback();
             });
           });
-        }
-      ], done);
-    });
+        });
+      }
+    ], done);
   });
 
   afterEach(function(done) {
@@ -153,7 +151,6 @@ describe('#Closed API', function() {
         _.each(article, function(value, key) {
           createdArticle[key].should.equal(value);
         });
-
         done();
       });
   });
