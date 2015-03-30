@@ -22,28 +22,6 @@ describe('#Closed API', function() {
 
   passportStub.install(app);
 
-  before(function(done) {
-    var that = this;
-    async.parallel([
-      function(cb) {
-        fs.readFile(path.resolve('test', 'fixtures', 'test-image.jpg'),
-        function(err, file) {
-          if (err) return cb(err);
-          that.testImage = file;
-          cb();
-        });
-      },
-      function(cb) {
-        fs.readFile(path.resolve('test', 'fixtures', 'test-image_cropped.jpg'),
-        function(err, file) {
-          if (err) return cb(err);
-          that.testImageCropped = file;
-          cb();
-        });
-      }
-    ], done);
-  });
-
   beforeEach(function(done) {
     var that = this;
     clearDatabase(function() {
@@ -134,8 +112,6 @@ describe('#Closed API', function() {
     var article = _.clone(articleFixture);
     article.title = 'new_test';
 
-    var that = this;
-
     request(app)
       .post('/api/unions/' + this.abakus._id + '/articles')
       .attach('file', 'test/fixtures/test-image.jpg')
@@ -154,22 +130,10 @@ describe('#Closed API', function() {
 
         var uploadPath = path.resolve('public', 'images');
         async.series([
-          function(cb) {
-            fs.readFile(path.resolve(uploadPath, createdArticle.image),
-            function(err, file) {
-              if (err) return cb(err);
-              // TODO: Compare to that.testImage
-              cb();
-            });
-          },
-          function(cb) {
-            fs.readFile(path.resolve(uploadPath, createdArticle.imageCropped),
-            function(err, file) {
-              if (err) return cb(err);
-              // TODO: Compare to that.testImageCropped
-              cb();
-            });
-          }
+          fs.readFile.bind(undefined,
+                           path.resolve(uploadPath, createdArticle.image)),
+          fs.readFile.bind(undefined,
+                           path.resolve(uploadPath, createdArticle.imageCropped))
         ], done);
       });
   });
@@ -180,17 +144,51 @@ describe('#Closed API', function() {
 
     request(app)
       .put('/api/unions/' + this.abakus._id + '/articles/testartikkel')
-      .field('title', article.title)
-      .field('description', article.description)
-      .field('body', article.body)
-      .field('approved', String(article.approved))
+      .send(article)
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
         var createdArticle = res.body;
-        createdArticle.title.should.eql(article.title);
+        _.each(article, function(value, key) {
+          createdArticle[key].should.equal(value);
+        });
+
         done();
+      });
+  });
+
+  it('should remove image references through update', function(done) {
+    var article = _.clone(articleFixture);
+    var that = this;
+
+    request(app)
+      .post('/api/unions/' + this.abakus._id + '/articles')
+      .attach('file', 'test/fixtures/test-image.jpg')
+      .field('title', article.title)
+      .field('description', article.description)
+      .field('body', article.body)
+      .field('approved', String(article.approved))
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .end(function(err, res) {
+        var newArticle = res.body;
+        newArticle.image = null;
+        newArticle.imageCropped = null;
+        newArticle.imageName = null;
+        request(app)
+          .put('/api/unions/' + that.abakus._id + '/articles/' + newArticle.slug)
+          .send(newArticle)
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end(function(err, res) {
+            if (err) return done(err);
+            var updatedArticle = res.body;
+            should.not.exist(updatedArticle.image);
+            should.not.exist(updatedArticle.imageName);
+            should.not.exist(updatedArticle.imageCropped);
+            done();
+          });
       });
   });
 
