@@ -2,7 +2,8 @@ var express             = require('express')
   , helpers             = require('./helpers')
   , ensureAuthenticated = helpers.ensureAuthenticated
   , articles            = require('../../app/controllers/articles')
-  , unions              = require('../../app/controllers/unions');
+  , unions              = require('../../app/controllers/unions')
+  , handleError         = require('../controllers/errors').handleError;
 
 var router = express.Router();
 
@@ -30,6 +31,10 @@ router.use(function(req, res) {
     error: 'Bad API call.',
     status: 404
   });
+});
+
+router.use(function(err, req, res) {
+  handleError(err, res);
 });
 
 module.exports = router;
