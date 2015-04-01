@@ -2,12 +2,14 @@ var express             = require('express')
   , helpers             = require('./helpers')
   , ensureAuthenticated = helpers.ensureAuthenticated
   , articles            = require('../../app/controllers/articles')
+  , resetPassword       = require('../../app/controllers/reset-password')
   , unions              = require('../../app/controllers/unions')
-  , handleError         = require('../controllers/errors').handleError;
+  , handleError         = require('../../app/controllers/errors').handleError;
 
 var router = express.Router();
 
 router.param('article', articles.load);
+router.param('token', resetPassword.load);
 
 router.get('/articles', articles.all);
 
@@ -25,6 +27,10 @@ router.get('/unions/:union/events', articles.getUnionEvents);
 router.get('/unions/:union/articles/:article', articles.show);
 router.put('/unions/:union/articles/:article', ensureAuthenticated, articles.update);
 router.delete('/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
+
+router.post('/reset-password', resetPassword.create);
+router.get('/reset-password/:token', resetPassword.retrieve);
+router.post('/reset-password/:token', resetPassword.reset);
 
 router.use(function(req, res) {
   res.status(404).send({

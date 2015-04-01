@@ -11,6 +11,11 @@ var unionSchema = new Schema({
     required: true
   },
 
+  email: {
+    type: String,
+    match: /^[\w]+@[\w]+\.[\w]+$/
+  },
+
   program: {
     type: String,
     required: true
