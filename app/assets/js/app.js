@@ -50,7 +50,7 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
      controller: 'PageController'
    })
    .otherwise({
-     templateUrl: 'partials/front',
+     templateUrl: 'partials/404',
      controller: 'PagesController'
    });
 }]);

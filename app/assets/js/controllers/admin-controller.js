@@ -33,7 +33,6 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   };
 
   $scope.removeImage = function(image) {
-    //$scope.article = _.omit($scope.article, ['image', 'imageCropped', 'imageName']);
     $scope.article.image = null;
     $scope.article.imageCropped = null;
     $scope.article.imageName = null;
