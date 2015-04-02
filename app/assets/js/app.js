@@ -20,39 +20,40 @@ var app = angular.module('nitApp',
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $locationProvider.hashPrefix('!');
+
   $routeProvider
-   .when('/', {
-     templateUrl: 'partials/front',
-     controller: 'PagesController'
-   })
-   .when('/kalender', {
-     templateUrl: 'partials/calendar',
-     controller: 'CalendarController'
-   })
-   .when('/admin', {
-    templateUrl: 'partials/admin/overview',
-    controller: 'AdminController'
-   })
-   .when('/admin/overview', {
-    templateUrl: 'partials/admin/overview',
-    controller: 'AdminController'
-   })
-   .when('/admin/specific', {
-    templateUrl: 'partials/admin/specific',
-    controller: 'AdminController'
-   })
-   .when('/admin/unions', {
-    templateUrl: 'partials/admin/unions',
-    controller: 'UnionAdminController'
-   })
-   .when('/:unionSlug/:articleSlug*', {
-     templateUrl: 'partials/page',
-     controller: 'PageController'
-   })
-   .otherwise({
-     templateUrl: 'partials/404',
-     controller: 'PagesController'
-   });
+    .when('/', {
+      templateUrl: 'partials/front',
+      controller: 'PagesController'
+    })
+    .when('/kalender', {
+      templateUrl: 'partials/calendar',
+      controller: 'CalendarController'
+    })
+    .when('/admin', {
+      templateUrl: 'partials/admin/overview',
+      controller: 'AdminController'
+    })
+    .when('/admin/overview', {
+      templateUrl: 'partials/admin/overview',
+      controller: 'AdminController'
+    })
+    .when('/admin/specific', {
+      templateUrl: 'partials/admin/specific',
+      controller: 'AdminController'
+    })
+    .when('/admin/unions', {
+      templateUrl: 'partials/admin/unions',
+      controller: 'UnionAdminController'
+    })
+    .when('/:unionSlug/:articleSlug*', {
+      templateUrl: 'partials/page',
+      controller: 'PageController'
+    })
+    .otherwise({
+      templateUrl: 'partials/404',
+      controller: 'PagesController'
+    });
 }]);
 
 /**
