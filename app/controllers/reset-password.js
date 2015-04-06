@@ -1,27 +1,27 @@
-var async       = require('async')
-  , ResetToken  = require('../models/reset-token')
-  , Union       = require('../models/union')
-  , handleError = require('./errors').handleError;
+var async        = require('async')
+  , errorHandler = require('express-error-middleware')
+  , ResetToken   = require('../models/reset-token')
+  , Union        = require('../models/union');
 
 exports.load = function(req, res, next, token) {
   ResetToken.findOne({ token: req.params.token })
     .populate('union')
     .exec(function(err, token) {
       if (err) return next(err);
-      if (!token) return res.status(404).json({
-        message: 'Can\'t find token'
-      });
+      if (!token) {
+        return next(new errorHandler.errors.NotFoundError());
+      }
 
       req.token = token;
       next();
     });
 };
 
-exports.retrieve = function(req, res) {
+exports.retrieve = function(req, res, next) {
   res.json({ token: req.token });
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
   if (!req.body.email) {
     return res.status(400).json({
       message: 'Email is required'
@@ -29,12 +29,14 @@ exports.create = function(req, res) {
   }
 
   Union.findOne({ email: req.body.email }, function(err, union) {
-    if (err) return handleError(err, res);
-    if (!union) return res.status(404).json({ message: 'Can\'t find union' });
+    if (err) return next(err);
+    if (!union) {
+      return next(new errorHandler.errors.NotFoundError());
+    }
 
     var token = new ResetToken({ union: union._id });
     token.save(function(err, createdToken) {
-      if (err) return handleError(err, res);
+      if (err) return next(err);
       // Send email here
       res.status(201).json({
         message: 'Token created'
@@ -43,7 +45,7 @@ exports.create = function(req, res) {
   });
 };
 
-exports.reset = function(req, res) {
+exports.reset = function(req, res, next) {
   if (!req.body.password) {
     return res.status(400).json({
       message: 'Password is required'
@@ -51,7 +53,7 @@ exports.reset = function(req, res) {
   }
 
   function done(err) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
     res.json({
       message: 'Password reset'
     });

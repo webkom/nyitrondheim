@@ -76,7 +76,8 @@ describe('#Reset Password API', function() {
       .end(function(err, res) {
         if (err) return done(err);
         var expected = {
-          message: 'Can\'t find union'
+          error: 'NotFoundError',
+          message: 'We could not find what you where looking for'
         };
         res.body.should.deep.equal(expected);
         done();
@@ -105,7 +106,8 @@ describe('#Reset Password API', function() {
       .end(function(err, res) {
         if (err) return done(err);
         var expected = {
-          message: 'Can\'t find token'
+          error: 'NotFoundError',
+          message: 'We could not find what you where looking for'
         };
         res.body.should.deep.equal(expected);
         done();

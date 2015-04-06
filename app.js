@@ -7,6 +7,7 @@ var express       = require('express')
   , app           = module.exports = express()
   , mongoose      = require('mongoose')
   , passport      = require('passport')
+  , errorHandler  = require('express-error-middleware')
   , routes        = require('./config/routes')
   , routeHelpers  = require('./config/routes/helpers')
   , MongoStore    = require('connect-mongo')(session);
@@ -72,3 +73,4 @@ if (process.env.NODE_ENV == 'production') {
   app.use(raven.middleware.express(process.env.RAVEN_DSN));
 }
 
+app.use(errorHandler.ErrorsMiddleware);

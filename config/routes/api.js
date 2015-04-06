@@ -1,10 +1,10 @@
 var express             = require('express')
+  , errorHandler        = require('express-error-middleware')
   , helpers             = require('./helpers')
   , ensureAuthenticated = helpers.ensureAuthenticated
   , articles            = require('../../app/controllers/articles')
   , resetPassword       = require('../../app/controllers/reset-password')
-  , unions              = require('../../app/controllers/unions')
-  , handleError         = require('../../app/controllers/errors').handleError;
+  , unions              = require('../../app/controllers/unions');
 
 var router = express.Router();
 
@@ -32,15 +32,7 @@ router.post('/reset-password', resetPassword.create);
 router.get('/reset-password/:token', resetPassword.retrieve);
 router.post('/reset-password/:token', resetPassword.reset);
 
-router.use(function(req, res) {
-  res.status(404).send({
-    error: 'Bad API call.',
-    status: 404
-  });
-});
-
-router.use(function(err, req, res) {
-  handleError(err, res);
-});
+router.use(errorHandler.NotFoundMiddleware);
+router.use(errorHandler.ApiErrorsMiddleware);
 
 module.exports = router;
