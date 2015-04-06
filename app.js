@@ -71,6 +71,5 @@ app.get('*', function(req, res) {
 if (process.env.NODE_ENV == 'production') {
   var raven = require('raven');
   app.use(raven.middleware.express(process.env.RAVEN_DSN));
+  app.use(errorHandler.ErrorsMiddleware);
 }
-
-app.use(errorHandler.ErrorsMiddleware);
