@@ -10,9 +10,11 @@ block content
   section
     form(method='post', action='/login', role='form')
       .form-group
-        input.form-control(type='text', name='slug', placeholder='Linjeforeningsnavn')
+        label(for='slug') Brukernavn
+        input#slug.form-control(type='text', name='slug', placeholder='Linjeforeningsnavn')
       .form-group
-        input.form-control(type='password', name='password', placeholder='Passord')
+        label(for='password') Password
+        input#password.form-control(type='password', name='password', placeholder='Passord')
 
       button.btn.btn-primary.login(type='submit') Log inn
       a.btn.btn-default(href='/') Avbryt

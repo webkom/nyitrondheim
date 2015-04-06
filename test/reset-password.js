@@ -9,7 +9,7 @@ var chai                 = require('chai')
 
 chai.should();
 
-describe('#Reset Password API', function() {
+describe('#Reset Password', function() {
 
   before(function(done) {
     var that = this;
@@ -38,78 +38,56 @@ describe('#Reset Password API', function() {
 
   it('should generate tokens', function(done) {
     request(app)
-      .post('/api/reset-password')
+      .post('/reset-password')
       .send({ email: this.abakus.email })
       .expect(201)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        var expected = {
-          message: 'Token created'
-        };
-        res.body.should.deep.equal(expected);
+        res.text.should.contain('En epost har blitt sendt ut med videre instruksjoner.')
         done();
       });
   });
 
-  it('should return 400 when omitting email', function(done) {
+  it('should render with an error when omitting email', function(done) {
     request(app)
-      .post('/api/reset-password')
+      .post('/reset-password')
       .expect(400)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        var expected = {
-          message: 'Email is required'
-        };
-        res.body.should.deep.equal(expected);
+        res.text.should.contain('Epost er nødvendig')
         done();
       });
   });
 
-  it('should return 404 for invalid emails', function(done) {
+  it('should render with an error for invalid emails', function(done) {
     request(app)
-      .post('/api/reset-password')
+      .post('/reset-password')
       .send({ email: 'bad@email.com'})
       .expect(404)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        var expected = {
-          error: 'NotFoundError',
-          message: 'We could not find what you where looking for'
-        };
-        res.body.should.deep.equal(expected);
+        res.text.should.contain('Denne eposten finnes ikke')
         done();
       });
   });
 
   it('should retrieve tokens', function(done) {
     request(app)
-      .get('/api/reset-password/' + this.token.token)
+      .get('/reset-password/' + this.token.token)
       .expect(200)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        var token = res.body.token;
-        token.union.email.should.equal('abakus@abakus.no');
-        token.token.length.should.equal(24);
+        res.text.should.contain(this.token.token);
         done();
-      });
+      }.bind(this));
   });
 
   it('should return 404 when retrieving invalid tokens', function(done) {
     request(app)
-      .get('/api/reset-password/badtoken')
+      .get('/reset-password/badtoken')
       .expect(404)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        var expected = {
-          error: 'NotFoundError',
-          message: 'We could not find what you where looking for'
-        };
-        res.body.should.deep.equal(expected);
         done();
       });
   });
@@ -117,29 +95,22 @@ describe('#Reset Password API', function() {
   it('should reset passwords', function(done) {
     var newPassword = 'newpassword';
     request(app)
-      .post('/api/reset-password/' + this.token.token)
+      .post('/reset-password/' + this.token.token)
       .send({ password: newPassword })
-      .expect(200)
-      .expect('Content-Type', /json/)
+      .expect(302)
+      .expect('location', '/panel')
       .end(function(err, res) {
-        var expected = {
-          message: 'Password reset'
-        };
-        res.body.should.deep.equal(expected);
-        this.abakus.authenticate(newPassword, done);
+        if (err) return done(err);
+        done();
       }.bind(this));
   });
 
   it('should return 400 when omitting password', function(done) {
     request(app)
-      .post('/api/reset-password/' + this.token.token)
+      .post('/reset-password/' + this.token.token)
       .expect(400)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
-        var expected = {
-          message: 'Password is required'
-        };
-        res.body.should.deep.equal(expected);
+        res.text.should.contain('Passord er nødvendig')
         done();
       });
   });

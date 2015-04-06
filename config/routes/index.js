@@ -1,6 +1,7 @@
 var unions              = require('../../app/controllers/unions')
   , helpers             = require('./helpers')
   , apiRoutes           = require('./api')
+  , resetPassword       = require('../../app/controllers/reset-password')
   , ensureAuthenticated = helpers.ensureAuthenticated
   , ensureAdmin         = helpers.ensureAdmin;
 
@@ -30,4 +31,19 @@ module.exports = function(app) {
   app.get('/logout', ensureAuthenticated, unions.logout);
 
   app.use('/api', apiRoutes);
+
+  app.param('token', resetPassword.load);
+
+  app.get('/reset-password', function(req, res) {
+    res.render('request-reset');
+  });
+
+  app.get('/reset-password/:token', function(req, res) {
+    res.render('reset-password', { token: req.params.token });
+  });
+
+  app.post('/reset-password', resetPassword.create);
+
+  app.post('/reset-password/:token', resetPassword.reset);
+
 };
