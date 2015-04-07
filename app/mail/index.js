@@ -3,7 +3,9 @@ var smtpTransport = require('nodemailer-smtp-transport');
 
 var transporter = nodemailer.createTransport(smtpTransport({
   port: process.env.SMTP_PORT,
-  host: process.env.SMTP_HOST
+  host: process.env.SMTP_HOST,
+  secure: false,
+  ignoreTLS: true
 }));
 
 exports.sendMail = function(options, callback) {

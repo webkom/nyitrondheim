@@ -13,6 +13,7 @@ var express       = require('express')
   , MongoStore    = require('connect-mongo')(session);
 
 app.disable('x-powered-by');
+app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/views');
 app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017/nit');
@@ -72,4 +73,7 @@ if (process.env.NODE_ENV == 'production') {
   var raven = require('raven');
   app.use(raven.middleware.express(process.env.RAVEN_DSN));
   app.use(errorHandler.ErrorsMiddleware);
+  app.locals.url = 'http://nyitrondheim.no';
+} else {
+  app.locals.url = 'http://localhost:' + app.get('port');
 }

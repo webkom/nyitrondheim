@@ -4,15 +4,17 @@ var util         = require('util')
   , errorHandler = require('express-error-middleware')
   , Union        = require('../models/union');
 
+var allowedFields = 'name slug program _id school description email';
+
 exports.list = function(req, res, next) {
-  Union.find({}, 'name slug program _id school description', function(err, unions) {
+  Union.find({}, allowedFields, function(err, unions) {
     if (err) return next(err);
     res.send(unions);
   });
 };
 
 exports.show = function(req, res, next) {
-  Union.findBySlugOrId(req.params.union, 'name slug program _id school description', function(err, union) {
+  Union.findBySlugOrId(req.params.union, allowedFields, function(err, union) {
     if (err) return next(err);
     if (!union) {
       return next(new errorHandler.errors.NotFoundError());

@@ -20,8 +20,8 @@ exports.load = function(req, res, next, token) {
 };
 
 
-function sendResetLink(email, resetLink, callback) {
-  app.render('emails/reset-request', { resetLink: resetLink }, function(err, text) {
+function sendResetLink(email, token, callback) {
+  app.render('emails/reset-request', { token: token }, function(err, text) {
     if (err) return callback(err);
     sendMail({
       from: process.env.NOREPLY_EMAIL || 'no-reply@nyitrondheim.no',
