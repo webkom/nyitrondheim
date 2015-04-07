@@ -21,13 +21,13 @@ exports.load = function(req, res, next, token) {
 
 
 function sendResetLink(email, token, callback) {
-  app.render('emails/reset-request', { token: token }, function(err, text) {
+  app.render('emails/reset-request', { token: token }, function(err, html) {
     if (err) return callback(err);
     sendMail({
       from: process.env.NOREPLY_EMAIL || 'no-reply@nyitrondheim.no',
       to: email,
       subject: 'Ny i Trondheim - Glemt Passord',
-      text: text
+      html: html
     }, callback);
   });
 }
@@ -58,13 +58,13 @@ exports.create = function(req, res, next) {
 };
 
 function sendResetDone(email, callback) {
-  app.render('emails/reset-done', function(err, text) {
+  app.render('emails/reset-done', function(err, html) {
     if (err) return callback(err);
     sendMail({
       from: process.env.NOREPLY_EMAIL || 'no-reply@nyitrondheim.no',
       to: email,
       subject: 'Ny i Trondheim - Passord Endret',
-      text: text
+      html: html
     }, callback);
   });
 }

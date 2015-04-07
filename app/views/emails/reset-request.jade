@@ -1,8 +1,6 @@
-h1 Hei!
+extends ./layout.jade
 
-p Her har du en link du kan bruke til å velge et nytt passord:
-  a(href='#{url}/reset-password/#{token}') #{url}/reset-password/#{token}
-
-p.
-  Med vennlig hilsen
-  Webkom, Abakus
+block content
+  p.
+    Her har du en link du kan bruke til å velge et nytt passord: <a href='#{url}/reset-password/#{token}')>
+    #{url}/reset-password/#{token}</a>
