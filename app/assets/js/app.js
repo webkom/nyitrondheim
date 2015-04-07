@@ -4,7 +4,14 @@
  */
 
 var app = angular.module('nitApp',
-  ['ngRoute', 'nitControllers', 'nitServices', 'ui.calendar', 'ui.bootstrap', 'textAngular', 'angularFileUpload', 'LocalStorageModule']);
+  ['ngRoute',
+   'nitControllers',
+   'nitServices',
+   'ui.calendar',
+   'ui.bootstrap',
+   'textAngular',
+   'angularFileUpload',
+   'LocalStorageModule']);
 
 /**
  * Route Setup

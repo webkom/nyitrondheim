@@ -116,15 +116,27 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   $scope.saveArticle = function(article) {
 
     if (article.event) {
-      // Merge times and dates into one:
-      var start = moment(article.start);
-      var end = moment(article.end);
-      start.hour(article.startTime.slice(0, article.startTime.indexOf(':')));
-      start.minutes(article.startTime.slice(article.startTime.indexOf(':')+1));
-      end.hour(article.endTime.slice(0, article.endTime.indexOf(':')));
-      end.minutes(article.endTime.slice(article.endTime.indexOf(':')+1));
-      article.start = start.toDate();
-      article.end = end.toDate();
+      var startTime = moment(article.startTime, 'HH:mm');
+      var endTime = moment(article.endTime, 'HH:mm');
+
+      var start = moment([
+        article.start.getFullYear(),
+        article.start.getMonth(),
+        article.start.getDate(),
+        startTime.hour(),
+        startTime.minute()
+      ]);
+
+      var end = moment([
+        article.end.getFullYear(),
+        article.end.getMonth(),
+        article.end.getDate(),
+        endTime.hour(),
+        endTime.minute()
+      ]);
+
+      article.start = start.toISOString();
+      article.end = end.toISOString();
     }
 
     articleService.save(article.union, article)
