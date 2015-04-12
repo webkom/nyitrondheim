@@ -7,11 +7,13 @@ var express       = require('express')
   , app           = module.exports = express()
   , mongoose      = require('mongoose')
   , passport      = require('passport')
+  , errorHandler  = require('express-error-middleware')
   , routes        = require('./config/routes')
   , routeHelpers  = require('./config/routes/helpers')
   , MongoStore    = require('connect-mongo')(session);
 
 app.disable('x-powered-by');
+app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/views');
 app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017/nit');
@@ -67,8 +69,12 @@ app.get('*', function(req, res) {
   res.render('index');
 });
 
-if (process.env.NODE_ENV == 'production') {
+app.use(errorHandler.ErrorsMiddleware);
+
+if (process.env.NODE_ENV === 'production') {
   var raven = require('raven');
   app.use(raven.middleware.express(process.env.RAVEN_DSN));
+  app.locals.url = 'http://nyitrondheim.no';
+} else {
+  app.locals.url = 'http://localhost:' + app.get('port');
 }
-

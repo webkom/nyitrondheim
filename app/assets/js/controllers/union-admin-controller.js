@@ -2,7 +2,8 @@
  * UnionAdminController
  */
 
-module.exports = ['$scope', '$timeout', 'unionService', function($scope, $timeout, unionService) {
+module.exports = ['$scope', '$timeout', 'unionService', 'alertService',
+function($scope, $timeout, unionService, alertService) {
 
   $scope.union = {};
   $scope.unions = [];
@@ -12,11 +13,6 @@ module.exports = ['$scope', '$timeout', 'unionService', function($scope, $timeou
     $scope.loading = false;
     $scope.unions = unions;
   });
-
-  $scope.alerts = {
-    danger: { type: 'danger', msg: 'Oops, noe gikk galt :(. Prøv igjen!' },
-    success: { type: 'success', msg: 'Ferdig!' }
-  };
 
   $scope.chooseUnion = function(union, selectedIndex) {
     $scope.selectedIndex = selectedIndex;
@@ -31,7 +27,7 @@ module.exports = ['$scope', '$timeout', 'unionService', function($scope, $timeou
   $scope.saveUnion = function(union) {
     unionService.save(union)
       .success(function(data) {
-        $scope.addAlert($scope.alerts.success);
+        alertService.addSuccess();
         if (!union._id) {
           $scope.unions.push(data);
           $scope.createUnion();
@@ -43,32 +39,19 @@ module.exports = ['$scope', '$timeout', 'unionService', function($scope, $timeou
       })
       .error(function(err) {
         console.log('Error:', err);
-        $scope.addAlert($scope.alerts.danger);
+        alertService.addError();
       });
   };
 
   $scope.destroyUnion = function(union) {
     unionService.destroy(union).success(function(data) {
-      $scope.addAlert($scope.alerts.success);
+      alertService.addSuccess();
       $scope.unions.splice($scope.unions.indexOf(union), 1);
       $scope.union = {};
     })
     .error(function(err) {
       console.log('Error:', err);
-      $scope.addAlert($scope.alerts.danger);
+      alertService.addError();
     });
   };
-
-  $scope.addAlert = function(alert) {
-    $scope.alert = alert;
-    // Fade the alert out after a second, remove it after 0,7 seconds.
-    $timeout(function() {
-      $scope.fade = true;
-      $timeout(function() {
-        $scope.alert = null;
-        $scope.fade = false;
-      }, 700);
-    }, 1000);
-  };
-
 }];

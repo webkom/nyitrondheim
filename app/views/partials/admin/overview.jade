@@ -134,5 +134,5 @@ div(ng-init='findAllNoUnion()')
                 .progress-bar(role='progressbar', aria-valuenow='{{progress}}', aria-valuemin='0',
                 aria-valuemax='100')
 
-        .alert(ng-show='alert != null', ng-class='{"fade": fade}')
-          alert(type='alert.type') {{alert.msg}}
+        .alert(ng-repeat='alert in alerts', ng-class='{"fade": alert.fade}')
+          alert(ng-bind='alert.message', type='{{alert.type}}', close='alert.close()')

@@ -1,9 +1,9 @@
-var gm          = require('gm')
-  , path        = require('path')
-  , slug        = require('slug')
-  , _           = require('lodash')
-  , Article     = require('../models/article')
-  , handleError = require('./errors').handleError;
+var gm           = require('gm')
+  , path         = require('path')
+  , slug         = require('slug')
+  , _            = require('lodash')
+  , errorHandler = require('express-error-middleware')
+  , Article      = require('../models/article');
 
 var saveImage = function(article, image, done) {
   var unionFolder = path.dirname(image.path);
@@ -25,44 +25,47 @@ var saveImage = function(article, image, done) {
 
 exports.load = function(req, res, next) {
   function cb(err, article) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
     req.article = article[0];
-    if (!req.article) return res.status(404).send({message: 'Article Not Found'});
+    if (!req.article) {
+      return next(new errorHandler.errors.NotFoundError());
+    }
+
     next();
   }
 
   Article.findBySlugOrId(req.params.article, req.params.union, cb);
 };
 
-exports.show = function(req, res) {
+exports.show = function(req, res, next) {
   res.send(req.article);
 };
 
-exports.all = function(req, res) {
+exports.all = function(req, res, next) {
   var limit = req.query.limit|0;
   Article.listAll(limit, function(err, articles) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
     res.send(articles);
   });
 };
 
-exports.getUnionArticles = function(req, res) {
+exports.getUnionArticles = function(req, res, next) {
   var limit = req.query.limit|0;
   Article.listUnionArticles(limit, req.params.union, function(err, articles) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
     res.send(articles);
   });
 };
 
-exports.getUnionEvents = function(req, res) {
+exports.getUnionEvents = function(req, res, next) {
   var limit = req.query.limit|0;
   Article.listUnionEvents(limit, req.params.union, function(err, articles) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
     res.send(articles);
   });
 };
 
-var saveArticle = function(req, res) {
+var saveArticle = function(req, res, next) {
   var update = req.method === 'PUT';
 
   var article;
@@ -76,10 +79,10 @@ var saveArticle = function(req, res) {
   article.slug = article.slug || slug(article.title).toLowerCase();
 
   function save(err, saveArticle) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
 
     saveArticle.save(function(err, createdArticle) {
-      if (err) return handleError(err, res);
+      if (err) return next(err);
 
       // Send 201 if it's a new article
       res.status(update ? 200 : 201);
@@ -94,18 +97,18 @@ var saveArticle = function(req, res) {
   }
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, next) {
   saveArticle(req, res);
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, next) {
   saveArticle(req, res);
 };
 
-exports.delete = function(req, res) {
+exports.delete = function(req, res, next) {
   var article = req.article;
   article.remove(function(err) {
-    if (err) return handleError(err, res);
+    if (err) return next(err);
     res.status(204).send();
   });
 };

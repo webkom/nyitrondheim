@@ -1,16 +1,9 @@
-var nitServices = angular.module('nitServices', ['LocalStorageModule'])
-  , urlBase     = '/api/unions/';
-
-
-/**
- * Article Service
- */
-
-nitServices.factory('articleService', ['$http', '$q', '$upload', function($http, $q, $upload) {
+module.exports = ['$http', '$q', '$upload', function($http, $q, $upload) {
   var error = function() {
     console.log(arguments);
   };
 
+  var urlBase = '/api/unions/';
   var articleCache = {};
 
   var saveCache = function(union) {
@@ -91,47 +84,4 @@ nitServices.factory('articleService', ['$http', '$q', '$upload', function($http,
       return this.create(union, article);
     }
   };
-}]);
-
-nitServices.factory('unionService', ['$http', 'localStorageService', function($http, localStorageService) {
-  var error = function() {
-    console.log(arguments);
-  };
-
-  var urlBase = '/api/unions/';
-
-  return {
-    last: function() {
-      return localStorageService.get('union') || {slug: 'general'};
-    },
-
-    pick: function(union) {
-      localStorageService.add('union', union);
-    },
-
-    create: function(union) {
-      return $http.post(urlBase, union).error(error);
-    },
-
-    update: function(union) {
-      return $http.put(urlBase + union._id, union).error(error);
-    },
-
-    destroy: function(union) {
-      return $http.del(urlBase + union._id).error(error);
-    },
-
-    save: function(union) {
-      if (union._id) return this.update(union);
-      return this.create(union);
-    },
-
-    findAll: function() {
-      return $http.get(urlBase).error(error);
-    },
-
-    findByName: function(name) {
-      return $http.get(urlBase + name).error(error);
-    }
-  };
-}]);
+}];

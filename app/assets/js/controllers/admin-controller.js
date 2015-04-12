@@ -2,18 +2,14 @@
  * AdminController
  */
 
-module.exports = ['$scope', '$timeout', 'articleService', function($scope, $timeout, articleService) {
+module.exports = ['$scope', '$timeout', 'articleService', 'alertService',
+function($scope, $timeout, articleService, alertService) {
   $scope.selectedDate = new Date();
   $scope.union = union._id;
   $scope.selectedUnion = union._id;
   $scope.articles = [];
   $scope.events = [];
   $scope.today = new Date();
-
-  $scope.alerts = {
-    danger: { type: 'danger', msg: 'Oops, noe gikk galt :(. Prøv igjen!' },
-    success: { type: 'success', msg: 'Ferdig!' }
-  };
 
   $scope.getArticlesAndEvents = function() {
     return $scope.articles.concat($scope.events);
@@ -33,7 +29,6 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
   };
 
   $scope.removeImage = function(image) {
-    //$scope.article = _.omit($scope.article, ['image', 'imageCropped', 'imageName']);
     $scope.article.image = null;
     $scope.article.imageCropped = null;
     $scope.article.imageName = null;
@@ -142,7 +137,8 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
     articleService.save(article.union, article)
       .success(function(data) {
         $scope.uploading = false;
-        $scope.addAlert($scope.alerts.success);
+        alertService.addSuccess();
+
         if (!article._id) {
 
           if (article.event) {
@@ -166,14 +162,14 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       })
       .error(function(err) {
         console.log('Error:', err);
-        $scope.addAlert($scope.alerts.danger);
+        alertService.addError();
       });
 
   };
 
   $scope.destroyArticle = function(article) {
     articleService.destroy(article.union, article).success(function(data) {
-      $scope.addAlert($scope.alerts.success);
+      alertService.addSuccess();
       if (article.event) {
         $scope.events.splice($scope.events.indexOf(article), 1);
       }
@@ -186,18 +182,6 @@ module.exports = ['$scope', '$timeout', 'articleService', function($scope, $time
       console.log('Error:', err);
       $scope.addAlert($scope.alerts.danger);
     });
-  };
-
-  $scope.addAlert = function(alert) {
-    $scope.alert = alert;
-    // Fade the alert out after a second, remove it after 0,7 seconds.
-    $timeout(function() {
-      $scope.fade = true;
-      $timeout(function() {
-        $scope.alert = null;
-        $scope.fade = false;
-      }, 700);
-    }, 1000);
   };
 
   $scope.getUnionName = function(unionId) {

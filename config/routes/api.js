@@ -1,4 +1,5 @@
 var express             = require('express')
+  , errorHandler        = require('express-error-middleware')
   , helpers             = require('./helpers')
   , ensureAuthenticated = helpers.ensureAuthenticated
   , articles            = require('../../app/controllers/articles')
@@ -25,11 +26,7 @@ router.get('/unions/:union/articles/:article', articles.show);
 router.put('/unions/:union/articles/:article', ensureAuthenticated, articles.update);
 router.delete('/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
 
-router.use(function(req, res) {
-  res.status(404).send({
-    error: 'Bad API call.',
-    status: 404
-  });
-});
+router.use(errorHandler.NotFoundMiddleware);
+router.use(errorHandler.ApiErrorsMiddleware);
 
 module.exports = router;

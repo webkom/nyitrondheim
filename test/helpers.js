@@ -1,6 +1,7 @@
 var async           = require('async')
   , _               = require('lodash')
   , slug            = require('slug')
+  , mongoose        = require('mongoose')
   , unionFixtures   = require('./fixtures/unions')
   , articleFixture  = require('./fixtures/article')
   , adminFixture    = require('./fixtures/admin-union')
@@ -8,14 +9,10 @@ var async           = require('async')
   , Article         = require('../app/models/article');
 
 exports.clearDatabase = function(done) {
-  async.parallel([
-    function(cb) {
-      Union.collection.remove(cb);
-    },
-    function(cb) {
-      Article.collection.remove(cb);
-    }
-  ], done);
+  var collections = _.values(mongoose.connection.collections);
+  async.map(collections, function(collection, callback) {
+    collection.remove(callback);
+  }, done);
 };
 
 exports.createArticles = function(done) {
