@@ -14,24 +14,24 @@ STYL = $(shell find app/assets/css -name '*.styl')
 JS = $(shell find app/assets/js -name '*.js')
 
 VENDORCSS = \
-	app/assets/vendor/fullcalendar/fullcalendar.css
+	public/vendor/fullcalendar/fullcalendar.css
 
 VENDORJS = \
-	app/assets/vendor/jquery/dist/jquery.js \
-	app/assets/vendor/jquery-ui/ui/jquery-ui.js \
-	app/assets/vendor/ng-file-upload/angular-file-upload-html5-shim.js \
-	app/assets/vendor/angular/angular.min.js \
-	app/assets/vendor/angular-i18n/angular-locale_no.js \
-	app/assets/vendor/angular-local-storage/angular-local-storage.min.js \
-	app/assets/vendor/angular-route/angular-route.min.js \
-	app/assets/vendor/lodash/dist/lodash.min.js \
-	app/assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js \
-	app/assets/vendor/fullcalendar/fullcalendar.js \
-	app/assets/vendor/angular-ui-calendar/src/calendar.js \
-	app/assets/vendor/textAngular/textAngular-sanitize.js \
-	app/assets/vendor/textAngular/textAngular.js \
-	app/assets/vendor/momentjs/min/moment.min.js \
-	app/assets/vendor/ng-file-upload/angular-file-upload.js
+	public/vendor/jquery/dist/jquery.js \
+	public/vendor/jquery-ui/ui/jquery-ui.js \
+	public/vendor/ng-file-upload/angular-file-upload-html5-shim.js \
+	public/vendor/angular/angular.min.js \
+	public/vendor/angular-i18n/angular-locale_no.js \
+	public/vendor/angular-local-storage/angular-local-storage.min.js \
+	public/vendor/angular-route/angular-route.min.js \
+	public/vendor/lodash/dist/lodash.min.js \
+	public/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js \
+	public/vendor/fullcalendar/fullcalendar.js \
+	public/vendor/angular-ui-calendar/src/calendar.js \
+	public/vendor/textAngular/textAngular-sanitize.js \
+	public/vendor/textAngular/textAngular.js \
+	public/vendor/momentjs/min/moment.min.js \
+	public/vendor/ng-file-upload/angular-file-upload.js
 
 DIST = public
 
