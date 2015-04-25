@@ -78,10 +78,10 @@ var saveArticle = function(req, res, next) {
 
   article.slug = article.slug || slug(article.title).toLowerCase();
 
-  function save(err, saveArticle) {
+  function save(err, savedArticle) {
     if (err) return next(err);
 
-    saveArticle.save(function(err, createdArticle) {
+    savedArticle.save(function(err, createdArticle) {
       if (err) return next(err);
 
       // Send 201 if it's a new article
@@ -98,11 +98,11 @@ var saveArticle = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
-  saveArticle(req, res);
+  saveArticle(req, res, next);
 };
 
 exports.update = function(req, res, next) {
-  saveArticle(req, res);
+  saveArticle(req, res, next);
 };
 
 exports.delete = function(req, res, next) {
