@@ -72,7 +72,7 @@ jshint:
 
 install:
 	npm install
-	$(BOWER) install
+	$(BOWER) install --allow-root
 
 reset:
 	git fetch && git reset --hard origin/master
