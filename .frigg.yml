@@ -3,3 +3,5 @@ tasks:
   - make jshint
   - make mocha
 
+services: 
+  - mongodb
