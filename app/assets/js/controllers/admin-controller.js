@@ -182,7 +182,7 @@ function($scope, $timeout, articleService, alertService) {
     })
     .error(function(err) {
       console.log('Error:', err);
-      $scope.addAlert($scope.alerts.danger);
+      alertService.addError();
     });
   };
 

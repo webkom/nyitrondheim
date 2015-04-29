@@ -1,9 +1,12 @@
-var gm           = require('gm')
-  , path         = require('path')
-  , slug         = require('slug')
-  , _            = require('lodash')
-  , errorHandler = require('express-error-middleware')
-  , Article      = require('../models/article');
+var gm                = require('gm')
+  , path              = require('path')
+  , slug              = require('slug')
+  , _                 = require('lodash')
+  , errorHandler      = require('express-error-middleware')
+  , Article           = require('../models/article')
+  , helpers           = require('./helpers')
+  , adminNotification = helpers.adminNotification
+  , sentryError       = helpers.sentryError;
 
 var saveImage = function(article, image, done) {
   var unionFolder = path.dirname(image.path);
@@ -65,6 +68,18 @@ exports.getUnionEvents = function(req, res, next) {
   });
 };
 
+function articleNotification(article, verb) {
+  article.populate('union', function(err, populated) {
+    if (err) return sentryError(err);
+    var type = populated.event ? 'Event' : 'Article';
+    var message = type + ' "' + populated.title + '" ' + verb + '.\n' +
+      'Author: ' + populated.union.name + '\n\n' +
+      'Description:\n' + populated.description + '\n\n' +
+      'Content:\n' + populated.body;
+    adminNotification(message);
+  });
+}
+
 var saveArticle = function(req, res, next) {
   var update = req.method === 'PUT';
 
@@ -87,6 +102,9 @@ var saveArticle = function(req, res, next) {
       // Send 201 if it's a new article
       res.status(update ? 200 : 201);
       res.json(createdArticle);
+
+      var verb = update ? 'updated' : 'created';
+      articleNotification(savedArticle, verb);
     });
   }
 
@@ -110,5 +128,6 @@ exports.delete = function(req, res, next) {
   article.remove(function(err) {
     if (err) return next(err);
     res.status(204).send();
+    articleNotification(article, 'deleted');
   });
 };
