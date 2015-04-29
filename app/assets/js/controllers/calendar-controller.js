@@ -68,14 +68,18 @@ module.exports = ['$scope', 'articleService', 'unionService', function($scope, a
     articleService.findAllEvents(lsUnion._id)
     .success(function(events) {
       events.forEach(function(e) {
-        $scope.unionEvents.push(getEvent(e, lsUnion.slug));
+        if (e.approved) {
+          $scope.unionEvents.push(getEvent(e, lsUnion.slug));
+        }
       });
     });
 
     articleService.findAllEvents($scope.generalUnionSlug)
     .success(function(events) {
       events.forEach(function(e) {
-        $scope.generalEvents.push(getEvent, e, $scope.generalUnionSlug);
+        if (e.approved) {
+          $scope.generalEvents.push(getEvent, e, $scope.generalUnionSlug);
+        }
       });
     });
 
