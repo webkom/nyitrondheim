@@ -109,29 +109,31 @@ function($scope, $timeout, articleService, alertService) {
   };
 
   $scope.saveArticle = function(article) {
-
     if (article.event) {
       var startTime = moment(article.startTime, 'HH:mm');
       var endTime = moment(article.endTime, 'HH:mm');
 
-      var start = moment([
-        article.start.getFullYear(),
-        article.start.getMonth(),
-        article.start.getDate(),
-        startTime.hour(),
-        startTime.minute()
-      ]);
+      if (typeof article.start !== 'string') {
+        var start = moment([
+          article.start.getFullYear(),
+          article.start.getMonth(),
+          article.start.getDate(),
+          startTime.hour(),
+          startTime.minute()
+        ]);
+        article.start = start.toISOString();
+      }
 
-      var end = moment([
-        article.end.getFullYear(),
-        article.end.getMonth(),
-        article.end.getDate(),
-        endTime.hour(),
-        endTime.minute()
-      ]);
-
-      article.start = start.toISOString();
-      article.end = end.toISOString();
+      if (typeof article.end !== 'string') {
+        var end = moment([
+          article.end.getFullYear(),
+          article.end.getMonth(),
+          article.end.getDate(),
+          endTime.hour(),
+          endTime.minute()
+        ]);
+        article.end = end.toISOString();
+      }
     }
 
     articleService.save(article.union, article)
