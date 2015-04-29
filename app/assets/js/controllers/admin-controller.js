@@ -139,20 +139,25 @@ function($scope, $timeout, articleService, alertService) {
     articleService.save(article.union, article)
       .success(function(data) {
         $scope.uploading = false;
-        alertService.addSuccess();
 
         if (!article._id) {
-
           if (article.event) {
+            alertService.addSuccess(
+              'Ferdig! Arrangementet må godkjennes før det vises i kalenderen.'
+            );
             $scope.events.push(data);
             $scope.createEvent();
           }
           else {
+            alertService.addSuccess(
+              'Ferdig! Artikkelen må godkjennes før det vises på forsiden.'
+            );
             $scope.articles.push(data);
             $scope.createArticle();
           }
         }
         else {
+          alertService.addSuccess();
           $scope.articles[$scope.articles.indexOf(article)] = data;
           $scope.article = data;
         }

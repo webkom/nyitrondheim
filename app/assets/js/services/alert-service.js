@@ -3,7 +3,7 @@ module.exports = ['$interval', '$rootScope', function($interval, $rootScope) {
     $rootScope.alerts = [];
 
     var CLOSE_DELAY = 700;
-    var FADE_DELAY = 1000;
+    var FADE_DELAY = 6000; // 6 seconds before fading starts
 
     var AlertService = {
         add: function(type, message) {
