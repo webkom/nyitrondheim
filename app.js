@@ -72,6 +72,8 @@ app.use(errorHandler.ErrorsMiddleware);
 
 if (process.env.NODE_ENV === 'production') {
   var raven = require('raven');
+  var client = new raven.Client(process.env.RAVEN_DSN);
+  app.set('raven', client);
   app.use(raven.middleware.express(process.env.RAVEN_DSN));
   app.locals.url = 'http://nyitrondheim.no';
 } else {
