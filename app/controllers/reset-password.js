@@ -57,12 +57,13 @@ exports.create = function(req, res, next) {
   });
 };
 
-function sendResetDone(email, callback) {
-  app.render('emails/reset-done', function(err, html) {
+function sendResetDone(union, callback) {
+  app.render('emails/reset-done', { slug: union.slug },
+  function(err, html) {
     if (err) return callback(err);
     sendMail({
       from: process.env.NOREPLY_EMAIL || 'no-reply@nyitrondheim.no',
-      to: email,
+      to: union.email,
       subject: 'Ny i Trondheim - Passord Endret',
       html: html
     }, callback);
@@ -91,7 +92,7 @@ exports.reset = function(req, res, next) {
       req.logIn(token.union, function(err) {
         if (err) return next(err);
         res.redirect('/panel');
-        sendResetDone(token.union.email, function(err) {
+        sendResetDone(token.union, function(err) {
           if (err) console.error(err);
         });
       });
