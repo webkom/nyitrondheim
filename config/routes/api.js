@@ -27,6 +27,5 @@ router.put('/unions/:union/articles/:article', ensureAuthenticated, articles.upd
 router.delete('/unions/:union/articles/:article', ensureAuthenticated, articles.delete);
 
 router.use(errorHandler.NotFoundMiddleware);
-router.use(errorHandler.ApiErrorsMiddleware);
 
 module.exports = router;
