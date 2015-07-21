@@ -68,14 +68,16 @@ app.get('*', function(req, res) {
   res.render('index');
 });
 
-app.use(errorHandler.ErrorsMiddleware);
 
 if (process.env.NODE_ENV === 'production') {
   var raven = require('raven');
   var client = new raven.Client(process.env.RAVEN_DSN);
   app.set('raven', client);
-  app.use(raven.middleware.express(process.env.RAVEN_DSN));
+  app.use(raven.middleware.express.errorHandler(process.env.RAVEN_DSN));
   app.locals.url = 'http://nyitrondheim.no';
 } else {
   app.locals.url = 'http://localhost:' + app.get('port');
 }
+
+app.use('/api', errorHandler.ApiErrorsMiddleware);
+app.use(errorHandler.ErrorsMiddleware);
