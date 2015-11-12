@@ -39,7 +39,7 @@
     "raven": "~0.8.1",
     "slug": "~0.9.1",
     "stylus": "~0.52.4",
-    "superagent": "~0.20.0",
+    "superagent": "~1.4.0",
     "uglify-js": "~2.6.0"
   },
   "devDependencies": {
