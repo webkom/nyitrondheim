@@ -40,7 +40,7 @@
     "slug": "~0.7.1",
     "stylus": "~0.49.1",
     "superagent": "~0.20.0",
-    "uglify-js": "~2.4.13"
+    "uglify-js": "~2.6.0"
   },
   "devDependencies": {
     "browserify": "^6.0.2",
