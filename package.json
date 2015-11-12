@@ -47,6 +47,6 @@
     "jshint": "^2.5.6",
     "mocha": "^2.3.3",
     "supertest": "^1.1.0",
-    "supervisor": "^0.6.0"
+    "supervisor": "^0.9.1"
   }
 }
