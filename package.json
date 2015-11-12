@@ -17,7 +17,7 @@
     "bower": "*",
     "chai": "~1.9.2",
     "commander": "~2.3.0",
-    "connect-mongo": "~0.4.1",
+    "connect-mongo": "~0.8.2",
     "cookie-parser": "~1.4.0",
     "express": "~4.13.3",
     "express-error-middleware": "^1.1.0",
