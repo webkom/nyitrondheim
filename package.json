@@ -19,7 +19,7 @@
     "commander": "~2.9.0",
     "connect-mongo": "~1.1.0",
     "cookie-parser": "~1.4.1",
-    "express": "~4.9.5",
+    "express": "~4.13.4",
     "express-error-middleware": "^1.1.0",
     "express-session": "~1.13.0",
     "gm": "~1.21.1",
