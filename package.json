@@ -22,7 +22,7 @@
     "express": "~4.9.5",
     "express-error-middleware": "^1.1.0",
     "express-session": "~1.13.0",
-    "gm": "~1.16.0",
+    "gm": "~1.21.1",
     "jade": "~1.11.0",
     "lodash": "~4.3.0",
     "moment": "~2.8.3",
