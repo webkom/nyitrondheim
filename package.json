@@ -27,7 +27,7 @@
     "lodash": "~4.3.0",
     "moment": "~2.8.3",
     "mongoose": "~4.4.3",
-    "multer": "^0.1.8",
+    "multer": "^1.1.0",
     "nib": "~1.0.4",
     "nodemailer": "^2.1.0",
     "nodemailer-smtp-transport": "~2.2.0",
