@@ -12,7 +12,7 @@
   "author": "webkom",
   "main": "index.js",
   "dependencies": {
-    "async": "~0.9.0",
+    "async": "~1.5.2",
     "body-parser": "1.15.0",
     "bower": "*",
     "chai": "~3.5.0",
