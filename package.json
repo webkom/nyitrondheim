@@ -30,7 +30,7 @@
     "multer": "^0.1.8",
     "nib": "~1.0.4",
     "nodemailer": "^2.1.0",
-    "nodemailer-smtp-transport": "~1.0.2",
+    "nodemailer-smtp-transport": "~2.2.0",
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
     "passport-local-mongoose": "~1.0.0",
