@@ -13,7 +13,7 @@
   "main": "index.js",
   "dependencies": {
     "async": "~0.9.0",
-    "body-parser": "1.9.0",
+    "body-parser": "1.15.0",
     "bower": "*",
     "chai": "~3.5.0",
     "commander": "~2.9.0",
