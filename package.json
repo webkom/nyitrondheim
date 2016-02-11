@@ -33,7 +33,7 @@
     "nodemailer-smtp-transport": "~2.2.0",
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
-    "passport-local-mongoose": "~1.0.0",
+    "passport-local-mongoose": "~4.0.0",
     "passport-stub": "~1.1.1",
     "prerender-node": "~2.2.0",
     "raven": "~0.10.0",
