@@ -10,7 +10,11 @@ var gm                = require('gm')
 
 var saveImage = function(article, image, done) {
   var unionFolder = path.dirname(image.path);
-  var croppedFile = image.name.split('.')[0] + '_cropped.' + image.extension;
+  var parts = image.filename.split('.');
+
+  var extension = parts[parts.length - 1];
+  var name = parts.slice(0, parts.length - 1).join('.');
+  var croppedFile = name + '_cropped.' + extension;
   var newPath = path.resolve(unionFolder, croppedFile);
 
   gm(image.path)
@@ -19,7 +23,7 @@ var saveImage = function(article, image, done) {
       .write(newPath, function(err) {
         if (err) return done(err);
         var base = 'unions/';
-        article.image = base + image.name;
+        article.image = base + image.filename;
         article.imageCropped = base + croppedFile;
         article.imageName = image.originalname;
         return done(null, article);
@@ -82,7 +86,6 @@ function articleNotification(article, verb) {
 
 var saveArticle = function(req, res, next) {
   var update = req.method === 'PUT';
-
   var article;
   if (update) {
     article = _.assign(req.article, req.body);
@@ -108,8 +111,8 @@ var saveArticle = function(req, res, next) {
     });
   }
 
-  if (req.files.file) {
-    saveImage(article, req.files.file, save);
+  if (req.file) {
+    saveImage(article, req.file, save);
   } else {
     save(null, article);
   }
