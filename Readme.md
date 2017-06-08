@@ -1,5 +1,5 @@
 ## [Ny i Trondheim](http://nyitrondheim.no)
-[![Build Status](https://ci.frigg.io/badges/webkom/nyitrondheim/)](https://ci.frigg.io/webkom/nyitrondheim/last/) [![Dependency Status](https://david-dm.org/webkom/nyitrondheim.svg)](https://david-dm.org/webkom/nyitrondheim)
+[![Build Status](https://travis-ci.org/webkom/nyitrondheim.svg?branch=master)](https://travis-ci.org/webkom/nyitrondheim)
 
 Ny i Trondheim is built using [Node.js](http://nodejs.org/), [express](http://expressjs.com/) and [AngularJS](http://angularjs.org/).
 
@@ -9,7 +9,7 @@ $ make install
 $ make
 ```
 
-Bower can be installed via `npm install -g bower`. 
+Bower can be installed via `npm install -g bower`.
 
 The project also relies on [gm](https://github.com/aheckmann/gm), which means you'll have to have either GraphicsMagick or ImageMagick installed for everything to work correctly.
 

@@ -1,10 +1,9 @@
 language: node_js
 node_js:
-  - "0.12"
-  - "iojs"
+  - "6"
 
 before_script:
-  - sudo apt-get update -qq 
+  - sudo apt-get update -qq
   - sudo apt-get install -qq graphicsmagick
 
 services:
@@ -12,4 +11,3 @@ services:
 
 notifications:
   webhooks: http://chewie.abakus.no/api/travis
-
