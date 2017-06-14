@@ -1,0 +1,28 @@
+pipeline:
+  tests:
+    image: node:6
+    when:
+      event: push
+    environment:
+      - MONGO_URL=mongodb://database:27017/nit-test
+    commands:
+      - apt-get update && apt-get install -qq graphicsmagick
+      - make install
+      - make jshint
+      - make mocha
+
+  docker:
+    image: plugins/docker
+    when:
+      branch:
+        - prod
+    repo: abakus/nyitrondheim
+    secrets: [ docker_username, docker_password ]
+    tags:
+      - ${DRONE_BRANCH}-${DRONE_COMMIT_SHA:0:7}
+    build_args:
+      - RELEASE=${DRONE_BRANCH}-${DRONE_COMMIT_SHA:0:7}
+
+services:
+  database:
+    image: mongo
