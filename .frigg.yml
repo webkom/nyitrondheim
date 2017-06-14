@@ -1,7 +1,0 @@
-tasks:
-  - make install
-  - make jshint
-  - make mocha
-
-services: 
-  - mongodb

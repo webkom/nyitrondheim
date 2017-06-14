@@ -8,7 +8,7 @@ UGLIFY = $(BIN)/uglifyjs
 MOCHA = $(BIN)/mocha
 JSHINT = $(BIN)/jshint
 
-MONGO_URL = mongodb://localhost:27017/nit-test
+MONGO_URL ?= mongodb://localhost:27017/nit-test
 
 STYL = $(shell find app/assets/css -name '*.styl')
 JS = $(shell find app/assets/js -name '*.js')

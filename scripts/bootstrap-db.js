@@ -61,7 +61,7 @@ program
       console.log('No database specified, setting database to localhost.');
     }
 
-    if (options.force || _.contains(database, 'localhost')) {
+    if (options.force || _.includes(database, 'localhost')) {
       mongoose.connect(database, function(err) {
         if (err) return done('Couldn\'t connect to database, ' + database);
         if ((options.clear || options.drop) && mongoose.connection.collections.unions) {
@@ -94,7 +94,7 @@ program
       database = 'mongodb://localhost:27017/nit';
       console.log('No database specified, setting database to localhost.');
     }
-    if (options.force || _.contains(database, 'localhost')) {
+    if (options.force || _.includes(database, 'localhost')) {
       mongoose.connect(database, function(err) {
         if (err) return done('Couldn\'t connect to database, ' + database);
         if (options.clear) {
