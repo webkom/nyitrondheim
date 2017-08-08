@@ -70,14 +70,11 @@ endif
 jshint:
 	$(JSHINT) .
 
-install:
+install-deps:
 	npm install
 	$(BOWER) install --allow-root
 
-reset:
-	git fetch && git reset --hard origin/master
-
-production: reset install all
+production: install-deps all
 	forever restart $(PWD)/index.js
 
 server:
@@ -95,4 +92,4 @@ lint:
 test:
 	@make lint && make mocha
 
-.PHONY: all clean test server install reset production jshint lint mocha
+.PHONY: all clean test server install-deps production jshint lint mocha

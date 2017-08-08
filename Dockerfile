@@ -9,7 +9,7 @@ RUN set -e \
   && apt-get update \
   && apt-get -qq install graphicsmagick \
   && apt-get clean \
-  && make install && make
+  && make install-deps && make
 
 VOLUME ["/app/public/images/unions"]
 
