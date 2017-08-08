@@ -1,16 +1,15 @@
-var chai                 = require('chai')
-  , request              = require('supertest')
-  , app                  = require('../app')
-  , helpers              = require('./helpers')
-  , clearDatabase        = helpers.clearDatabase
-  , createAdminUser      = helpers.createAdminUser
-  , should               = chai.should()
-  , expect               = chai.expect
-  , assert               = chai.assert;
+var chai = require('chai'),
+  request = require('supertest'),
+  app = require('../app'),
+  helpers = require('./helpers'),
+  clearDatabase = helpers.clearDatabase,
+  createAdminUser = helpers.createAdminUser,
+  should = chai.should(),
+  expect = chai.expect,
+  assert = chai.assert;
 
 describe('#Auth', function() {
-
-  before(function(done) {
+  beforeEach(function(done) {
     clearDatabase(function() {
       createAdminUser(function(err, admin) {
         if (err) return done(err);
@@ -19,7 +18,7 @@ describe('#Auth', function() {
     });
   });
 
-  after(function(done) {
+  afterEach(function(done) {
     clearDatabase(done);
   });
 
@@ -30,6 +29,16 @@ describe('#Auth', function() {
       .expect(302)
       .end(function(err, res) {
         res.header.location.should.include('/admin');
+        done();
+      });
+  });
+
+  it('should not allow login with wrong password', function(done) {
+    request(app)
+      .post('/login')
+      .send({ slug: 'generelt', password: 'testErr' })
+      .expect(401)
+      .end(function(err, res) {
         done();
       });
   });
