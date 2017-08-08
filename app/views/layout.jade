@@ -45,7 +45,10 @@ html(ng-app='nitApp')
 
       #top-bar
         div.middle
-          p Velkommen til Trondheim!
+          span Velkommen til Trondheim!
+          if union
+            p.navbar-right
+              a#logout-button(href="/logout" target="_self") Logg ut
 
       #container.middle(ng-cloak)
         block content
