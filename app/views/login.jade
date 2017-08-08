@@ -15,7 +15,9 @@ block content
       .form-group
         label(for='password') Passord
         input#password.form-control(type='password', name='password', placeholder='Passord')
-
+      if login_error
+        div.alert.alert-warning
+           p Feil brukernavn eller passord
       .form-buttons
         button.btn.btn-primary(type='submit') Logg inn
         a.btn.btn-default(href='/reset-password') Glemt passord
