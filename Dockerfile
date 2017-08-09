@@ -13,4 +13,4 @@ RUN set -e \
 
 VOLUME ["/app/public/images/unions"]
 
-ENTRYPOINT ["make", "server"]
+ENTRYPOINT ["node", "index.js"]
