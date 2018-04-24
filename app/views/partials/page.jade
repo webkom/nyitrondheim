@@ -3,6 +3,9 @@ nit-loading-indicator
 
 .article-content
   h1 {{article.title}}
+  p(id='last-modified' ng-if='lastModified')
+    span Sist oppdatert:{{' '}}
+    span(ng-bind='lastModified')
 
   p.description
     a(ng-href='/static/images/{{article.image}}', ng-show='article.imageCropped | exists', target='_blank')

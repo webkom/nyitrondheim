@@ -49,7 +49,8 @@ var articleSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  lastModified: Date
 });
 
 articleSchema.pre('save', function(next) {

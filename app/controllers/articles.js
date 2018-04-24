@@ -89,6 +89,7 @@ var saveArticle = function(req, res, next) {
   var article;
   if (update) {
     article = _.assign(req.article, req.body);
+    article.lastModified = Date.now();
   } else {
     article = new Article(req.body);
     article.union = req.params.union;
