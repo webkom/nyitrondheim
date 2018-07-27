@@ -30,7 +30,7 @@
       a(href='/generelt/faq')
         i.fa.fa-question
         span Spørsmål og svar
-      a(href='/genrelt/linjeforeninger')
+      a(href='/generelt/linjeforeninger')
         i.fa.fa-users
         span Linjeforeninger
 
@@ -44,7 +44,7 @@
   nit-loading-indicator
 
   .union-specific-articles
-    a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}',
+    a(ng-repeat='article in articles', href='/generelt/{{article.slug}}',
       ng-if='article.approved')
       article
         h3 {{article.title}}
