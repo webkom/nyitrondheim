@@ -9,6 +9,7 @@ RUN set -e \
   && apt-get update \
   && apt-get -qq install graphicsmagick \
   && apt-get clean \
+  && yarn global add bower \
   && yarn \
   && yarn build:client
 
