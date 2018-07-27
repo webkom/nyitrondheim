@@ -7,13 +7,17 @@
     "url": "git@github.com:webkom/nyitrondheim.git"
   },
   "scripts": {
-    "test": "make test"
+    "prettier": "prettier app.js \"app/**/*.js\" --write",
+    "test": "MONGO_URL=mongodb://localhost:27017/nit-test && mocha",
+    "lint": "jshint .",
+    "fixtures": "./scripts/bootstrap-db.js",
+    "fixtures:all": "yarn fixtures:unions && yarn fixtures:articles",
+    "fixtures:unions": "yarn fixtures unions",
+    "fixtures:articles": "yarn fixtures articles",
+    "start": "supervisor index.js"
   },
   "author": "webkom",
   "main": "index.js",
-  "scripts": {
-    "prettier": "prettier app.js \"app/**/*.js\" --write"
-  },
   "dependencies": {
     "async": "2.4.1",
     "body-parser": "1.17.2",
@@ -52,5 +56,8 @@
     "prettier": "^1.13.7",
     "supertest": "3.0.0",
     "supervisor": "0.12.0"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

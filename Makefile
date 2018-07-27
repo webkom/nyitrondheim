@@ -5,8 +5,6 @@ UGLIFY = $(BIN)/uglifyjs
 SUPERVISOR = $(BIN)/supervisor
 STYLUS = $(BIN)/stylus
 UGLIFY = $(BIN)/uglifyjs
-MOCHA = $(BIN)/mocha
-JSHINT = $(BIN)/jshint
 
 MONGO_URL ?= mongodb://localhost:27017/nit-test
 
@@ -74,22 +72,8 @@ install-deps:
 	npm install
 	$(BOWER) install --allow-root
 
-production: install-deps all
-	forever restart $(PWD)/index.js
-
-server:
-	$(SUPERVISOR) index.js
-
 clean:
 	rm -f $(DIST)/app.js $(DIST)/app.css $(DIST)/vendor.js $(DIST)/vendor.css
 
-mocha:
-	MONGO_URL=$(MONGO_URL) $(BIN)/mocha --colors
-
-lint:
-	@make jshint
-
-test:
-	@make lint && make mocha
 
 .PHONY: all clean test server install-deps production jshint lint mocha
