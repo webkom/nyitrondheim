@@ -15,7 +15,7 @@
     "fixtures:unions": "yarn fixtures unions",
     "fixtures:articles": "yarn fixtures articles",
     "start": "supervisor index.js",
-    "build:client": "bower",
+    "build:client": "webpack --mode production",
     "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'public/vendor', 'junction') } catch (e) { }\""
   },
   "author": "webkom",

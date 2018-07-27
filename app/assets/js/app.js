@@ -3,7 +3,6 @@
  */
 import '../css/style.styl';
 
-import '../../../public/vendor/jquery/dist/jquery.min.js';
 import '../../../public/vendor/jquery-ui/ui/jquery-ui.js';
 import '../../../public/vendor/ng-file-upload/angular-file-upload-html5-shim.js';
 import '../../../public/vendor/angular/angular.min.js';
