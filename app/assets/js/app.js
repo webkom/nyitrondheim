@@ -1,6 +1,25 @@
 /**
  * Ny i Trondheim
  */
+import '../css/style.styl';
+
+import '../../../public/vendor/jquery/dist/jquery.min.js';
+import '../../../public/vendor/jquery-ui/ui/jquery-ui.js';
+import '../../../public/vendor/ng-file-upload/angular-file-upload-html5-shim.js';
+import '../../../public/vendor/angular/angular.min.js';
+import '../../../public/vendor/angular-i18n/angular-locale_no.js';
+import '../../../public/vendor/angular-local-storage/angular-local-storage.min.js';
+import '../../../public/vendor/angular-route/angular-route.min.js';
+import '../../../public/vendor/lodash/dist/lodash.min.js';
+import '../../../public/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js';
+import '../../../public/vendor/fullcalendar/fullcalendar.js';
+import '../../../public/vendor/angular-ui-calendar/src/calendar.js';
+import '../../../public/vendor/textAngular/textAngular-sanitize.js';
+import '../../../public/vendor/textAngular/textAngular.js';
+import '../../../public/vendor/momentjs/min/moment.min.js';
+import '../../../public/vendor/ng-file-upload/angular-file-upload.js';
+
+//import '../../../public/vendor/fullcalendar/fullcalendar.css';
 
 var app = angular.module('nitApp', [
   'ngRoute',
