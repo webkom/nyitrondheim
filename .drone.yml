@@ -1,6 +1,7 @@
 pipeline:
   tests:
-    image: node:8
+    image: node:6
+    pull: true
     when:
       event: push
     environment:
