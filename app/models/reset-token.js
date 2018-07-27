@@ -1,11 +1,11 @@
-var mongoose    = require('mongoose')
-  , crypto      = require('crypto')
-  , Schema      = mongoose.Schema;
+var mongoose = require('mongoose'),
+  crypto = require('crypto'),
+  Schema = mongoose.Schema;
 
 var resetTokenSchema = new Schema({
   union: {
     type: Schema.ObjectId,
-    ref: 'Union',
+    ref: 'Union'
   },
   token: {
     type: String,
@@ -26,10 +26,13 @@ resetTokenSchema.static('findLast', function(union, callback) {
 });
 
 resetTokenSchema.static('newToken', function(union, callback) {
-  this.remove({ union: union }, function(err) {
-    if (err) return callback(err);
-    this.create({ union: union }, callback);
-  }.bind(this));
+  this.remove(
+    { union: union },
+    function(err) {
+      if (err) return callback(err);
+      this.create({ union: union }, callback);
+    }.bind(this)
+  );
 });
 
 module.exports = mongoose.model('ResetToken', resetTokenSchema);

@@ -1,4 +1,3 @@
-
 /**
  * Truncate article descriptions
  */
@@ -30,8 +29,7 @@ exports.limitDescription = function() {
     // Match everything except the ending character first, then the ending character.
     if (description.length > max) {
       return newDescription + '…';
-    }
-    else {
+    } else {
       // In case the description has no ending character, return it.
       return newDescription;
     }
@@ -44,6 +42,8 @@ exports.limitDescription = function() {
 
 exports.exists = function() {
   return function(obj) {
-    return obj !== null && obj !== undefined && obj !== 'null' && obj !== 'undefined';
+    return (
+      obj !== null && obj !== undefined && obj !== 'null' && obj !== 'undefined'
+    );
   };
 };
