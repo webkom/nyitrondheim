@@ -2,7 +2,7 @@
   "name": "nyitrondheim",
   "version": "0.0.1",
   "description": "http://nyitrondheim.no",
-  "license":"MIT",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:webkom/nyitrondheim.git"
@@ -42,7 +42,7 @@
     "@bower_components/ng-file-upload": "danialfarid/angular-file-upload-bower#1.3.2",
     "async": "2.4.1",
     "body-parser": "1.17.2",
-    "bower": "*",
+    "bower": "^1.8.4",
     "chai": "4.0.2",
     "commander": "2.9.0",
     "connect-mongo": "1.3.2",
