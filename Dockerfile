@@ -9,7 +9,9 @@ RUN set -e \
   && apt-get update \
   && apt-get -qq install graphicsmagick \
   && apt-get clean \
-  && make install-deps && make
+  && yarn global add bower \
+  && yarn \
+  && yarn build:client
 
 VOLUME ["/app/public/images/unions"]
 

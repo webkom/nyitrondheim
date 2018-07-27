@@ -1,3 +1,1 @@
-{
-  "directory": "public/vendor"
-}
+{ "allow_root": true }

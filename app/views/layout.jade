@@ -14,9 +14,8 @@ html(ng-app='nitApp')
       - var controller = 'MainController'
 
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css')
-    link(rel='stylesheet', href='/static/vendor.css')
     link(rel='stylesheet', href='/static/app.css')
-    script(src='/static/vendor.js')
+    link(rel='stylesheet', href='/static/vendor.css')
     script(src='/static/app.js')
 
   - var backgroundClasses = ['bybro', 'ntnu-front', 'ntnu', 'samfundet', 'vaattakammen']
@@ -26,23 +25,6 @@ html(ng-app='nitApp')
     .loading-splash(ng-cloak)
       span Laster inn Ny i Trondheim
     div(ng-cloak)
-      #modal-container(ng-class='{active: modalOpen}')
-        .overlay(ng-click='closeModal()')
-        .modal
-          h2 Velg linjeforening
-          p.school-picker
-            a(ng-click='search.schoolSlug="ntnu"', ng-class='{selected: search.schoolSlug=="ntnu"}') NTNU
-            a(ng-click='search.schoolSlug="bi"', ng-class='{selected: search.schoolSlug=="bi"}') BI
-            a(ng-click='search.schoolSlug="hist"', ng-class='{selected: search.schoolSlug=="hist"}') HiST
-            a(ng-click='search.schoolSlug="other"', ng-class='{selected: search.schoolSlug=="other"}') Andre
-          input(ng-model='search.$', placeholder='Søk', focus-input='broadcastModal')
-          ul(ng-click='closeModal()').fraternities
-            li(ng-repeat='union in unions | orderBy:"name" | filter:search', ng-if='union.school != "admin"')
-              a(href='', ng-click='chooseUnion(union)')
-                i.fa.fa-check(ng-show='chosenUnion == union')
-                i.fa.fa-circle(ng-show='chosenUnion != union')
-                | {{union.name}} ({{union.program}})
-
       #top-bar
         div.middle
           span Velkommen til Trondheim!

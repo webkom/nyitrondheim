@@ -1,12 +1,12 @@
-var gm                = require('gm')
-  , path              = require('path')
-  , slug              = require('slug')
-  , _                 = require('lodash')
-  , errorHandler      = require('express-error-middleware')
-  , Article           = require('../models/article')
-  , helpers           = require('./helpers')
-  , adminNotification = helpers.adminNotification
-  , sentryError       = helpers.sentryError;
+var gm = require('gm'),
+  path = require('path'),
+  slug = require('slug'),
+  _ = require('lodash'),
+  errorHandler = require('express-error-middleware'),
+  Article = require('../models/article'),
+  helpers = require('./helpers'),
+  adminNotification = helpers.adminNotification,
+  sentryError = helpers.sentryError;
 
 var saveImage = function(article, image, done) {
   var unionFolder = path.dirname(image.path);
@@ -18,16 +18,16 @@ var saveImage = function(article, image, done) {
   var newPath = path.resolve(unionFolder, croppedFile);
 
   gm(image.path)
-      .resize(350, null, '>')
-      .noProfile()
-      .write(newPath, function(err) {
-        if (err) return done(err);
-        var base = 'unions/';
-        article.image = base + image.filename;
-        article.imageCropped = base + croppedFile;
-        article.imageName = image.originalname;
-        return done(null, article);
-      });
+    .resize(350, null, '>')
+    .noProfile()
+    .write(newPath, function(err) {
+      if (err) return done(err);
+      var base = 'unions/';
+      article.image = base + image.filename;
+      article.imageCropped = base + croppedFile;
+      article.imageName = image.originalname;
+      return done(null, article);
+    });
 };
 
 exports.load = function(req, res, next) {
@@ -49,7 +49,7 @@ exports.show = function(req, res, next) {
 };
 
 exports.all = function(req, res, next) {
-  var limit = req.query.limit|0;
+  var limit = req.query.limit | 0;
   Article.listAll(limit, function(err, articles) {
     if (err) return next(err);
     res.send(articles);
@@ -57,7 +57,7 @@ exports.all = function(req, res, next) {
 };
 
 exports.getUnionArticles = function(req, res, next) {
-  var limit = req.query.limit|0;
+  var limit = req.query.limit | 0;
   Article.listUnionArticles(limit, req.params.union, function(err, articles) {
     if (err) return next(err);
     res.send(articles);
@@ -65,7 +65,7 @@ exports.getUnionArticles = function(req, res, next) {
 };
 
 exports.getUnionEvents = function(req, res, next) {
-  var limit = req.query.limit|0;
+  var limit = req.query.limit | 0;
   Article.listUnionEvents(limit, req.params.union, function(err, articles) {
     if (err) return next(err);
     res.send(articles);
@@ -76,10 +76,21 @@ function articleNotification(article, verb) {
   article.populate('union', function(err, populated) {
     if (err) return sentryError(err);
     var type = populated.event ? 'Event' : 'Article';
-    var message = type + ' "' + populated.title + '" ' + verb + '.\n' +
-      'Author: ' + populated.union.name + '\n\n' +
-      'Description:\n' + populated.description + '\n\n' +
-      'Content:\n' + populated.body;
+    var message =
+      type +
+      ' "' +
+      populated.title +
+      '" ' +
+      verb +
+      '.\n' +
+      'Author: ' +
+      populated.union.name +
+      '\n\n' +
+      'Description:\n' +
+      populated.description +
+      '\n\n' +
+      'Content:\n' +
+      populated.body;
     adminNotification(message);
   });
 }

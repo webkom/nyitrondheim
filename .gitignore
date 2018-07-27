@@ -2,8 +2,10 @@
 .DS_Store
 public/*.css
 public/*.js
+public/*.map
 public/images/unions
 public/vendor
 node_modules/
 logs/
 .environment
+yarn-error.log

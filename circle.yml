@@ -1,7 +1,0 @@
-dependencies:
-    pre:
-      - sudo apt-get -qq update; sudo apt-get -qq install graphicsmagick
-
-machine:
-  node:
-    version: 6
