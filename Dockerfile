@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:6
 MAINTAINER Abakus Webkom <webkom@abakus.no>
 
 RUN mkdir -p /app

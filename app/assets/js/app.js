@@ -13,10 +13,12 @@ require('../../../public/vendor/lodash/dist/lodash.min.js');
 require('../../../public/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js');
 require('../../../public/vendor/fullcalendar/fullcalendar.js');
 require('../../../public/vendor/angular-ui-calendar/src/calendar.js');
-require('../../../public/vendor/textAngular/textAngular-sanitize.js');
-require('../../../public/vendor/textAngular/textAngular.js');
 require('../../../public/vendor/momentjs/min/moment.min.js');
 require('../../../public/vendor/ng-file-upload/angular-file-upload.js');
+
+require('../../../node_modules/textangular/dist/textAngular-sanitize.min.js');
+require('../../../node_modules/textangular/dist/textAngular.min.js');
+require('../../../node_modules/textangular/dist/textAngular-rangy.min.js');
 
 var app = angular.module('nitApp', [
   'ngRoute',
