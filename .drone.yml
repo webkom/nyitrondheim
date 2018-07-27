@@ -1,15 +1,16 @@
 pipeline:
   tests:
-    image: node:6
+    image: node:10
     when:
       event: push
     environment:
       - MONGO_URL=mongodb://database:27017/nit-test
     commands:
       - apt-get update && apt-get install -qq graphicsmagick
-      - make install-deps
-      - make jshint
-      - make mocha
+      - yarn
+      - yarn lint
+      - yarn test
+      - yarn build:client
 
   docker:
     image: plugins/docker

@@ -14,7 +14,14 @@ app.disable('x-powered-by');
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/app/views');
-app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017/nit');
+if (process.env.NODE_ENV === 'test') {
+  app.set(
+    'mongourl',
+    process.env.MONGO_URL || 'mongodb://localhost:27017/nit-test'
+  );
+} else {
+  app.set('mongourl', process.env.MONGO_URL || 'mongodb://localhost:27017/nit');
+}
 
 mongoose.connect(
   app.get('mongourl'),

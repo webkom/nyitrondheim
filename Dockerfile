@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:10
 MAINTAINER Abakus Webkom <webkom@abakus.no>
 
 RUN mkdir -p /app
@@ -9,7 +9,8 @@ RUN set -e \
   && apt-get update \
   && apt-get -qq install graphicsmagick \
   && apt-get clean \
-  && make install-deps && make
+  && yarn \
+  && yarn build:client
 
 VOLUME ["/app/public/images/unions"]
 

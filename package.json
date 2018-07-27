@@ -2,14 +2,17 @@
   "name": "nyitrondheim",
   "version": "0.0.1",
   "description": "http://nyitrondheim.no",
+  "license":"MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:webkom/nyitrondheim.git"
   },
   "scripts": {
     "prettier": "prettier app.js \"app/**/*.js\" --write",
-    "test": "MONGO_URL=mongodb://localhost:27017/nit-test && mocha",
-    "lint": "jshint .",
+    "test": "NODE_ENV=test && mocha",
+    "lint": "yarn lint:jshint && yarn lint:prettier",
+    "lint:jshint": "jshint .",
+    "lint:prettier": "yarn prettier app.js \"app/**/*.js\" -l",
     "fixtures": "./scripts/bootstrap-db.js",
     "fixtures:all": "yarn fixtures:unions && yarn fixtures:articles",
     "fixtures:unions": "yarn fixtures unions",

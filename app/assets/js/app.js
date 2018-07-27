@@ -1,24 +1,22 @@
 /**
  * Ny i Trondheim
  */
-import '../css/style.styl';
+require('../css/style.styl');
 
-import '../../../public/vendor/jquery-ui/ui/jquery-ui.js';
-import '../../../public/vendor/ng-file-upload/angular-file-upload-html5-shim.js';
-import '../../../public/vendor/angular/angular.min.js';
-import '../../../public/vendor/angular-i18n/angular-locale_no.js';
-import '../../../public/vendor/angular-local-storage/angular-local-storage.min.js';
-import '../../../public/vendor/angular-route/angular-route.min.js';
-import '../../../public/vendor/lodash/dist/lodash.min.js';
-import '../../../public/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js';
-import '../../../public/vendor/fullcalendar/fullcalendar.js';
-import '../../../public/vendor/angular-ui-calendar/src/calendar.js';
-import '../../../public/vendor/textAngular/textAngular-sanitize.js';
-import '../../../public/vendor/textAngular/textAngular.js';
-import '../../../public/vendor/momentjs/min/moment.min.js';
-import '../../../public/vendor/ng-file-upload/angular-file-upload.js';
-
-//import '../../../public/vendor/fullcalendar/fullcalendar.css';
+require('../../../public/vendor/jquery-ui/ui/jquery-ui.js');
+require('../../../public/vendor/ng-file-upload/angular-file-upload-html5-shim.js');
+require('../../../public/vendor/angular/angular.min.js');
+require('../../../public/vendor/angular-i18n/angular-locale_no.js');
+require('../../../public/vendor/angular-local-storage/angular-local-storage.min.js');
+require('../../../public/vendor/angular-route/angular-route.min.js');
+require('../../../public/vendor/lodash/dist/lodash.min.js');
+require('../../../public/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js');
+require('../../../public/vendor/fullcalendar/fullcalendar.js');
+require('../../../public/vendor/angular-ui-calendar/src/calendar.js');
+require('../../../public/vendor/textAngular/textAngular-sanitize.js');
+require('../../../public/vendor/textAngular/textAngular.js');
+require('../../../public/vendor/momentjs/min/moment.min.js');
+require('../../../public/vendor/ng-file-upload/angular-file-upload.js');
 
 var app = angular.module('nitApp', [
   'ngRoute',
