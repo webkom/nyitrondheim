@@ -12,10 +12,11 @@ module.exports = [
     $scope.loading = true;
 
     $rootScope.title = 'Hjem';
+    $scope.generalUnionSlug = 'generelt';
 
     $scope.update = function() {
       $scope.loading = true;
-      articleService.findAll($scope.chosenUnion._id).then(function(articles) {
+      articleService.findAll($scope.generalUnionSlug).then(function(articles) {
         $scope.articles = articles;
         $scope.loading = false;
       });

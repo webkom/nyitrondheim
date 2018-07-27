@@ -14,19 +14,19 @@
       a(href='/generelt/bolig')
         i.fa.fa-building-o
         span Finn et sted å bo
-      a(href='/generelt/studielaan-{{chosenUnion.school || "NTNU"}}')
+      a(href='/generelt/studielaan-NTNU')
         i.fa.fa-money
         span Søk lån
-      a(href='/generelt/skolestart-{{chosenUnion.school || "NTNU"}}')
+      a(href='/generelt/skolestart-NTNU')
         i.fa.fa-university
         span Skolestart
     div(ng-switch-default)
-      a(href='/generelt/tilgang-{{chosenUnion.school || "NTNU"}}')
+      a(href='/generelt/tilgang-NTNU')
         i.fa.fa-keyboard-o
-        span {{chosenUnion.school || 'NTNU'}}-tilgang
-      a(href='/generelt/semester-{{chosenUnion.school || "NTNU"}}')
+        span NTNU-tilgang
+      a(href='/generelt/semester-NTNU')
         i.fa.fa-book
-        span Nyttig {{chosenUnion.school || 'NTNU'}}-info
+        span Nyttig NTNU-info
       a(href='/generelt/faq')
         i.fa.fa-question
         span Spørsmål og svar
@@ -42,9 +42,6 @@
     a.fifth.samfundet(href='/generelt/samfundet') Samfundet
 
   nit-loading-indicator
-
-  p.no-fraternity-chosen(ng-show='!chosenUnion._id')
-    | <a ng-click='openModal()'>Velg linjeforening</a> for å vise spesifikke artikler.
 
   .union-specific-articles
     a(ng-repeat='article in articles', href='/{{chosenUnion.slug}}/{{article.slug}}',

@@ -7,10 +7,4 @@ block content
   header
     h1
       a(href='#') Ny i Trondheim
-    #choose-fraternity
-      a(href='', ng-click='openModal()')
-        span(ng-show='!chosenUnion._id') Velg linjeforening
-        span(ng-show='!!chosenUnion.name') {{chosenUnion.name}}
-        i.fa.fa-bars
-
   section(ng-view)
