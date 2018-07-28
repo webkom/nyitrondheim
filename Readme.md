@@ -4,11 +4,10 @@
 
 Ny i Trondheim is built using [Node.js](http://nodejs.org/), [express](http://expressjs.com/) and [AngularJS](http://angularjs.org/).
 
-To install a fresh clone, you must have node, npm and bower installed then run
+To install a fresh clone, you must have node, yarn and bower installed then run
 
 ```bash
-$ make install-deps
-$ make
+$ yarn build:client
 ```
 
 Bower can be installed via `npm install -g bower`.
@@ -20,7 +19,7 @@ In addition you'll need to have MongoDB running. You can set the database inform
 For development purposes, the MongoDB database can be started via docker-compose. You can run
 
 ```bash
-$ docker-compose up
+$ docker-compose up -d
 ```
 
 to start a MongoDB instance. When using docker-compose, you don't have to explicitly set the `MONGO_URL`
@@ -55,7 +54,7 @@ the default password `temp`.
 To build JavaScript and CSS files you must run
 
 ```bash
-$ make
+$ yarn build:client
 ```
 
 every time you change something. If you hate doing this, you can use something like [watch](https://github.com/visionmedia/watch) to periodically run it (won't do anything useful unless files actually have changed).
