@@ -69,7 +69,7 @@
     "raven": "~0.8.1",
     "slug": "0.9.1",
     "stylus": "0.54.5",
-    "superagent": "3.5.2",
+    "superagent": "^3.8.3",
     "textangular": "^1.3.11",
     "uglify-js": "3.0.15"
   },
