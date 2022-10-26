@@ -9,3 +9,6 @@ node_modules/
 logs/
 .environment
 yarn-error.log
+
+.next
+.env
