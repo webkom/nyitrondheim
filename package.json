@@ -8,6 +8,7 @@
     "prettier": "prettier --write \"**/*.{ts,tsx,css,md,scss,html,json}\""
   },
   "dependencies": {
+    "@nextui-org/react": "^1.0.0-beta.10",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
     "next": "latest",
