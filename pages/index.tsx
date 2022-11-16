@@ -1,7 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Button } from '@nextui-org/react';
 import styles from '../styles/Home.module.css';
+import Header from './header';
+import MainContent from './mainContent';
+import SplashPage from './splashPage';
 
 const Home: NextPage = () => {
   return (
@@ -13,9 +15,9 @@ const Home: NextPage = () => {
       </Head>
 
       <div className={styles.main}>
-              <Header />
-              <SplashPage />
-              <MainContent />
+        <Header />
+        <SplashPage />
+        <MainContent />
       </div>
     </div>
   );
