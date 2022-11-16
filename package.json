@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.10",
+    "@react-spring/parallax": "^9.5.5",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
     "next": "latest",
