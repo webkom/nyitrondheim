@@ -2,21 +2,29 @@
   color: white;
 }
 
+.topContainer {
+  background-color: #33d499;
+}
+
 .container {
-  max-width: 1200px;
   margin: auto;
   text-align: center;
   justify-content: center;
   align-items: center;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  background-color: #AFDBCB;
+}
+
+
+.main {
+  max-width: 1200px;
 }
 
 .button {
   margin: 1rem;
-  padding: 1rem;
   border: none;
-  background-color: rgb(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0);
   color: black;
 }
 
@@ -28,10 +36,12 @@
 
 .tagline {
   font-size: 2.5rem;
-  max-width: 1200px;
-
+  font-weight: 600;
+  max-width: 1000px;
+  color: #086E85;
 }
 
 .title {
   font-size: 5rem;
+  color: #1D8F89;
 }

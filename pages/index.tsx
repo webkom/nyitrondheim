@@ -1,8 +1,7 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import { Button } from '@nextui-org/react';
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
   return (
@@ -14,25 +13,21 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-        Ny i Trondheim
-        </h1>
+        <h1 className={styles.title}>Ny i Trondheim</h1>
 
         <p className={styles.tagline}>
-        Skal du begynne å studere til høsten? 
-        Her kan du finne all informasjonen du trenger til skolestart.
+          Skal du begynne å studere til høsten? Her kan du finne all
+          informasjonen du trenger til skolestart.
         </p>
 
         <div className={styles.container}>
-           <Button className={styles.button} auto>\/</Button>
+          <Button className={styles.button} auto>
+            \/
+          </Button>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <h4>footer things</h4>
-      </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
