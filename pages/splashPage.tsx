@@ -1,4 +1,5 @@
 import { Button } from '@nextui-org/react';
+import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 const SplashPage = () => (
   <>
@@ -7,18 +8,20 @@ const SplashPage = () => (
       du trenger til skolestart.
     </p>
 
-    <div className={styles.container}>
+    <div className={styles.container} style={{ alignItems: 'stretch' }}>
       {[
         'SIT',
         'Komme seg rundt',
         'Bolig',
         'Trening',
-        'Helsetjenester',
+        'Helse-tjenester',
         'Apper å laste ned',
       ].map((item) => (
-        <Button className={styles.button} auto>
-          <span className={styles.buttonText}>{item}</span>
-        </Button>
+        <Link href="/sit" className={styles.link}>
+          <Button className={styles.button} auto>
+            <span className={styles.buttonText}>{item}</span>
+          </Button>
+        </Link>
       ))}
     </div>
   </>

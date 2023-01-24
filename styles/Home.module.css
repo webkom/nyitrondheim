@@ -20,20 +20,24 @@
   max-width: 1200px;
 }
 
+.link {
+  display: block;
+  flex-basis: 21%;
+  min-width: initial;
+}
+
 .button {
   border-color: #086E85;
   background-color: rgba(248, 248, 248, 0.8);
   color: black;
-  flex-basis: 21%;
   display: block;
-  height:initial;
-  padding: 0;
-  min-width: initial;
+  height:100%;
+  width: 100%;
   min-height: 12rem;
 }
 
 @media only screen and (min-width: 1px) and (max-width: 767px){
-  .button {
+  .link {
 flex-basis: 47.5%;
 }}
 
