@@ -7,7 +7,7 @@ import SplashPage from './splashPage';
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.topContainer} ${styles.container}`}>
       <Head>
         <title>Ny i Trondheim</title>
         <meta name="description" content="Ny i Trondheim" />
@@ -17,7 +17,6 @@ const Home: NextPage = () => {
       <div className={styles.main}>
         <Header />
         <SplashPage />
-        <MainContent />
       </div>
     </div>
   );

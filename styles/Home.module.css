@@ -1,9 +1,6 @@
-.button {
-  color: white;
-}
 
 .topContainer {
-  background-color: #33d499;
+  height: 100vh;
 }
 
 .container {
@@ -12,21 +9,33 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   background-color: #AFDBCB;
+  gap: 0.6rem 1%;
+  width: inherit;
 }
-
 
 .main {
   max-width: 1200px;
 }
 
 .button {
-  margin: 1rem;
-  border: none;
-  background-color: rgb(255, 255, 255, 0);
+  border-color: #086E85;
+  background-color: rgba(248, 248, 248, 0.8);
   color: black;
+  flex-basis: 21%;
+  display: block;
+  height:initial;
+  padding: 0;
+  min-width: initial;
+  min-height: 12rem;
 }
+
+@media only screen and (min-width: 1px) and (max-width: 767px){
+  .button {
+flex-basis: 47.5%;
+}}
 
 .header {
   display: flex;
@@ -39,9 +48,23 @@
   font-weight: 600;
   max-width: 1000px;
   color: #086E85;
+  margin: 2rem auto;
 }
 
 .title {
   font-size: 5rem;
   color: #1D8F89;
+}
+
+.buttonText{
+  display: block;
+  padding: 2rem;
+  font-size: 2rem;
+  width: 100%;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  word-break: break-word;
+  white-space: normal;
 }

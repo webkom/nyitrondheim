@@ -8,9 +8,18 @@ const SplashPage = () => (
     </p>
 
     <div className={styles.container}>
-      <Button className={styles.button} auto>
-        \/
-      </Button>
+      {[
+        'SIT',
+        'Komme seg rundt',
+        'Bolig',
+        'Trening',
+        'Helsetjenester',
+        'Apper å laste ned',
+      ].map((item) => (
+        <Button className={styles.button} auto>
+          <span className={styles.buttonText}>{item}</span>
+        </Button>
+      ))}
     </div>
   </>
 );
