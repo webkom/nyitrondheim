@@ -1,5 +1,5 @@
 .topContainer {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -71,4 +71,8 @@
   -ms-hyphens: auto;
   word-break: break-word;
   white-space: normal;
+}
+
+.textBox {
+  margin: 2rem;
 }

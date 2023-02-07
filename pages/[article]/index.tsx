@@ -1,15 +1,10 @@
 import { createClient } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
-import type { GetServerSideProps } from 'next';
+import type { GetServerSidePropsContext } from 'next';
+import TextBox from '../../components/textbox';
 
-const article = ({ articles }) => {
-  const article = articles[0];
-  return (
-    <div>
-      <h1>{article?.title}</h1>
-      <PortableText value={article.content} />
-    </div>
-  );
+const article = ({ article }) => {
+  return <TextBox article={article} />;
 };
 
 export default article;
@@ -21,15 +16,13 @@ const client = createClient({
   apiVersion: '2023-02-01',
 });
 
-export async function getServerSideProps(context: GetServerSideProps) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const articles = await client.fetch(
-    `*[_type == "article" && slug.current == "${
-      (context as any).params.article
-    }"]`,
+    `*[_type == "article" && slug.current == "${context.params.article}"]`,
   );
   return {
     props: {
-      articles,
+      article: articles[0],
     },
   };
 }
