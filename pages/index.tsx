@@ -18,7 +18,7 @@ const Home = ({ articles }) => {
 
       <div className={styles.main}>
         <Header />
-        <SplashPage />
+        <SplashPage articles={articles} />
         <MainContent articles={articles} />
       </div>
     </div>
@@ -34,7 +34,6 @@ const client = createClient({
 
 export async function getStaticProps() {
   const articles = await client.fetch(`*[_type == "article"]`);
-  console.log(articles);
   return {
     props: {
       articles,

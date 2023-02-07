@@ -8,9 +8,9 @@ const MainContent = ({ articles }) => {
       {articles?.map((article) => {
         return (
           <div key={article.title}>
-            {article.title}
-            <p>{article.content.text}</p>
-            <PortableText value={article.content} />
+            {/*{article.title}
+            <p>{article.content?.text}</p>
+            <PortableText value={article.content} />*/}
           </div>
         );
       })}

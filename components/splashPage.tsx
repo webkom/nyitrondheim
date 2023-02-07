@@ -1,7 +1,7 @@
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
-const SplashPage = () => (
+const SplashPage = ({ articles }) => (
   <>
     <p className={styles.tagline}>
       Skal du begynne å studere til høsten? Her kan du finne all informasjonen
@@ -9,23 +9,14 @@ const SplashPage = () => (
     </p>
 
     <div className={styles.container} style={{ alignItems: 'stretch' }}>
-      {[
-        'SIT',
-        'Komme seg rundt',
-        'Bolig',
-        'Trening',
-        'Helse',
-        'Apper',
-        'Verv deg',
-        'Kjekt å fikse',
-        'Ordliste',
-        
-
-
-      ].map((item) => (
-        <Link href="/sit" key={item} className={styles.link}>
+      {articles?.map((article) => (
+        <Link
+          href={article.slug?.current || 'error'}
+          key={article.title}
+          className={styles.link}
+        >
           <Button className={styles.button} auto>
-            <span className={styles.buttonText}>{item}</span>
+            <span className={styles.buttonText}>{article.title}</span>
           </Button>
         </Link>
       ))}
