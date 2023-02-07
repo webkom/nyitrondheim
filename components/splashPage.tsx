@@ -17,7 +17,7 @@ const SplashPage = () => (
         'Helse-tjenester',
         'Apper å laste ned',
       ].map((item) => (
-        <Link href="/sit" className={styles.link}>
+        <Link href="/sit" key={item} className={styles.link}>
           <Button className={styles.button} auto>
             <span className={styles.buttonText}>{item}</span>
           </Button>

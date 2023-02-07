@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.10",
+    "@portabletext/react": "^2.0.1",
     "date-fns": "^2.11.1",
     "gray-matter": "^4.0.2",
     "next": "latest",
+    "next-sanity": "^4.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remark": "^14.0.1",
