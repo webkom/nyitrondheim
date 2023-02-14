@@ -74,5 +74,15 @@
 }
 
 .textBox {
-  margin: 2rem;
+  margin: 2rem auto;
+  width: 800px;
+  max-width: 95%;
+}
+
+.textBox p {
+  margin-bottom: 1rem;
+}
+
+.textBox ul {
+  list-style-type: disc;
 }
