@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import Header from './header';
+import Header from '../components/header';
 import MainContent from '../components/mainContent';
 import SplashPage from '../components/splashPage';
 
