@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #afdbcb;
+  background-color: #e3f1e2;
   gap: 0.6rem 1%;
   width: inherit;
 }
@@ -27,12 +27,13 @@
 
 .button {
   border-color: #086e85;
-  background-color: rgba(248, 248, 248, 0.8);
-  color: black;
+  background-color: #1d8f89/*rgba(248, 248, 248, 0.8)*/;
   display: block;
   height: 100%;
   width: 100%;
   min-height: 12rem;
+  font-weight: 800;
+  color: #e3f1e2;
 }
 
 @media only screen and (min-width: 1px) and (max-width: 767px) {
