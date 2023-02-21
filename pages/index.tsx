@@ -6,22 +6,24 @@ import MainContent from '../components/mainContent';
 import SplashPage from '../components/splashPage';
 
 import { createClient } from 'next-sanity';
+import NitNavBar from '../components/navbar';
 
 const Home = ({ articles }) => {
   return (
-    <div className={`${styles.topContainer} ${styles.container}`}>
-      <Head>
-        <title>Ny i Trondheim</title>
-        <meta name="description" content="Ny i Trondheim" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      <div className={`${styles.topContainer} ${styles.container}`}>
+        <Head>
+          <title>Ny i Trondheim</title>
+          <meta name="description" content="Ny i Trondheim" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <div className={styles.main}>
-        <Header />
-        <SplashPage articles={articles} />
-        <MainContent articles={articles} />
+        <div className={styles.main}>
+          <SplashPage articles={articles} />
+          <MainContent articles={articles} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

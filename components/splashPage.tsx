@@ -16,6 +16,7 @@ const SplashPage = ({ articles }) => (
           className={styles.link}
         >
           <Button className={styles.button} auto>
+            {/*ionicons should go here*/}
             <span className={styles.buttonText}>{article.title}</span>
           </Button>
         </Link>

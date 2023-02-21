@@ -1,6 +1,7 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CssBaseline } from '@nextui-org/react';
+import NitNavBar from '../components/navbar';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -16,6 +17,7 @@ class MyDocument extends Document {
       <Html lang="nb">
         <Head>{CssBaseline.flush()}</Head>
         <body>
+          <NitNavBar />
           <Main />
           <NextScript />
         </body>

@@ -24,5 +24,11 @@ export default {
         slugify: (input: string) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
       },
     },
+    {
+      name: 'icon',
+      type: 'string',
+      title: 'Icon',
+      description: 'The icon to use for this article. See https://ionicons.com for a list of available icons.',
+    }
   ],
 }
