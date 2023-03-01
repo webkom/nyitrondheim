@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
+
 const SplashPage = ({ articles }) => (
   <>
     <p className={styles.tagline}>
@@ -16,7 +18,10 @@ const SplashPage = ({ articles }) => (
           className={styles.link}
         >
           <Button className={styles.button} auto>
-            {/*ionicons should go here*/}
+            <FontAwesomeIcon
+              icon={article.icon}
+              className={styles.buttonIcon}
+            />
             <span className={styles.buttonText}>{article.title}</span>
           </Button>
         </Link>

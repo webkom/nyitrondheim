@@ -20,10 +20,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const articles = await client.fetch(
     `*[_type == "article" && slug.current == "${context.params.article}"]`,
   );
-  if (!articles.length){
+  if (!articles.length) {
     return {
       notFound: true,
-    }
+    };
   }
   return {
     props: {
