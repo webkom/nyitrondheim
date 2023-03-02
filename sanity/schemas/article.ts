@@ -28,7 +28,8 @@ export default {
       name: 'icon',
       type: 'string',
       title: 'Icon',
-      description: 'The icon to use for this article. See https://ionicons.com for a list of available icons.',
-    }
+      description:
+        'The icon to use for this article. See https://fontawesome.com/search?o=r&m=free for a list of the available icons.',
+    },
   ],
 }

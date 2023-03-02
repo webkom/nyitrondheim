@@ -6,12 +6,11 @@
   margin: auto;
   text-align: center;
   justify-content: center;
-  align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #e3f1e2;
-  gap: 0.6rem 1%;
+  background-color: #fffcf7;
+  gap: 1.4rem 2%;
   width: inherit;
 }
 
@@ -27,13 +26,17 @@
 
 .button {
   border-color: #086e85;
-  background-color: #1d8f89/*rgba(248, 248, 248, 0.8)*/;
+  background-color: #007ea7/*rgba(248, 248, 248, 0.8)*/;
   display: block;
   height: 100%;
   width: 100%;
-  min-height: 12rem;
-  font-weight: 800;
-  color: #e3f1e2;
+  min-height: 10rem;
+  font-weight: 400;
+  color: #fffcf7;
+}
+
+.button:hover {
+  background-color: #006e93;
 }
 
 @media only screen and (min-width: 1px) and (max-width: 767px) {
@@ -52,19 +55,28 @@
   font-size: 2.5rem;
   font-weight: 600;
   max-width: 1000px;
-  color: #086e85;
-  margin: 2rem auto;
+  color: #007ea7;
+  margin: 3rem auto;
 }
 
 .title {
-  font-size: 5rem;
-  color: #1d8f89;
+  font-size: 2rem;
+  color: #007ea7;
+  margin: 0;
+}
+
+.buttonIcon {
+  padding: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 0;
+  width: 3.5rem;
 }
 
 .buttonText {
   display: block;
-  padding: 2rem;
-  font-size: 2rem;
+  padding: 1.5rem;
+  padding-left: 0.5rem;
+  font-size: 1.8rem;
   width: 100%;
   hyphens: auto;
   -webkit-hyphens: auto;
