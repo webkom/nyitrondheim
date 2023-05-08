@@ -11,7 +11,7 @@ export default {
     {
       name: 'content',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{type: 'block'}, {type: 'image'}],
     },
     {
       name: 'slug',
