@@ -52,25 +52,12 @@
   }
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .tagline {
   font-size: 2.5rem;
   font-weight: 600;
   max-width: 1000px;
   color: var(--nit-color);
   margin: 3rem auto;
-}
-
-.title {
-  font-size: 2rem;
-  color: var(--nit-color);
-  margin: 0;
-  text-decoration: none;
 }
 
 .buttonIcon {
@@ -96,7 +83,8 @@
   max-width: 95%;
 }
 
-.textBox a, .textBox * a {
+.textBox a,
+.textBox * a {
   color: var(--nit-color-dark);
   text-decoration: underline;
 }

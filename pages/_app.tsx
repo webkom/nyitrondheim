@@ -1,7 +1,8 @@
 import '../styles/global.css';
 import type { AppProps } from 'next/app';
-import { NextUIProvider } from '@nextui-org/react';
+import { NextUIProvider, createTheme } from '@nextui-org/react';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
+import NitNavBar from '../components/navbar';
 const { library } = require('@fortawesome/fontawesome-svg-core');
 
 const iconList = Object.keys(Icons)
@@ -10,9 +11,19 @@ const iconList = Object.keys(Icons)
 
 library.add(...iconList);
 
+const theme = createTheme({
+  type: 'light',
+  theme: {
+    colors: {
+      backgroundColor: '#eceff1',
+    },
+  },
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NextUIProvider>
+    <NextUIProvider theme={theme}>
+      <NitNavBar />
       <Component {...pageProps} />
     </NextUIProvider>
   );

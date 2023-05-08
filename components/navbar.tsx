@@ -1,13 +1,21 @@
-import { Navbar } from '@nextui-org/react';
+import { Navbar, Text } from '@nextui-org/react';
 import Link from 'next/link';
-import Header from './header';
+import styles from './navbar.module.css';
 
 const NitNavBar = () => {
   return (
-    <Navbar variant="sticky">
+    <Navbar
+      variant="sticky"
+      css={{
+        $$navbarBackgroundColor: '$backgroundColor',
+        $$navbarBlurBackgroundColor: '$backgroundColor',
+      }}
+    >
       <Navbar.Brand>
         <Link href="/">
-          <Header />
+          <Text b className={styles.title}>
+            Ny i Trondheim
+          </Text>
         </Link>
       </Navbar.Brand>
     </Navbar>
