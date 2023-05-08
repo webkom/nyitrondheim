@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@nextui-org/react';
-import Link from 'next/link';
 import styles from '../styles/Home.module.css';
+import Link from './link';
 
 const SplashPage = ({ articles }) => (
   <>
@@ -10,12 +10,13 @@ const SplashPage = ({ articles }) => (
       du trenger til skolestart.
     </p>
 
-    <div className={styles.container} style={{ alignItems: 'stretch' }}>
+    <div className={styles.articlesContainer} style={{ alignItems: 'stretch' }}>
       {articles?.map((article) => (
         <Link
+          unstyled
           href={article.slug?.current || 'error'}
           key={article.title}
-          className={styles.link}
+          className={styles.articlesLink}
         >
           <Button className={styles.button} auto>
             <FontAwesomeIcon

@@ -9,7 +9,16 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: #fffcf7;
+  gap: 1.4rem 2%;
+  width: inherit;
+}
+
+.articlesContainer {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 1.4rem 2%;
   width: inherit;
 }
@@ -18,25 +27,23 @@
   max-width: 1200px;
 }
 
-.link {
-  display: block;
-  flex-basis: 21%;
-  min-width: initial;
+.articlesLink {
+  flex: 1;
+  flex-grow: 0;
+  flex-basis: 15rem;
 }
 
 .button {
-  border-color: #086e85;
-  background-color: #007ea7/*rgba(248, 248, 248, 0.8)*/;
+  background-color: var(--nit-color);
   display: block;
   height: 100%;
   width: 100%;
   min-height: 10rem;
   font-weight: 400;
-  color: #fffcf7;
 }
 
 .button:hover {
-  background-color: #006e93;
+  background-color: var(--nit-color-dark);
 }
 
 @media only screen and (min-width: 1px) and (max-width: 767px) {
@@ -55,14 +62,15 @@
   font-size: 2.5rem;
   font-weight: 600;
   max-width: 1000px;
-  color: #007ea7;
+  color: var(--nit-color);
   margin: 3rem auto;
 }
 
 .title {
   font-size: 2rem;
-  color: #007ea7;
+  color: var(--nit-color);
   margin: 0;
+  text-decoration: none;
 }
 
 .buttonIcon {
@@ -79,10 +87,6 @@
   font-size: 1.8rem;
   width: 100%;
   hyphens: auto;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  word-break: break-word;
   white-space: normal;
 }
 
@@ -90,6 +94,11 @@
   margin: 2rem auto;
   width: 800px;
   max-width: 95%;
+}
+
+.textBox a, .textBox * a {
+  color: var(--nit-color-dark);
+  text-decoration: underline;
 }
 
 .textBox p {

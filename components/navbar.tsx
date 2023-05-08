@@ -4,7 +4,7 @@ import Header from './header';
 
 const NitNavBar = () => {
   return (
-    <Navbar isBordered variant="sticky">
+    <Navbar variant="sticky">
       <Navbar.Brand>
         <Link href="/">
           <Header />
