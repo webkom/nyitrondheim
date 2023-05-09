@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@nextui-org/react';
+import { Button, Pagination, Text } from '@nextui-org/react';
 import styles from '../styles/Home.module.css';
 import Link from './link';
+import SplashPageItem from './splashPageItem';
 
 const SplashPage = ({ articles }) => (
   <>
@@ -10,23 +11,26 @@ const SplashPage = ({ articles }) => (
       du trenger til skolestart.
     </p>
 
+    <Text id="before-arrival" b className={styles.articlesContainerTitle}>
+      Før ankomst
+    </Text>
     <div className={styles.articlesContainer} style={{ alignItems: 'stretch' }}>
-      {articles?.map((article) => (
-        <Link
-          unstyled
-          href={article.slug?.current || 'error'}
-          key={article.title}
-          className={styles.articlesLink}
-        >
-          <Button className={styles.button} auto>
-            <FontAwesomeIcon
-              icon={article.icon}
-              className={styles.buttonIcon}
-            />
-            <span className={styles.buttonText}>{article.title}</span>
-          </Button>
-        </Link>
-      ))}
+      {articles
+        ?.filter((article) => article.category === 'before')
+        .map((article) => (
+          <SplashPageItem key={article.title} article={article} />
+        ))}
+    </div>
+
+    <Text id="after-arrival" b className={styles.articlesContainerTitle}>
+      Etter ankomst
+    </Text>
+    <div className={styles.articlesContainer} style={{ alignItems: 'stretch' }}>
+      {articles
+        ?.filter((article) => article.category === 'after')
+        .map((article) => (
+          <SplashPageItem key={article.title} article={article} />
+        ))}
     </div>
   </>
 );
