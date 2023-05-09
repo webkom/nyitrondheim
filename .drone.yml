@@ -1,31 +1,37 @@
-pipeline:
-  tests:
-    image: node:6
-    pull: true
+---
+kind: pipeline
+name: default
+trigger:
+  event: ['pull_request']
+
+steps:
+  - name: setup
+    image: node:16-alpine
     when:
-      event: push
-    environment:
-      - MONGO_URL=mongodb://database:27017/nit-test
+      event: [pull_request]
     commands:
-      - apt-get update && apt-get install -qq graphicsmagick
-      - yarn global add bower
-      - yarn
-      - yarn lint
-      - yarn test
-      - yarn build:client
+      - yarn install
 
-  docker:
-    image: plugins/docker
+  - name: lint
+    image: node:16-alpine
     when:
-      branch:
-        - prod
-    repo: abakus/nyitrondheim
-    secrets: [ docker_username, docker_password ]
-    tags:
-      - ${DRONE_BRANCH}-${DRONE_COMMIT_SHA:0:7}
-    build_args:
-      - RELEASE=${DRONE_BRANCH}-${DRONE_COMMIT_SHA:0:7}
+      event: [pull_request]
+    depends_on:
+      - setup
+    commands:
+      - yarn lint
 
-services:
-  database:
-    image: mongo
+  - name: build
+    image: node:16-alpine
+    when:
+      event: [pull_request]
+    depends_on:
+      - setup
+    commands:
+      - yarn build
+
+---
+kind: signature
+hmac: 613da72197a259190d0c69bf3cdeed61356c02690908e647836fc42b274010fe
+
+...
