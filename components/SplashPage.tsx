@@ -1,8 +1,6 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Pagination, Text } from '@nextui-org/react';
-import styles from '../styles/Home.module.css';
-import Link from './link';
-import SplashPageItem from './splashPageItem';
+import { Text } from '@nextui-org/react';
+import styles from './SplashPage.module.css';
+import SplashPageItem from './SplashPageItem';
 
 const SplashPage = ({ articles }) => (
   <>

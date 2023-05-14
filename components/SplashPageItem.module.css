@@ -1,0 +1,35 @@
+.buttonIcon {
+  padding: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 0;
+  width: 3.5rem;
+}
+
+.buttonText {
+  display: block;
+  padding: 1.5rem;
+  padding-left: 0.5rem;
+  font-size: 1.8rem;
+  width: 100%;
+  hyphens: auto;
+  white-space: normal;
+}
+
+.articlesLink {
+  flex: 1;
+  flex-grow: 0;
+  flex-basis: 15rem;
+}
+
+.button {
+  background-color: var(--nit-color);
+  display: block;
+  height: 100%;
+  width: 100%;
+  min-height: 10rem;
+  font-weight: 400;
+}
+
+.button:hover {
+  background-color: var(--nit-color-dark);
+}

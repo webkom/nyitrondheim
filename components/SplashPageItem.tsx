@@ -1,7 +1,7 @@
 import { Button } from '@nextui-org/react';
-import Link from './link';
+import Link from './Link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../styles/Home.module.css';
+import styles from './SplashPageItem.module.css';
 
 const SplashPageItem: React.FC<{ article: any }> = ({ article }) => (
   <Link

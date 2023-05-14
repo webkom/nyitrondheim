@@ -1,7 +1,7 @@
 import { createClient } from 'next-sanity';
 import { PortableText } from '@portabletext/react';
 import type { GetServerSidePropsContext } from 'next';
-import TextBox from '../../components/textbox';
+import TextBox from '../../components/Textbox';
 
 const article = ({ article }) => {
   return <TextBox article={article} />;

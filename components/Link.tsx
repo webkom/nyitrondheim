@@ -1,4 +1,4 @@
-import styles from './link.module.css';
+import styles from './Link.module.css';
 import NextLink from 'next/link';
 
 const Link: React.FC<

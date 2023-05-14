@@ -1,8 +1,8 @@
-import '../styles/global.css';
+import '../global.css';
 import type { AppProps } from 'next/app';
 import { NextUIProvider, createTheme } from '@nextui-org/react';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
-import NitNavBar from '../components/navbar';
+import NitNavBar from '../components/Navbar';
 const { library } = require('@fortawesome/fontawesome-svg-core');
 
 const iconList = Object.keys(Icons)

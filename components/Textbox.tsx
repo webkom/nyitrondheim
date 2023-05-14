@@ -1,5 +1,5 @@
 import { PortableText } from '@portabletext/react';
-import styles from '../styles/Home.module.css';
+import styles from './Textbox.module.css';
 
 const TextBox = ({ article }) => (
   <div className={styles.textBox}>
