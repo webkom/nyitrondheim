@@ -11,7 +11,7 @@ export default {
     {
       name: 'content',
       type: 'array',
-      of: [{type: 'block'}],
+      of: [{type: 'block'}, {type: 'image'}],
     },
     {
       name: 'slug',
@@ -30,6 +30,18 @@ export default {
       title: 'Icon',
       description:
         'The icon to use for this article. See https://fontawesome.com/search?o=r&m=free for a list of the available icons.',
+    },
+    {
+      name: 'category',
+      type: 'string',
+      title: 'Category',
+      of: [{type: 'string'}],
+      options: {
+        list: [
+          {title: 'Before arriving', value: 'before'},
+          {title: 'After arriving', value: 'after'},
+        ],
+      },
     },
   ],
 }

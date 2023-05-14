@@ -1,0 +1,27 @@
+.articlesContainer {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.4rem 2%;
+  width: inherit;
+}
+
+.articlesContainerTitle {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  color: #6e757a;
+}
+
+.tagline {
+  font-size: 2.5rem;
+  font-weight: 600;
+  max-width: 1000px;
+  color: var(--nit-color);
+  margin-top: 3rem;
+}

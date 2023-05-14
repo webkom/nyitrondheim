@@ -1,0 +1,9 @@
+.link {
+  color: var(--nit-color-dark);
+  text-decoration: underline;
+}
+
+.unstyled {
+  color: inherit;
+  text-decoration: none;
+}

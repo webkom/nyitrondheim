@@ -1,31 +1,5 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Header from '../components/header';
-import MainContent from '../components/mainContent';
-import SplashPage from '../components/splashPage';
-
 import { createClient } from 'next-sanity';
-import NitNavBar from '../components/navbar';
-
-const Home = ({ articles }) => {
-  return (
-    <>
-      <div className={`${styles.topContainer} ${styles.container}`}>
-        <Head>
-          <title>Ny i Trondheim</title>
-          <meta name="description" content="Ny i Trondheim" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <div className={styles.main}>
-          <SplashPage articles={articles} />
-          <MainContent articles={articles} />
-        </div>
-      </div>
-    </>
-  );
-};
+import Home from '../components/Home';
 
 const client = createClient({
   projectId: 'e0ffh349',

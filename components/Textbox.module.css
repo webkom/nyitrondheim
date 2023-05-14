@@ -1,0 +1,19 @@
+.textBox {
+  margin: 2rem auto;
+  width: 800px;
+  max-width: 95%;
+}
+
+.textBox a,
+.textBox * a {
+  color: var(--nit-color-dark);
+  text-decoration: underline;
+}
+
+.textBox p {
+  margin-bottom: 1rem;
+}
+
+.textBox ul {
+  list-style-type: disc;
+}
