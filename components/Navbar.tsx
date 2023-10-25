@@ -21,4 +21,5 @@ const NitNavBar = () => {
     </Navbar>
   );
 };
+
 export default NitNavBar;

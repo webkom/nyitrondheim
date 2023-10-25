@@ -1,6 +1,6 @@
-import Head from 'next/head';
 import { NextStudio } from 'next-sanity/studio';
 import { metadata } from 'next-sanity/studio/metadata';
+import Head from 'next/head';
 import config from '../../sanity/sanity.config';
 
 export default function StudioPage() {

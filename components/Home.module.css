@@ -3,7 +3,7 @@
 }
 
 .container {
-  margin: auto;
+  margin: 0 auto 4rem auto;
   text-align: center;
   justify-content: center;
   display: flex;
