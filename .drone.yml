@@ -28,11 +28,16 @@ steps:
       event: [pull_request]
     depends_on:
       - setup
+    environment:
+      NEXT_PUBLIC_SANITY_PROJECT_ID:
+        from_secret: sanity_project_id
+      NEXT_PUBLIC_SANITY_DATASET:
+        from_secret: sanity_dataset
     commands:
       - yarn build
 
 ---
 kind: signature
-hmac: 6e33564faab634d9ae80902e4e913056eeb839d0ba1e3b731ccc11f3f524d5a7
+hmac: b6ede7337f496e4f82c9a42d9e5d53d43bd2b2b3f92ecf6e7d1030fd4936d349
 
 ...

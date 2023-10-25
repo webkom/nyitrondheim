@@ -15,9 +15,11 @@ const SplashPageItem = ({ article }: Props) => (
     key={article.title}
     className={styles.articlesLink}
   >
-    <Button className={styles.button} auto>
-      <FontAwesomeIcon icon={article.icon} className={styles.buttonIcon} />
-      <span className={styles.buttonText}>{article.title}</span>
+    <Button className={styles.button}>
+      <div className={styles.buttonContent}>
+        <FontAwesomeIcon icon={article.icon} className={styles.buttonIcon} />
+        <span className={styles.buttonText}>{article.title}</span>
+      </div>
     </Button>
   </Link>
 );

@@ -1,9 +1,6 @@
-.topContainer {
-  height: 100%;
-}
-
 .container {
-  margin: 0 auto 4rem auto;
+  margin: 0 4rem;
+  padding-bottom: 4rem;
   text-align: center;
   justify-content: center;
   display: flex;

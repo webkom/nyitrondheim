@@ -1,4 +1,3 @@
-import { CssBaseline } from '@nextui-org/react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
@@ -14,7 +13,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="nb">
-        <Head>{CssBaseline.flush()}</Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

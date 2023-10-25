@@ -9,7 +9,7 @@ type Props = {
 const Home = ({ articles }: Props) => {
   return (
     <>
-      <div className={`${styles.topContainer} ${styles.container}`}>
+      <div className={`${styles.container}`}>
         <div className={styles.main}>
           <SplashPage articles={articles} />
         </div>
