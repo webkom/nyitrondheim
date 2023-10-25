@@ -1,13 +1,8 @@
-import { createClient } from 'next-sanity';
-import { PortableText } from '@portabletext/react';
 import type { GetServerSidePropsContext } from 'next';
-import TextBox from '../../components/Textbox';
-
-const article = ({ article }) => {
-  return <TextBox article={article} />;
-};
-
-export default article;
+import { createClient } from 'next-sanity';
+import Head from 'next/head';
+import TextBox from '../components/Textbox';
+import { Article } from '../utils/types';
 
 const client = createClient({
   projectId: 'e0ffh349',
@@ -31,3 +26,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   };
 }
+
+type Props = {
+  article: Article;
+};
+
+const ArticlePage = ({ article }: Props) => {
+  return (
+    <>
+      <Head>
+        <title>{article.title} | Ny i Trondheim</title>
+        <meta name="description" content="Ny i Trondheim" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <TextBox article={article} />
+    </>
+  );
+};
+
+export default ArticlePage;

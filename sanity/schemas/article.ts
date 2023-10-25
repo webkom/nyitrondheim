@@ -1,4 +1,4 @@
-export default {
+const ArticleSchema = {
   name: 'article',
   type: 'document',
   title: 'Article',
@@ -11,7 +11,7 @@ export default {
     {
       name: 'content',
       type: 'array',
-      of: [{type: 'block'}, {type: 'image'}],
+      of: [{ type: 'block' }, { type: 'image' }],
     },
     {
       name: 'slug',
@@ -21,7 +21,8 @@ export default {
       options: {
         source: 'title',
         maxLength: 96,
-        slugify: (input: string) => input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
+        slugify: (input: string) =>
+          input.toLowerCase().replace(/\s+/g, '-').slice(0, 96),
       },
     },
     {
@@ -35,13 +36,15 @@ export default {
       name: 'category',
       type: 'string',
       title: 'Category',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       options: {
         list: [
-          {title: 'Before arriving', value: 'before'},
-          {title: 'After arriving', value: 'after'},
+          { title: 'Before arriving', value: 'before' },
+          { title: 'After arriving', value: 'after' },
         ],
       },
     },
   ],
-}
+};
+
+export default ArticleSchema;

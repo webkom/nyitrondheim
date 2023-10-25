@@ -1,14 +1,17 @@
-import styles from './Link.module.css';
 import NextLink from 'next/link';
+import { ComponentProps } from 'react';
+import styles from './Link.module.css';
 
-const Link: React.FC<
-  { unstyled?: boolean } & React.ComponentProps<typeof NextLink>
-> = (props) => {
+type Props = {
+  unstyled?: boolean;
+} & ComponentProps<typeof NextLink>;
+
+const Link = ({ unstyled, ...linkProps }: Props) => {
   return (
     <NextLink
-      className={props.unstyled ? styles.unstyled : styles.link}
-      {...{ ...props, unstyled: undefined }}
-    ></NextLink>
+      className={unstyled ? styles.unstyled : styles.link}
+      {...linkProps}
+    />
   );
 };
 

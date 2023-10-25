@@ -1,3 +1,9 @@
 {
-  "extends": ["next/core-web-vitals", "@sanity/eslint-config-studio"]
+  "extends": [
+    "next/core-web-vitals",
+    "@sanity/eslint-config-studio",
+    "eslint:recommended",
+    "eslint-config-next",
+    "prettier"
+  ]
 }

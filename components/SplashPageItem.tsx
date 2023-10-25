@@ -1,9 +1,14 @@
-import { Button } from '@nextui-org/react';
-import Link from './Link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@nextui-org/react';
+import { Article } from '../utils/types';
+import Link from './Link';
 import styles from './SplashPageItem.module.css';
 
-const SplashPageItem: React.FC<{ article: any }> = ({ article }) => (
+type Props = {
+  article: Article;
+};
+
+const SplashPageItem = ({ article }: Props) => (
   <Link
     unstyled
     href={article.slug?.current || 'error'}
