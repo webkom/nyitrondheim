@@ -5,9 +5,9 @@ import NitNavBar from '../components/Navbar';
 import '../global.css';
 const { library } = require('@fortawesome/fontawesome-svg-core');
 
-const iconList = Object.keys(Icons)
-  .filter((key) => key !== 'fas' && key !== 'prefix')
-  .map((icon) => Icons[icon]);
+const iconList = Object.entries(Icons)
+  .filter(([key]) => key !== 'fas' && key !== 'prefix')
+  .map(([_, icon]) => icon);
 
 library.add(...iconList);
 
