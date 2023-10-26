@@ -1,4 +1,3 @@
-import { Text } from '@nextui-org/react';
 import { Article } from '../utils/types';
 import styles from './SplashPage.module.css';
 import SplashPageItem from './SplashPageItem';
@@ -11,9 +10,7 @@ type SectionProps = {
 const SplashPageSection = ({ title, articles }: SectionProps) => {
   return (
     <>
-      <Text b className={styles.articlesContainerTitle}>
-        {title}
-      </Text>
+      <p className={styles.articlesContainerTitle}>{title}</p>
 
       <div className={styles.articlesContainer}>
         {articles.map((article) => (

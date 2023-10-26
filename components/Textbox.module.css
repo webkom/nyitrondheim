@@ -4,6 +4,11 @@
   max-width: 95%;
 }
 
+.textBox h1 {
+  font-size: 2em;
+  font-weight: 500;
+}
+
 .textBox a,
 .textBox * a {
   color: var(--nit-color-dark);
@@ -12,8 +17,14 @@
 
 .textBox p {
   margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
 .textBox ul {
   list-style-type: disc;
+  margin-left: 1em;
+}
+
+.textBox ul li {
+  margin-bottom: 0.25em;
 }

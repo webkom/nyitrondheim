@@ -1,20 +1,3 @@
-.buttonIcon {
-  padding: 1.5rem;
-  padding-left: 1rem;
-  padding-right: 0;
-  width: 3.5rem;
-}
-
-.buttonText {
-  display: block;
-  padding: 1.5rem;
-  padding-left: 0.5rem;
-  font-size: 1.8rem;
-  width: 100%;
-  hyphens: auto;
-  white-space: normal;
-}
-
 .articlesLink {
   flex: 1;
   flex-grow: 0;
@@ -22,8 +5,9 @@
 }
 
 .button {
+  display: flex;
   background-color: var(--nit-color);
-  display: block;
+  color: hsl(var(--nextui-background));
   height: 100%;
   width: 100%;
   min-height: 10rem;
@@ -32,4 +16,26 @@
 
 .button:hover {
   background-color: var(--nit-color-dark);
+}
+
+.buttonContent {
+  display: inline-flex;
+  flex-grow: 1;
+  padding: 0.5rem 0.9rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonIcon {
+  flex-basis: 1.7rem;
+  flex-shrink: 0;
+}
+
+.buttonText {
+  display: block;
+  padding-left: 1rem;
+  font-size: 1.8rem;
+  line-height: 1.3;
+  hyphens: auto;
+  white-space: normal;
 }
