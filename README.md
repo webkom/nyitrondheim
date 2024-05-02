@@ -7,14 +7,16 @@ Use [Sanity](https://www.sanity.io/) to provide useful information to new studen
 ## Setup
 
 ```bash
-# Sanity (./sanity)
-$ yarn # install
-$ yarn dev # Run sanity dev
+# Config
+$ cp .env.example .env # Make a copy of the config file
+# Log on to sanity.io, find the `project id` for the .env file
 
-# Server (./)
+# Start server
 $ yarn # install
-$ yarn dev # Run dev server
+$ yarn dev # run
 ```
+
+Nice! The server is now available on `localhost:3000`. Sanity Studio is available at `localhost:3000/studio`.
 
 This project uses prettier and eslint.
 
